@@ -360,6 +360,15 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder
 .mfractor/
 
+# Carpeta .vs
+.vs/
+
+# Carpeta
+.obj/Debug/
+
+# Carpeta
+.bin/Debug/
+
 # Local History for Visual Studio
 .localhistory/
 
