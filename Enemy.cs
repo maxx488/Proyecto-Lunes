@@ -18,6 +18,9 @@ namespace MyGame
         private int animIndex = 1;
         private float timerAnim;
         private float animCooldown = 0.15f;
+        private float shootTimer;
+        private float shootCooldown = 1f;
+        private bool shooting = false;
 
         public Enemy(float posicionX, float posicionY) 
         {
@@ -25,10 +28,27 @@ namespace MyGame
             posY = posicionY;
         }
 
+        public float GetPosX => posX;
+
+        public float GetPosY => posY;
+
+        public bool Shooting
+        {
+            get
+            {
+                return shooting;
+            }
+            set
+            {
+                shooting = value;
+            }
+        }
+
         public void Update()
         {
             MovementUpdate();
             AnimationUpdate();
+            Shoot();
         }
 
         public void Render()
@@ -67,6 +87,16 @@ namespace MyGame
             if (animIndex > 5)
             {
                 animIndex = 1;
+            }
+        }
+
+        private void Shoot()
+        {
+            shootTimer += Program.deltaTime;
+            if (shootTimer > shootCooldown)
+            {
+                shootTimer = 0;
+                shooting = true;
             }
         }
     }

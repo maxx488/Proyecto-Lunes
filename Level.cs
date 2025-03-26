@@ -71,6 +71,17 @@ namespace MyGame
                 projectileList.Add(new Projectile(player.GetPosX + 25, player.GetPosY - 20, 1, 500));
                 player.Shooting = false;
             }
+            if (enemyList.Count > 0)
+            {
+                for (int i = 0; i < enemyList.Count; i++)
+                {
+                    if (enemyList[i].Shooting == true)
+                    {
+                        projectileList.Add(new Projectile(enemyList[i].GetPosX + 27, enemyList[i].GetPosY + 65, -1, 500));
+                        enemyList[i].Shooting = false;
+                    }
+                }
+            }
         }
 
         private void ProjectileUpdate()
