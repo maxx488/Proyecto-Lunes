@@ -14,13 +14,14 @@ namespace MyGame
         private float posY;
         private float timer;
         private float cooldown = 1;
-        private int speed = 500;
+        private int speed = 250;
         private int animIndex = 1;
         private float timerAnim;
         private float animCooldown = 0.15f;
         private float shootTimer;
         private float shootCooldown = 1f;
         private bool shooting = false;
+        private bool inBounds = true;
 
         public Enemy(float posicionX, float posicionY) 
         {
@@ -31,6 +32,8 @@ namespace MyGame
         public float GetPosX => posX;
 
         public float GetPosY => posY;
+
+        public bool InBounds => inBounds;
 
         public bool Shooting
         {
@@ -58,7 +61,8 @@ namespace MyGame
 
         private void MovementUpdate()
         {
-            timer += Program.deltaTime;
+            // MOVIMIENTO PARA JEFE
+            /*timer += Program.deltaTime;
             if (timer > cooldown)
             {
                 if (posX > 956 || posX < 1)
@@ -67,7 +71,13 @@ namespace MyGame
                     speed *= -1;
                 }
             }
-            posX += speed * Program.deltaTime;
+            posX += speed * Program.deltaTime;*/
+            timer += Program.deltaTime;
+            posY += speed * Program.deltaTime;
+            if (posY > 768)
+            {
+                inBounds = false;
+            }
         }
 
         private void animationRender()

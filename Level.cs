@@ -11,12 +11,19 @@ namespace MyGame
         private Image background = Engine.LoadImage("assets/background.png");
         Player player = new Player(400, 650);
         private List<Enemy> enemyList = new List<Enemy>();
+        Random random = new Random();
+        private int enemyCount;
         private List<Projectile> projectileList = new List<Projectile>();
         private float timer;
         private float cooldown = 0.25f;
+        private float spawnTimer;
+        private float spawnCooldown;
+
 
         public Level()
         {
+            enemyCount = random.Next(20,30);
+            spawnCooldown = (float) random.Next(3);
             enemyList.Add(new Enemy(0, 100));
             enemyList.Add(new Enemy(100, 250));
             enemyList.Add(new Enemy(200, 400));
@@ -32,6 +39,7 @@ namespace MyGame
 
         public void Update()
         {
+            EnemySpawn();
             EnemyUpdate();
             player.Update();
             BulletSpawn();
@@ -113,11 +121,33 @@ namespace MyGame
             }
         }
 
+        private void EnemySpawn()
+        {
+            spawnTimer += Program.deltaTime;
+            if (spawnTimer > spawnCooldown)
+            {
+                enemyList.Add(new Enemy(random.Next(960), -64));
+                spawnTimer = 0;
+                spawnCooldown = (float)random.Next(3);
+            }
+
+        }
+
         private void EnemyUpdate()
         {
-            foreach (Enemy enemy in enemyList)
+            if (enemyList.Count > 0)
             {
-                enemy.Update();
+                for (int i = 0; i < enemyList.Count; i++)
+                {
+                    enemyList[i].Update();
+                }
+                for (int i = 0; i < enemyList.Count; i++)
+                {
+                    if (enemyList[i].InBounds == false)
+                    {
+                        enemyList.RemoveAt(i);
+                    }
+                }
             }
         }
 
