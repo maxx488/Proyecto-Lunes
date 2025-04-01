@@ -14,6 +14,7 @@ namespace MyGame
         Random random = new Random();
         private int enemyCount;
         private List<Projectile> projectileList = new List<Projectile>();
+        PowerUpStack powerUpStack = new PowerUpStack();
         private float timer;
         private float cooldown = 0.25f;
         private float spawnTimer;
@@ -22,8 +23,9 @@ namespace MyGame
 
         public Level()
         {
-            enemyCount = random.Next(20,30);
+            enemyCount = random.Next(20,31);
             spawnCooldown = (float) random.Next(3);
+            powerUpStack.InitializeStack();
         }
 
         public int GetPlayerHealth => player.Health;
@@ -78,12 +80,11 @@ namespace MyGame
                 if (Engine.GetKey(Engine.KEY_RIGHT))
                 {
                     timer = 0;
-                    player.SetPower += 1;
-                }
-                if (Engine.GetKey(Engine.KEY_LEFT))
-                {
-                    timer = 0;
-                    player.SetPower -= 1;
+                    if (powerUpStack.FullStack() == false)
+                    {
+                        powerUpStack.Stack(random.Next(2, 4));
+                        player.SetPower = powerUpStack.Top();
+                    }
                 }
             }
         }

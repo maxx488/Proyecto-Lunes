@@ -52,8 +52,10 @@
     <Compile Include="Engine\Engine.cs" />
     <Compile Include="Engine\Image.cs" />
     <Compile Include="GameManager.cs" />
+    <Compile Include="IStack.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="PowerUpStack.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Projectile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
