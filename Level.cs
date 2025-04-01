@@ -24,9 +24,6 @@ namespace MyGame
         {
             enemyCount = random.Next(20,30);
             spawnCooldown = (float) random.Next(3);
-            enemyList.Add(new Enemy(0, 100));
-            enemyList.Add(new Enemy(100, 250));
-            enemyList.Add(new Enemy(200, 400));
         }
 
         public int GetPlayerHealth => player.Health;
@@ -35,6 +32,7 @@ namespace MyGame
         {
             player.Input();
             ModifyHealth();
+            ModifyPower();
         }
 
         public void Update()
@@ -72,11 +70,34 @@ namespace MyGame
             }
         }
 
+        private void ModifyPower()
+        {
+            timer += Program.deltaTime;
+            if (timer > cooldown)
+            {
+                if (Engine.GetKey(Engine.KEY_RIGHT))
+                {
+                    timer = 0;
+                    player.SetPower += 1;
+                }
+                if (Engine.GetKey(Engine.KEY_LEFT))
+                {
+                    timer = 0;
+                    player.SetPower -= 1;
+                }
+            }
+        }
+
         private void BulletSpawn()
         {
             if (player.Shooting == true)
             {
-                projectileList.Add(new Projectile(player.GetPosX + 25, player.GetPosY - 20, 1, 500));
+                projectileList.Add(new Projectile(player.GetPosX + 25, player.GetPosY - 20, 1, 500, player.GetPower));
+                if (player.GetPower == 3)
+                {
+                    projectileList.Add(new Projectile(player.GetPosX + 10, player.GetPosY - 20, 2, 500, player.GetPower));
+                    projectileList.Add(new Projectile(player.GetPosX + 40, player.GetPosY - 20, 3, 500, player.GetPower));
+                }
                 player.Shooting = false;
             }
             if (enemyList.Count > 0)
@@ -85,7 +106,7 @@ namespace MyGame
                 {
                     if (enemyList[i].Shooting == true)
                     {
-                        projectileList.Add(new Projectile(enemyList[i].GetPosX + 27, enemyList[i].GetPosY + 65, -1, 500));
+                        projectileList.Add(new Projectile(enemyList[i].GetPosX + 27, enemyList[i].GetPosY + 65, -1, 500, 1));
                         enemyList[i].Shooting = false;
                     }
                 }

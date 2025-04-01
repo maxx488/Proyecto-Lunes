@@ -19,6 +19,7 @@ namespace MyGame
         private float shootCooldown = 0.3f;
         private float animCooldown = 0.2f;
         private bool shooting = false;
+        private int power = 1;
 
         public Player(float posicionX, float posicionY)
         {
@@ -52,6 +53,32 @@ namespace MyGame
         public float GetPosX => posX;
         
         public float GetPosY => posY;
+
+        public int GetPower => power;
+
+        public int SetPower
+        {
+            get
+            {
+                return power;
+            }
+            set
+            {
+                if (value >= 1 && value <= 3)
+                {
+                    power = value;
+                    if (value == 2 || value == 3)
+                    {
+                        shootCooldown = 0.1f;
+                    }
+                    else
+                    {
+                        shootCooldown = 0.3f;
+                    }
+                    Engine.Debug($"Poder = {power}");
+                }
+            }
+        }
 
         public bool Shooting
         {
@@ -90,6 +117,14 @@ namespace MyGame
             if (Engine.GetKey(Engine.KEY_D) && posX < 964)
             {
                 posX += speed * Program.deltaTime;
+            }
+            if (Engine.GetKey(Engine.KEY_W) && posY > 0)
+            {
+                posY += (speed * -1) * Program.deltaTime;
+            }
+            if (Engine.GetKey(Engine.KEY_S) && posY < 702)
+            {
+                posY += speed * Program.deltaTime;
             }
         }
 
