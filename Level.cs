@@ -86,6 +86,22 @@ namespace MyGame
                         player.SetPower = powerUpStack.Top();
                     }
                 }
+                if (Engine.GetKey(Engine.KEY_LEFT))
+                {
+                    timer = 0;
+                    if (powerUpStack.EmptyStack() == false)
+                    {
+                        powerUpStack.Remove();
+                        if (powerUpStack.EmptyStack() == false)
+                        {
+                            player.SetPower = powerUpStack.Top();
+                        }
+                        else
+                        {
+                            player.SetPower = 1;
+                        }
+                    }
+                }
             }
         }
 
