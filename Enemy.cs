@@ -10,40 +10,41 @@ namespace MyGame
     public class Enemy
     {
         private Image enemigoImage;
-        private float posX;
-        private float posY;
+        private EnemyController enemyController;
+        private Transform enemyTransform;
         private float timer;
         private float cooldown = 1;
-        private int speed = 250;
         private int animIndex = 1;
         private float timerAnim;
         private float animCooldown = 0.15f;
         private float shootTimer;
         private float shootCooldown = 1f;
-        private bool shooting = false;
+        private bool shoot = false;
         private bool inBounds = true;
+        private bool isBoss;
 
-        public Enemy(float posicionX, float posicionY) 
+        public Enemy(Vector2 position, bool boss) 
         {
-            posX = posicionX;
-            posY = posicionY;
+            isBoss = boss;
+            enemyTransform = new Transform(position);
+            enemyController = new EnemyController(enemyTransform, isBoss);
         }
 
-        public float GetPosX => posX;
-
-        public float GetPosY => posY;
+        public Transform GetEnemyTransform => enemyTransform;
 
         public bool InBounds => inBounds;
 
-        public bool Shooting
+        public bool IsBoss => isBoss;
+
+        public bool ShootState
         {
             get
             {
-                return shooting;
+                return shoot;
             }
             set
             {
-                shooting = value;
+                shoot = value;
             }
         }
 
@@ -72,9 +73,8 @@ namespace MyGame
                 }
             }
             posX += speed * Program.deltaTime;*/
-            timer += Program.deltaTime;
-            posY += speed * Program.deltaTime;
-            if (posY > 768)
+            enemyController.Update();
+            if (enemyTransform.Position.Y > 768)
             {
                 inBounds = false;
             }
@@ -83,7 +83,7 @@ namespace MyGame
         private void animationRender()
         {
             enemigoImage = Engine.LoadImage($"assets/animations/enemies/1/{animIndex}.png");
-            Engine.Draw(enemigoImage, posX, posY);
+            Engine.Draw(enemigoImage, enemyTransform.Position.X, enemyTransform.Position.Y);
         }
 
         private void AnimationUpdate()
@@ -106,7 +106,7 @@ namespace MyGame
             if (shootTimer > shootCooldown)
             {
                 shootTimer = 0;
-                shooting = true;
+                shoot = true;
             }
         }
     }

@@ -121,10 +121,10 @@ namespace MyGame
             {
                 for (int i = 0; i < enemyList.Count; i++)
                 {
-                    if (enemyList[i].Shooting == true)
+                    if (enemyList[i].ShootState == true)
                     {
-                        projectileList.Add(new Projectile(enemyList[i].GetPosX + 27, enemyList[i].GetPosY + 65, -1, 500, 1));
-                        enemyList[i].Shooting = false;
+                        projectileList.Add(new Projectile(enemyList[i].GetEnemyTransform.Position.X + 27, enemyList[i].GetEnemyTransform.Position.Y + 65, -1, 500, 1));
+                        enemyList[i].ShootState = false;
                     }
                 }
             }
@@ -164,7 +164,7 @@ namespace MyGame
             spawnTimer += Program.deltaTime;
             if (spawnTimer > spawnCooldown)
             {
-                enemyList.Add(new Enemy(random.Next(960), -64));
+                enemyList.Add(new Enemy(new Vector2 (random.Next(960), -64), false));
                 spawnTimer = 0;
                 spawnCooldown = (float)random.Next(3);
             }

@@ -20,7 +20,7 @@ namespace MyGame
         {
             /* locX = posicion en X
                locY = posicion en Y
-               dir = 1 o -1 dependiendo si es proyectil del jugador o del enemigo
+               dir = 1 o -1 dependiendo si es proyectil del jugador o del enemigo, 2 y 3 para diagonales en powerup
                spd = velocidad
                typ = tipo o variacion del proyectil */
             direction = dir;
