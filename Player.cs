@@ -9,23 +9,24 @@ namespace MyGame
     public class Player
     {
         private Image playerImage;
-        private static float posX;
-        private static float posY;
-        private float speed = 500;
+        private PlayerController playerController;
+        private Transform playerTransform;
         private int health = 1;
         private int animIndex = 1;
         private float timer;
         private float shootTimer;
         private float shootCooldown = 0.3f;
         private float animCooldown = 0.2f;
-        private bool shooting = false;
+        private bool shoot = false;
         private int power = 1;
 
-        public Player(float posicionX, float posicionY)
+        public Player(Vector2 position)
         {
-            posX = posicionX;
-            posY = posicionY;
+            playerTransform = new Transform(position);
+            playerController = new PlayerController(playerTransform);
         }
+
+        public Transform GetPlayerTransform => playerTransform;
 
         public int Health
         {
@@ -49,10 +50,6 @@ namespace MyGame
                 }
             }
         }
-
-        public float GetPosX => posX;
-        
-        public float GetPosY => posY;
 
         public int GetPower => power;
 
@@ -80,21 +77,21 @@ namespace MyGame
             }
         }
 
-        public bool Shooting
+        public bool ShootState
         {
             get
             {
-                return shooting;
+                return shoot;
             }
             set 
             {
-                shooting = value;
+                shoot = value;
             }
         }
 
         public void Input() 
         {
-            Movement();
+            playerController.Input();
             Shoot();
         }
 
@@ -108,34 +105,14 @@ namespace MyGame
             animationRender();
         }
 
-        private void Movement()
-        {
-            if (Engine.GetKey(Engine.KEY_A) && posX > 0)
-            {
-                posX += (speed * -1) * Program.deltaTime;
-            }
-            if (Engine.GetKey(Engine.KEY_D) && posX < 964)
-            {
-                posX += speed * Program.deltaTime;
-            }
-            if (Engine.GetKey(Engine.KEY_W) && posY > 0)
-            {
-                posY += (speed * -1) * Program.deltaTime;
-            }
-            if (Engine.GetKey(Engine.KEY_S) && posY < 702)
-            {
-                posY += speed * Program.deltaTime;
-            }
-        }
-
         private void Shoot()
         {
             shootTimer += Program.deltaTime;
             if (shootTimer > shootCooldown)
             {
-                if (Engine.GetKey(Engine.KEY_ESP))
+                if (playerController.GetShoot == true)
                 {
-                    shooting = true;
+                    shoot = true;
                     shootTimer = 0;
                 }
             }
@@ -144,7 +121,7 @@ namespace MyGame
         private void animationRender()
         {
             playerImage = Engine.LoadImage($"assets/animations/player/{animIndex}.png");
-            Engine.Draw(playerImage, posX, posY);
+            Engine.Draw(playerImage, playerTransform.Position.X, playerTransform.Position.Y);
         }
 
         private void AnimationUpdate()

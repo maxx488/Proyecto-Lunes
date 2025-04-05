@@ -9,7 +9,7 @@ namespace MyGame
     public class Level
     {
         private Image background = Engine.LoadImage("assets/background.png");
-        Player player = new Player(400, 650);
+        Player player = new Player(new Vector2 (400, 650));
         private List<Enemy> enemyList = new List<Enemy>();
         Random random = new Random();
         private int enemyCount;
@@ -23,9 +23,9 @@ namespace MyGame
 
         public Level()
         {
-            enemyCount = random.Next(20,31);
-            spawnCooldown = (float) random.Next(3);
-            powerUpStack.InitializeStack();
+            enemyCount = random.Next(20,31); // Enemigos a derrotar para completar el nivel
+            spawnCooldown = (float) random.Next(3); // Segundos que pasaran hasta spawnear un enemigo
+            powerUpStack.InitializeStack(); // Inicializar pila PowerUps
         }
 
         public int GetPlayerHealth => player.Health;
@@ -54,7 +54,7 @@ namespace MyGame
             ProjectileRender();
         }
 
-        private void ModifyHealth()
+        private void ModifyHealth()//cambiar a colisiones
         {
             timer += Program.deltaTime;
             if (timer > cooldown)
@@ -72,7 +72,7 @@ namespace MyGame
             }
         }
 
-        private void ModifyPower()
+        private void ModifyPower()//Cambiar a colisiones
         {
             timer += Program.deltaTime;
             if (timer > cooldown)
@@ -105,17 +105,17 @@ namespace MyGame
             }
         }
 
-        private void BulletSpawn()
+        private void BulletSpawn()//Cambiar a propia clase
         {
-            if (player.Shooting == true)
+            if (player.ShootState == true)
             {
-                projectileList.Add(new Projectile(player.GetPosX + 25, player.GetPosY - 20, 1, 500, player.GetPower));
+                projectileList.Add(new Projectile(player.GetPlayerTransform.Position.X + 25, player.GetPlayerTransform.Position.Y - 20, 1, 500, player.GetPower));
                 if (player.GetPower == 3)
                 {
-                    projectileList.Add(new Projectile(player.GetPosX + 10, player.GetPosY - 20, 2, 500, player.GetPower));
-                    projectileList.Add(new Projectile(player.GetPosX + 40, player.GetPosY - 20, 3, 500, player.GetPower));
+                    projectileList.Add(new Projectile(player.GetPlayerTransform.Position.X + 10, player.GetPlayerTransform.Position.Y - 20, 2, 500, player.GetPower));
+                    projectileList.Add(new Projectile(player.GetPlayerTransform.Position.X + 40, player.GetPlayerTransform.Position.Y - 20, 3, 500, player.GetPower));
                 }
-                player.Shooting = false;
+                player.ShootState = false;
             }
             if (enemyList.Count > 0)
             {
@@ -159,7 +159,7 @@ namespace MyGame
             }
         }
 
-        private void EnemySpawn()
+        private void EnemySpawn()//Cambiar a propia clase
         {
             spawnTimer += Program.deltaTime;
             if (spawnTimer > spawnCooldown)

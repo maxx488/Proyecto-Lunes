@@ -18,6 +18,11 @@ namespace MyGame
 
         public Projectile(float locX,float locY,int dir,float spd,int typ)
         {
+            /* locX = posicion en X
+               locY = posicion en Y
+               dir = 1 o -1 dependiendo si es proyectil del jugador o del enemigo
+               spd = velocidad
+               typ = tipo o variacion del proyectil */
             direction = dir;
             speed = spd;
             location = locX;
@@ -29,6 +34,12 @@ namespace MyGame
 
         public void Update()
         {
+            ProjectileBehavior();
+        }
+
+        private void ProjectileBehavior()
+        {
+            // Comportamiento del Proyectil
             if (direction == 1)
             {
                 if (type == 1)
@@ -41,7 +52,8 @@ namespace MyGame
                     {
                         inBounds = false;
                     }
-                }else if (type == 2 || type == 3)
+                }
+                else if (type == 2 || type == 3)
                 {
                     if (rute > 0)
                     {
@@ -53,7 +65,7 @@ namespace MyGame
                     }
                 }
             }
-            else 
+            else
             {
                 if (direction == -1)
                 {
