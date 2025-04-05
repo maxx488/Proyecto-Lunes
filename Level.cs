@@ -15,16 +15,20 @@ namespace MyGame
         private int enemyCount;
         private List<Projectile> projectileList = new List<Projectile>();
         PowerUpStack powerUpStack = new PowerUpStack();
+        private PowerUp powerUp;
         private float timer;
         private float cooldown = 0.25f;
-        private float spawnTimer;
-        private float spawnCooldown;
+        private float enemySpawnTimer;
+        private float enemySpawnCooldown;
+        private float powerUpSpawnTimer;
+        private float powerUpSpawnCooldown;
 
 
         public Level()
         {
             enemyCount = random.Next(20,31); // Enemigos a derrotar para completar el nivel
-            spawnCooldown = (float) random.Next(3); // Segundos que pasaran hasta spawnear un enemigo
+            enemySpawnCooldown = (float) random.Next(3); // Segundos que pasaran hasta spawnear un enemigo
+            powerUpSpawnCooldown = (float) random.Next(15, 20); // Segundos que pasaran hasta spawnear un powerup
             powerUpStack.InitializeStack(); // Inicializar pila PowerUps
         }
 
@@ -44,6 +48,8 @@ namespace MyGame
             player.Update();
             BulletSpawn();
             ProjectileUpdate();
+            PowerUpSpawn();
+            PowerUpUpdate();
         }
 
         public void Render()
@@ -52,6 +58,7 @@ namespace MyGame
             EnemyRender();
             player.Render();
             ProjectileRender();
+            PowerUpRender();
         }
 
         private void ModifyHealth()//cambiar a colisiones
@@ -161,12 +168,12 @@ namespace MyGame
 
         private void EnemySpawn()//Cambiar a propia clase
         {
-            spawnTimer += Program.deltaTime;
-            if (spawnTimer > spawnCooldown)
+            enemySpawnTimer += Program.deltaTime;
+            if (enemySpawnTimer > enemySpawnCooldown)
             {
                 enemyList.Add(new Enemy(new Vector2 (random.Next(960), -64), false));
-                spawnTimer = 0;
-                spawnCooldown = (float)random.Next(3);
+                enemySpawnTimer = 0;
+                enemySpawnCooldown = (float)random.Next(3);
             }
 
         }
@@ -194,6 +201,38 @@ namespace MyGame
             foreach (Enemy enemy in enemyList)
             {
                 enemy.Render();
+            }
+        }
+
+        private void PowerUpSpawn()//Cambiar a propia clase
+        {
+            powerUpSpawnTimer += Program.deltaTime;
+            if (powerUpSpawnTimer > powerUpSpawnCooldown)
+            {
+                powerUp = new PowerUp(new Vector2(random.Next(1004), -10), 2);
+                powerUpSpawnTimer = 0;
+                powerUpSpawnCooldown = (float) random.Next(15, 20);
+            }
+
+        }
+
+        private void PowerUpUpdate()
+        {
+            if (powerUp != null)
+            {
+                powerUp.Update();
+                if (powerUp.InBounds == false)
+                {
+                    powerUp = null;
+                }
+            }
+        }
+
+        private void PowerUpRender()
+        {
+            if (powerUp != null)
+            {
+                powerUp.Render();
             }
         }
     }
