@@ -21,7 +21,11 @@ namespace MyGame
             type = typ;
         }
 
+        public Transform GetPowerUpTransform => transform;
+
         public bool InBounds => inBounds;
+
+        public int Type => type;
 
         public void Update()
         {

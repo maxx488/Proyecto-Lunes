@@ -11,7 +11,6 @@ namespace MyGame
         private Image playerImage;
         private PlayerController playerController;
         private Transform playerTransform;
-        private int health = 1;
         private int animIndex = 1;
         private float timer;
         private float shootTimer;
@@ -28,29 +27,6 @@ namespace MyGame
 
         public Transform GetPlayerTransform => playerTransform;
 
-        public int Health
-        {
-            get
-            {
-                return health;
-            }
-            set
-            {
-                if (health != 0)
-                {
-                    if (value >= 0 && value <= 5)
-                    {
-                        health = value;
-                        Engine.Debug($"Vida = {health}");
-                    }
-                    if (health == 0)
-                    {
-                        Kill();
-                    }
-                }
-            }
-        }
-
         public int GetPower => power;
 
         public int SetPower
@@ -61,7 +37,7 @@ namespace MyGame
             }
             set
             {
-                if (value >= 1 && value <= 3)
+                if (value <= 3)
                 {
                     power = value;
                     if (value == 2 || value == 3)
@@ -73,6 +49,10 @@ namespace MyGame
                         shootCooldown = 0.3f;
                     }
                     Engine.Debug($"Poder = {power}");
+                    if (value == 0)
+                    {
+                        Kill();
+                    }
                 }
             }
         }

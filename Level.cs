@@ -9,12 +9,12 @@ namespace MyGame
     public class Level
     {
         private Image background = Engine.LoadImage("assets/background.png");
-        Player player = new Player(new Vector2 (400, 650));
+        private Player player = new Player(new Vector2 (400, 650));
         private List<Enemy> enemyList = new List<Enemy>();
-        Random random = new Random();
+        private Random random = new Random();
         private int enemyCount;
         private List<Projectile> projectileList = new List<Projectile>();
-        PowerUpStack powerUpStack = new PowerUpStack();
+        private PowerUpStack powerUpStack = new PowerUpStack();
         private PowerUp powerUp;
         private float timer;
         private float cooldown = 0.25f;
@@ -22,23 +22,23 @@ namespace MyGame
         private float enemySpawnCooldown;
         private float powerUpSpawnTimer;
         private float powerUpSpawnCooldown;
+        private float collisionTimer;
+        private float collisionCooldown = 2;
 
 
         public Level()
         {
-            enemyCount = random.Next(20,31); // Enemigos a derrotar para completar el nivel
+            enemyCount = random.Next(20,31); // Enemigos a derrotar para completar el nivel (sin utilizar todavia)
             enemySpawnCooldown = (float) random.Next(3); // Segundos que pasaran hasta spawnear un enemigo
             powerUpSpawnCooldown = (float) random.Next(15, 20); // Segundos que pasaran hasta spawnear un powerup
             powerUpStack.InitializeStack(); // Inicializar pila PowerUps
         }
 
-        public int GetPlayerHealth => player.Health;
+        public int GetPlayerPower => player.GetPower;
 
         public void Input()
         {
             player.Input();
-            ModifyHealth();
-            ModifyPower();
         }
 
         public void Update()
@@ -50,6 +50,7 @@ namespace MyGame
             ProjectileUpdate();
             PowerUpSpawn();
             PowerUpUpdate();
+            Collisions();
         }
 
         public void Render()
@@ -59,57 +60,6 @@ namespace MyGame
             player.Render();
             ProjectileRender();
             PowerUpRender();
-        }
-
-        private void ModifyHealth()//cambiar a colisiones
-        {
-            timer += Program.deltaTime;
-            if (timer > cooldown)
-            {
-                if (Engine.GetKey(Engine.KEY_UP))
-                {
-                    timer = 0;
-                    player.Health += 1;
-                }
-                if (Engine.GetKey(Engine.KEY_DOWN))
-                {
-                    timer = 0;
-                    player.Health -= 1;
-                }
-            }
-        }
-
-        private void ModifyPower()//Cambiar a colisiones
-        {
-            timer += Program.deltaTime;
-            if (timer > cooldown)
-            {
-                if (Engine.GetKey(Engine.KEY_RIGHT))
-                {
-                    timer = 0;
-                    if (powerUpStack.FullStack() == false)
-                    {
-                        powerUpStack.Stack(random.Next(2, 4));
-                        player.SetPower = powerUpStack.Top();
-                    }
-                }
-                if (Engine.GetKey(Engine.KEY_LEFT))
-                {
-                    timer = 0;
-                    if (powerUpStack.EmptyStack() == false)
-                    {
-                        powerUpStack.Remove();
-                        if (powerUpStack.EmptyStack() == false)
-                        {
-                            player.SetPower = powerUpStack.Top();
-                        }
-                        else
-                        {
-                            player.SetPower = 1;
-                        }
-                    }
-                }
-            }
         }
 
         private void BulletSpawn()//Cambiar a propia clase
@@ -159,9 +109,9 @@ namespace MyGame
         {
             if (projectileList.Count > 0)
             {
-                foreach (Projectile projectile in projectileList)
+                for (int i = 0; i < projectileList.Count; i++)
                 {
-                    projectile.Render();
+                    projectileList[i].Render();
                 }
             }
         }
@@ -171,11 +121,10 @@ namespace MyGame
             enemySpawnTimer += Program.deltaTime;
             if (enemySpawnTimer > enemySpawnCooldown)
             {
-                enemyList.Add(new Enemy(new Vector2 (random.Next(960), -64), false));
+                enemyList.Add(new Enemy(new Vector2(random.Next(960), -64), false));
                 enemySpawnTimer = 0;
                 enemySpawnCooldown = (float)random.Next(3);
             }
-
         }
 
         private void EnemyUpdate()
@@ -193,14 +142,24 @@ namespace MyGame
                         enemyList.RemoveAt(i);
                     }
                 }
+                for (int i = 0; i < enemyList.Count; i++)
+                {
+                    if (enemyList[i].Destroyed == true)
+                    {
+                        enemyList.RemoveAt(i);
+                    }
+                }
             }
         }
 
         private void EnemyRender()
         {
-            foreach (Enemy enemy in enemyList)
+            if (enemyList.Count > 0)
             {
-                enemy.Render();
+                for (int i = 0; i < enemyList.Count; i++)
+                {
+                    enemyList[i].Render();
+                }
             }
         }
 
@@ -209,7 +168,7 @@ namespace MyGame
             powerUpSpawnTimer += Program.deltaTime;
             if (powerUpSpawnTimer > powerUpSpawnCooldown)
             {
-                powerUp = new PowerUp(new Vector2(random.Next(1004), -10), 2);
+                powerUp = new PowerUp(new Vector2(random.Next(1004), -10), random.Next(2, 4));
                 powerUpSpawnTimer = 0;
                 powerUpSpawnCooldown = (float) random.Next(15, 20);
             }
@@ -233,6 +192,98 @@ namespace MyGame
             if (powerUp != null)
             {
                 powerUp.Render();
+            }
+        }
+
+        private void DamagePlayer()
+        {
+            if (player.GetPower != 1)
+            {
+                if (powerUpStack.EmptyStack() == false)
+                {
+                    powerUpStack.Remove();
+                    if (powerUpStack.EmptyStack() == false)
+                    {
+                        player.SetPower = powerUpStack.Top();
+                    }
+                    else
+                    {
+                        player.SetPower = 1;
+                    }
+                }
+            }
+            else
+            {
+                player.SetPower = 0;
+            }
+        }
+
+        private void Collisions()
+        {
+            collisionTimer += Program.deltaTime;
+            if (collisionTimer > collisionCooldown)
+            {
+                if (enemyList.Count > 0)
+                {
+                    for (int i = 0; i < enemyList.Count; i++) //Colision Enemigo / Player
+                    {
+                        var colision = new Collider(enemyList[i].GetEnemyTransform.Position, new Vector2(64, 64), player.GetPlayerTransform.Position, new Vector2(60, 66));
+                        if (colision.IsBoxColliding() == true)
+                        {
+                            collisionTimer = 0;
+                            DamagePlayer();
+                            break;
+                        }
+                    }
+                    if (projectileList.Count > 0)
+                    {
+                        for (int i = 0; i < projectileList.Count; i++) //Colision Proyectil Enemigo / Player
+                        {
+                            var colision = new Collider(new Vector2(projectileList[i].Location, projectileList[i].Rute), new Vector2(10, 20), player.GetPlayerTransform.Position, new Vector2(60, 66));
+                            if (projectileList[i].Direction == -1)
+                            {
+                                if (colision.IsBoxColliding() == true)
+                                {
+                                    collisionTimer = 0;
+                                    DamagePlayer();
+                                    projectileList.RemoveAt(i);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (projectileList.Count > 0)
+            {
+                for (int i = 0; i < enemyList.Count; i++) //Colision Enemigo / Proyectil Player
+                {
+                    for (int j = 0; j < projectileList.Count; j++)
+                    {
+                        var colision = new Collider(enemyList[i].GetEnemyTransform.Position, new Vector2(64, 64), new Vector2(projectileList[j].Location, projectileList[j].Rute), new Vector2(10, 20));
+                        if (projectileList[j].Direction > 0)
+                        {
+                            if (colision.IsBoxColliding() == true)
+                            {
+                                enemyList[i].Destroyed = true;
+                                projectileList.RemoveAt(j);
+                            }
+                        }
+                    }
+                }
+            }
+            if (powerUp != null)
+            {
+                var colision = new Collider(powerUp.GetPowerUpTransform.Position, new Vector2(20, 10), player.GetPlayerTransform.Position, new Vector2(60, 66));
+                if (colision.IsBoxColliding() == true)
+                {
+                    if (powerUpStack.FullStack() == false)
+                    {
+                        powerUpStack.Stack(powerUp.Type);
+                        powerUp = null;
+                        player.SetPower = powerUpStack.Top();
+                    }
+                }
             }
         }
     }

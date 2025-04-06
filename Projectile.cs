@@ -32,6 +32,12 @@ namespace MyGame
 
         public bool InBounds => inBounds;
 
+        public float Location => location;
+
+        public float Rute => rute;
+
+        public int Direction => direction;
+
         public void Update()
         {
             ProjectileBehavior();

@@ -21,6 +21,7 @@ namespace MyGame
         private float shootCooldown = 1f;
         private bool shoot = false;
         private bool inBounds = true;
+        private bool destroyed = false;
         private bool isBoss;
 
         public Enemy(Vector2 position, bool boss) 
@@ -45,6 +46,18 @@ namespace MyGame
             set
             {
                 shoot = value;
+            }
+        }
+
+        public bool Destroyed
+        {
+            get
+            {
+                return destroyed;
+            }
+            set
+            {
+                destroyed = value;
             }
         }
 
