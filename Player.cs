@@ -8,14 +8,11 @@ namespace MyGame
 {
     public class Player
     {
-        private Image playerImage;
         private PlayerController playerController;
         private Transform playerTransform;
-        private int animIndex = 1;
-        private float timer;
+        private AnimationController animationController;
         private float shootTimer;
         private float shootCooldown = 0.3f;
-        private float animCooldown = 0.2f;
         private bool shoot = false;
         private int power = 1;
 
@@ -23,6 +20,7 @@ namespace MyGame
         {
             playerTransform = new Transform(position);
             playerController = new PlayerController(playerTransform);
+            animationController = new AnimationController(playerTransform, $"assets/animations/player/{power}/", 4);
         }
 
         public Transform GetPlayerTransform => playerTransform;
@@ -40,6 +38,7 @@ namespace MyGame
                 if (value <= 3)
                 {
                     power = value;
+                    animationController.Path = $"assets/animations/player/{power}/";
                     if (value == 2 || value == 3)
                     {
                         shootCooldown = 0.1f;
@@ -48,7 +47,7 @@ namespace MyGame
                     {
                         shootCooldown = 0.3f;
                     }
-                    Engine.Debug($"Poder = {power}");
+                    Engine.Debug($"\nPoder = {power}\n");
                     if (value == 0)
                     {
                         Kill();
@@ -77,12 +76,12 @@ namespace MyGame
 
         public void Update()
         {
-            AnimationUpdate();
+            animationController.Update();
         }
 
         public void Render()
         {
-            animationRender();
+            animationController.Render();
         }
 
         private void Shoot()
@@ -95,26 +94,6 @@ namespace MyGame
                     shoot = true;
                     shootTimer = 0;
                 }
-            }
-        }
-
-        private void animationRender()
-        {
-            playerImage = Engine.LoadImage($"assets/animations/player/{animIndex}.png");
-            Engine.Draw(playerImage, playerTransform.Position.X, playerTransform.Position.Y);
-        }
-
-        private void AnimationUpdate()
-        {
-            timer += Program.deltaTime;
-            if (timer > animCooldown)
-            {
-                timer = 0;
-                animIndex++;
-            }
-            if (animIndex > 4)
-            {
-                animIndex = 1;
             }
         }
 

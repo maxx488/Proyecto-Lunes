@@ -11,52 +11,16 @@
       "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\istack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:istack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\vector2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:vector2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|c:\\users\\maxi\\desktop\\proyecto-lunes\\proyecto-lunes\\collider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:collider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\level.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:level.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\engine\\image.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:engine\\image.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\engine\\font.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:engine\\font.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\engine\\engine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:engine\\engine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\powerup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:powerup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\transform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:transform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\powerupstack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:powerupstack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\animationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:animationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -67,7 +31,55 @@
       "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:projectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\powerup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:powerup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\enemycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:enemycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\collider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:collider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\vector2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:vector2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\powerupstack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:powerupstack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\istack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:istack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\transform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:transform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\engine\\image.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:engine\\image.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\engine\\sound.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:engine\\sound.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\engine\\engine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:engine\\engine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Consultoria\\Dropbox\\Facultad\\UTN\\Proyecto Base\\Sound.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\engine\\font.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:engine\\font.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -100,161 +112,195 @@
               "RelativeDocumentMoniker": "GameManager.cs",
               "ToolTip": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\GameManager.cs",
               "RelativeToolTip": "GameManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADIAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC8AAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-25T14:56:55.182Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "Level.cs",
               "DocumentMoniker": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\Level.cs",
               "RelativeDocumentMoniker": "Level.cs",
               "ToolTip": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\Level.cs",
               "RelativeToolTip": "Level.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAABNAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-23T01:14:22.449Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 2,
               "Title": "Player.cs",
               "DocumentMoniker": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\Player.cs",
               "RelativeDocumentMoniker": "Player.cs",
               "ToolTip": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\Player.cs",
               "RelativeToolTip": "Player.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAeAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-19T23:55:45.204Z"
+              "WhenOpened": "2025-03-19T23:55:45.204Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 5,
               "Title": "Enemy.cs",
               "DocumentMoniker": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\Enemy.cs",
               "RelativeDocumentMoniker": "Enemy.cs",
               "ToolTip": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\Enemy.cs",
               "RelativeToolTip": "Enemy.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGIAAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEgAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-18T22:48:57.248Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 6,
               "Title": "Projectile.cs",
               "DocumentMoniker": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\Projectile.cs",
               "RelativeDocumentMoniker": "Projectile.cs",
               "ToolTip": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\Projectile.cs",
               "RelativeToolTip": "Projectile.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAQwA8AAAAlAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJsAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-25T23:15:56.14Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 8,
               "Title": "PowerUp.cs",
               "DocumentMoniker": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\PowerUp.cs",
               "RelativeDocumentMoniker": "PowerUp.cs",
               "ToolTip": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\PowerUp.cs",
               "RelativeToolTip": "PowerUp.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-05T23:34:37.676Z"
+              "WhenOpened": "2025-04-05T22:43:58.765Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 7,
               "Title": "PlayerController.cs",
               "DocumentMoniker": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\PlayerController.cs",
               "RelativeDocumentMoniker": "PlayerController.cs",
               "ToolTip": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\PlayerController.cs",
               "RelativeToolTip": "PlayerController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-05T06:00:12.544Z"
+              "WhenOpened": "2025-04-04T21:24:39.89Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 9,
+              "Title": "EnemyController.cs",
+              "DocumentMoniker": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\EnemyController.cs",
+              "RelativeDocumentMoniker": "EnemyController.cs",
+              "ToolTip": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\EnemyController.cs",
+              "RelativeToolTip": "EnemyController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-05T20:49:26.847Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AnimationController.cs",
+              "DocumentMoniker": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\AnimationController.cs",
+              "RelativeDocumentMoniker": "AnimationController.cs",
+              "ToolTip": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\AnimationController.cs",
+              "RelativeToolTip": "AnimationController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T03:38:24.564Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
               "Title": "Transform.cs",
               "DocumentMoniker": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\Transform.cs",
               "RelativeDocumentMoniker": "Transform.cs",
               "ToolTip": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\Transform.cs",
               "RelativeToolTip": "Transform.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-05T06:00:45.991Z"
+              "WhenOpened": "2025-04-05T04:32:07.633Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 12,
               "Title": "PowerUpStack.cs",
               "DocumentMoniker": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\PowerUpStack.cs",
               "RelativeDocumentMoniker": "PowerUpStack.cs",
               "ToolTip": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\PowerUpStack.cs",
               "RelativeToolTip": "PowerUpStack.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACsAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-01T16:39:07.957Z"
+              "WhenOpened": "2025-04-01T14:37:06.801Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 10,
               "Title": "Collider.cs",
               "DocumentMoniker": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\Collider.cs",
               "RelativeDocumentMoniker": "Collider.cs",
               "ToolTip": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\Collider.cs",
               "RelativeToolTip": "Collider.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-06T19:36:02.181Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-06T00:36:50.505Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Vector2.cs",
-              "DocumentMoniker": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\Vector2.cs",
-              "RelativeDocumentMoniker": "Vector2.cs",
-              "ToolTip": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\Vector2.cs",
-              "RelativeToolTip": "Vector2.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-05T06:01:10.86Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 13,
               "Title": "IStack.cs",
               "DocumentMoniker": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\IStack.cs",
               "RelativeDocumentMoniker": "IStack.cs",
               "ToolTip": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\IStack.cs",
               "RelativeToolTip": "IStack.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-01T16:38:32.324Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-01T13:47:00.742Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Font.cs",
-              "DocumentMoniker": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\Engine\\Font.cs",
-              "RelativeDocumentMoniker": "Engine\\Font.cs",
-              "ToolTip": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\Engine\\Font.cs",
-              "RelativeToolTip": "Engine\\Font.cs",
-              "ViewState": "AgIAAAEAAAAAAAAAAAAWwBIAAAAiAAAAAAAAAA==",
+              "DocumentIndex": 11,
+              "Title": "Vector2.cs",
+              "DocumentMoniker": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\Vector2.cs",
+              "RelativeDocumentMoniker": "Vector2.cs",
+              "ToolTip": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\Vector2.cs",
+              "RelativeToolTip": "Vector2.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-11T21:47:31.279Z"
+              "WhenOpened": "2025-04-03T02:29:51.711Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 16,
+              "Title": "Sound.cs",
+              "DocumentMoniker": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\Engine\\Sound.cs",
+              "RelativeDocumentMoniker": "Engine\\Sound.cs",
+              "ToolTip": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\Engine\\Sound.cs",
+              "RelativeToolTip": "Engine\\Sound.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-11T21:47:31.277Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Image.cs",
+              "DocumentMoniker": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\Engine\\Image.cs",
+              "RelativeDocumentMoniker": "Engine\\Image.cs",
+              "ToolTip": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\Engine\\Image.cs",
+              "RelativeToolTip": "Engine\\Image.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-11T21:47:31.278Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
               "Title": "Engine.cs",
               "DocumentMoniker": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\Engine\\Engine.cs",
               "RelativeDocumentMoniker": "Engine\\Engine.cs",
@@ -266,19 +312,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Image.cs",
-              "DocumentMoniker": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\Engine\\Image.cs",
-              "RelativeDocumentMoniker": "Engine\\Image.cs",
-              "ToolTip": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\Engine\\Image.cs",
-              "RelativeToolTip": "Engine\\Image.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 19,
+              "Title": "Font.cs",
+              "DocumentMoniker": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\Engine\\Font.cs",
+              "RelativeDocumentMoniker": "Engine\\Font.cs",
+              "ToolTip": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\Engine\\Font.cs",
+              "RelativeToolTip": "Engine\\Font.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAWwBIAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-11T21:47:31.278Z"
+              "WhenOpened": "2025-03-11T21:47:31.279Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 18,
               "Title": "Sound.cs",
               "DocumentMoniker": "C:\\Users\\Consultoria\\Dropbox\\Facultad\\UTN\\Proyecto Base\\Sound.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Consultoria\\Dropbox\\Facultad\\UTN\\Proyecto Base\\Sound.cs",

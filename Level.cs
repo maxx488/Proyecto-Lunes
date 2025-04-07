@@ -205,6 +205,7 @@ namespace MyGame
                     if (powerUpStack.EmptyStack() == false)
                     {
                         player.SetPower = powerUpStack.Top();
+                        powerUpStack.ShowStack();
                     }
                     else
                     {
@@ -282,6 +283,7 @@ namespace MyGame
                         powerUpStack.Stack(powerUp.Type);
                         powerUp = null;
                         player.SetPower = powerUpStack.Top();
+                        powerUpStack.ShowStack();
                     }
                 }
             }

@@ -70,7 +70,7 @@ namespace MyGame
 
         public void Render()
         {
-            animationRender();
+            AnimationRender();
         }
 
         private void MovementUpdate()
@@ -93,7 +93,7 @@ namespace MyGame
             }
         }
 
-        private void animationRender()
+        private void AnimationRender()
         {
             enemigoImage = Engine.LoadImage($"assets/animations/enemies/1/{animIndex}.png");
             Engine.Draw(enemigoImage, enemyTransform.Position.X, enemyTransform.Position.Y);

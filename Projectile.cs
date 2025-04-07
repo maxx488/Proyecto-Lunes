@@ -8,7 +8,11 @@ namespace MyGame
 {
     public class Projectile
     {
-        private Image bullet = Engine.LoadImage("assets/bullet.png");
+        private Image bullet;
+        private float timer;
+        private float animCooldown = 0.2f;
+        private int animIndex = 1;
+        private string path;
         private int type;
         private int direction;
         private float speed;
@@ -28,6 +32,14 @@ namespace MyGame
             location = locX;
             rute = locY;
             type = typ;
+            if (direction > 0)
+            {
+                path = "player";
+            }
+            else
+            {
+                path = "enemy";
+            }
         }
 
         public bool InBounds => inBounds;
@@ -41,6 +53,7 @@ namespace MyGame
         public void Update()
         {
             ProjectileBehavior();
+            AnimationUpdate();
         }
 
         private void ProjectileBehavior()
@@ -123,8 +136,23 @@ namespace MyGame
             }
         }
 
+        private void AnimationUpdate()
+        {
+            timer += Program.deltaTime;
+            if (timer > animCooldown)
+            {
+                timer = 0;
+                animIndex++;
+            }
+            if (animIndex > 4)
+            {
+                animIndex = 1;
+            }
+        }
+
         public void Render()
         {
+            bullet = Engine.LoadImage($"assets/animations/projectile/{path}/{animIndex}.png");
             Engine.Draw(bullet, location, rute);
         }
     }
