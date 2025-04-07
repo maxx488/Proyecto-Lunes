@@ -8,29 +8,23 @@ namespace MyGame
 {
     public class Projectile
     {
-        private Image bullet;
-        private float timer;
-        private float animCooldown = 0.2f;
-        private int animIndex = 1;
+        private Transform projectileTransform;
+        private AnimationController animationController;
         private string path;
         private int type;
         private int direction;
         private float speed;
-        private float location;
-        private float rute;
         private bool inBounds = true;
 
-        public Projectile(float locX,float locY,int dir,float spd,int typ)
+        public Projectile(Vector2 position,int dir,float spd,int typ)
         {
-            /* locX = posicion en X
-               locY = posicion en Y
+            /* posiiton = vector posicion x y
                dir = 1 o -1 dependiendo si es proyectil del jugador o del enemigo, 2 y 3 para diagonales en powerup
                spd = velocidad
                typ = tipo o variacion del proyectil */
+            projectileTransform = new Transform(position);
             direction = dir;
             speed = spd;
-            location = locX;
-            rute = locY;
             type = typ;
             if (direction > 0)
             {
@@ -40,13 +34,12 @@ namespace MyGame
             {
                 path = "enemy";
             }
+            animationController = new AnimationController(projectileTransform, $"assets/animations/projectile/{path}/", 4, 0.2f);
         }
 
         public bool InBounds => inBounds;
 
-        public float Location => location;
-
-        public float Rute => rute;
+        public Transform GetProjectileTransform => projectileTransform;
 
         public int Direction => direction;
 
@@ -63,9 +56,9 @@ namespace MyGame
             {
                 if (type == 1)
                 {
-                    if (rute > 0)
+                    if (projectileTransform.Position.Y > 0)
                     {
-                        rute -= (speed * 1.5f) * Program.deltaTime;
+                        projectileTransform.Translate(new Vector2(0, -1), speed * 1.5f);
                     }
                     else
                     {
@@ -74,9 +67,9 @@ namespace MyGame
                 }
                 else if (type == 2 || type == 3)
                 {
-                    if (rute > 0)
+                    if (projectileTransform.Position.Y > 0)
                     {
-                        rute -= (speed * 2f) * Program.deltaTime;
+                        projectileTransform.Translate(new Vector2(0, -1), speed * 2f);
                     }
                     else
                     {
@@ -88,9 +81,9 @@ namespace MyGame
             {
                 if (direction == -1)
                 {
-                    if (rute < 768)
+                    if (projectileTransform.Position.Y < 768)
                     {
-                        rute += speed * Program.deltaTime;
+                        projectileTransform.Translate(new Vector2(0, 1), speed);
                     }
                     else
                     {
@@ -103,10 +96,10 @@ namespace MyGame
                     {
                         if (type == 3)
                         {
-                            if (rute > 0)
+                            if (projectileTransform.Position.Y > 0)
                             {
-                                rute -= (speed * 2f) * Program.deltaTime;
-                                location -= speed * Program.deltaTime;
+                                projectileTransform.Translate(new Vector2(0, -1), speed * 2f);
+                                projectileTransform.Translate(new Vector2(-1, 0), speed);
                             }
                             else
                             {
@@ -120,10 +113,10 @@ namespace MyGame
                         {
                             if (type == 3)
                             {
-                                if (rute > 0)
+                                if (projectileTransform.Position.Y > 0)
                                 {
-                                    rute -= (speed * 2f) * Program.deltaTime;
-                                    location += speed * Program.deltaTime;
+                                    projectileTransform.Translate(new Vector2(0, -1), speed * 2f);
+                                    projectileTransform.Translate(new Vector2(1, 0), speed);
                                 }
                                 else
                                 {
@@ -138,22 +131,12 @@ namespace MyGame
 
         private void AnimationUpdate()
         {
-            timer += Program.deltaTime;
-            if (timer > animCooldown)
-            {
-                timer = 0;
-                animIndex++;
-            }
-            if (animIndex > 4)
-            {
-                animIndex = 1;
-            }
+            animationController.Update();
         }
 
         public void Render()
         {
-            bullet = Engine.LoadImage($"assets/animations/projectile/{path}/{animIndex}.png");
-            Engine.Draw(bullet, location, rute);
+            animationController.Render();
         }
     }
 }

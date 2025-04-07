@@ -11,16 +11,17 @@ namespace MyGame
         private Image image;
         private Transform transform;
         private float timer;
-        private float animCooldown = 0.2f;
+        private float animCooldown;
         private string path;
         private int index = 1;
         private int maxIndex;
 
-        public AnimationController(Transform transform, string path, int maxIndex)
+        public AnimationController(Transform transform, string path, int maxIndex, float animCooldown)
         {
             this.transform = transform;
             this.path = path;
             this.maxIndex = maxIndex;
+            this.animCooldown = animCooldown;
         }
 
         public string Path
@@ -32,6 +33,14 @@ namespace MyGame
             set
             {
                 path = value;
+            }
+        }
+
+        public bool Finished
+        {
+            get
+            {
+                return index == maxIndex;
             }
         }
 

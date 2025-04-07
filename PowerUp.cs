@@ -8,7 +8,7 @@ namespace MyGame
 {
     public class PowerUp
     {
-        private Image powerUpImage = Engine.LoadImage("assets/powerup.png");
+        private AnimationController animationController;
         private int type;
         private float speed = 150;
         private Transform transform;
@@ -18,6 +18,7 @@ namespace MyGame
         public PowerUp(Vector2 vector, int typ)
         {
             transform = new Transform(vector);
+            animationController = new AnimationController(transform, "assets/animations/powerup/", 4, 0.2f);
             type = typ;
         }
 
@@ -30,11 +31,12 @@ namespace MyGame
         public void Update()
         {
             transform.Translate(down, speed);
+            animationController.Update();
         }
 
         public void Render()
         {
-            Engine.Draw(powerUpImage, transform.Position.X, transform.Position.Y);
+            animationController.Render();
         }
     }
 }

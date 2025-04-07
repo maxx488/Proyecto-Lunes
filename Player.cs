@@ -20,7 +20,7 @@ namespace MyGame
         {
             playerTransform = new Transform(position);
             playerController = new PlayerController(playerTransform);
-            animationController = new AnimationController(playerTransform, $"assets/animations/player/{power}/", 4);
+            animationController = new AnimationController(playerTransform, $"assets/animations/player/{power}/", 4, 0.2f);
         }
 
         public Transform GetPlayerTransform => playerTransform;

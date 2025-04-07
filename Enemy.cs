@@ -9,14 +9,9 @@ namespace MyGame
 {
     public class Enemy
     {
-        private Image enemigoImage;
         private EnemyController enemyController;
         private Transform enemyTransform;
-        private float timer;
-        private float cooldown = 1;
-        private int animIndex = 1;
-        private float timerAnim;
-        private float animCooldown = 0.15f;
+        private AnimationController animationController;
         private float shootTimer;
         private float shootCooldown = 1f;
         private bool shoot = false;
@@ -29,6 +24,7 @@ namespace MyGame
             isBoss = boss;
             enemyTransform = new Transform(position);
             enemyController = new EnemyController(enemyTransform, isBoss);
+            animationController = new AnimationController(enemyTransform, $"assets/animations/enemies/1/", 5, 0.15f);
         }
 
         public Transform GetEnemyTransform => enemyTransform;
@@ -95,22 +91,12 @@ namespace MyGame
 
         private void AnimationRender()
         {
-            enemigoImage = Engine.LoadImage($"assets/animations/enemies/1/{animIndex}.png");
-            Engine.Draw(enemigoImage, enemyTransform.Position.X, enemyTransform.Position.Y);
+            animationController.Render();
         }
 
         private void AnimationUpdate()
         {
-            timerAnim += Program.deltaTime;
-            if (timerAnim > animCooldown)
-            {
-                timerAnim = 0;
-                animIndex++;
-            }
-            if (animIndex > 5)
-            {
-                animIndex = 1;
-            }
+            animationController.Update();
         }
 
         private void Shoot()

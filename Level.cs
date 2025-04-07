@@ -14,6 +14,7 @@ namespace MyGame
         private Random random = new Random();
         private int enemyCount;
         private List<Projectile> projectileList = new List<Projectile>();
+        private List<Effect> effectList = new List<Effect>();
         private PowerUpStack powerUpStack = new PowerUpStack();
         private PowerUp powerUp;
         private float timer;
@@ -51,6 +52,7 @@ namespace MyGame
             PowerUpSpawn();
             PowerUpUpdate();
             Collisions();
+            EffectUpdate();
         }
 
         public void Render()
@@ -60,17 +62,18 @@ namespace MyGame
             player.Render();
             ProjectileRender();
             PowerUpRender();
+            EffectRender();
         }
 
         private void BulletSpawn()//Cambiar a propia clase
         {
             if (player.ShootState == true)
             {
-                projectileList.Add(new Projectile(player.GetPlayerTransform.Position.X + 25, player.GetPlayerTransform.Position.Y - 20, 1, 500, player.GetPower));
+                projectileList.Add(new Projectile(new Vector2(player.GetPlayerTransform.Position.X + 25, player.GetPlayerTransform.Position.Y - 20), 1, 500, player.GetPower));
                 if (player.GetPower == 3)
                 {
-                    projectileList.Add(new Projectile(player.GetPlayerTransform.Position.X + 10, player.GetPlayerTransform.Position.Y - 20, 2, 500, player.GetPower));
-                    projectileList.Add(new Projectile(player.GetPlayerTransform.Position.X + 40, player.GetPlayerTransform.Position.Y - 20, 3, 500, player.GetPower));
+                    projectileList.Add(new Projectile(new Vector2(player.GetPlayerTransform.Position.X + 10, player.GetPlayerTransform.Position.Y - 20), 2, 500, player.GetPower));
+                    projectileList.Add(new Projectile(new Vector2(player.GetPlayerTransform.Position.X + 40, player.GetPlayerTransform.Position.Y - 20), 3, 500, player.GetPower));
                 }
                 player.ShootState = false;
             }
@@ -80,7 +83,7 @@ namespace MyGame
                 {
                     if (enemyList[i].ShootState == true)
                     {
-                        projectileList.Add(new Projectile(enemyList[i].GetEnemyTransform.Position.X + 27, enemyList[i].GetEnemyTransform.Position.Y + 65, -1, 500, 1));
+                        projectileList.Add(new Projectile(new Vector2(enemyList[i].GetEnemyTransform.Position.X + 27, enemyList[i].GetEnemyTransform.Position.Y + 65), -1, 500, 1));
                         enemyList[i].ShootState = false;
                     }
                 }
@@ -195,6 +198,37 @@ namespace MyGame
             }
         }
 
+        private void EffectSpawn(Vector2 location, string path, int maxIndex, float animCooldown)//Cambiar a propia clase
+        {
+            effectList.Add(new Effect(location, path, maxIndex, animCooldown));
+        }
+
+        private void EffectUpdate()
+        {
+            if (effectList.Count > 0)
+            {
+                for (int i = 0; i < effectList.Count; i++)
+                {
+                    effectList[i].Update();
+                    if (effectList[i].GetAnimationController.Finished == true)
+                    {
+                        effectList.RemoveAt(i);
+                    }
+                }
+            }
+        }
+
+        private void EffectRender()
+        {
+            if (effectList.Count > 0)
+            {
+                for (int i = 0; i < effectList.Count; i++)
+                {
+                    effectList[i].Render();
+                }
+            }
+        }
+
         private void DamagePlayer()
         {
             if (player.GetPower != 1)
@@ -240,7 +274,7 @@ namespace MyGame
                     {
                         for (int i = 0; i < projectileList.Count; i++) //Colision Proyectil Enemigo / Player
                         {
-                            var colision = new Collider(new Vector2(projectileList[i].Location, projectileList[i].Rute), new Vector2(10, 20), player.GetPlayerTransform.Position, new Vector2(60, 66));
+                            var colision = new Collider(new Vector2(projectileList[i].GetProjectileTransform.Position.X, projectileList[i].GetProjectileTransform.Position.Y), new Vector2(10, 20), player.GetPlayerTransform.Position, new Vector2(60, 66));
                             if (projectileList[i].Direction == -1)
                             {
                                 if (colision.IsBoxColliding() == true)
@@ -261,12 +295,13 @@ namespace MyGame
                 {
                     for (int j = 0; j < projectileList.Count; j++)
                     {
-                        var colision = new Collider(enemyList[i].GetEnemyTransform.Position, new Vector2(64, 64), new Vector2(projectileList[j].Location, projectileList[j].Rute), new Vector2(10, 20));
+                        var colision = new Collider(enemyList[i].GetEnemyTransform.Position, new Vector2(64, 64), new Vector2(projectileList[j].GetProjectileTransform.Position.X, projectileList[j].GetProjectileTransform.Position.Y), new Vector2(10, 20));
                         if (projectileList[j].Direction > 0)
                         {
                             if (colision.IsBoxColliding() == true)
                             {
                                 enemyList[i].Destroyed = true;
+                                EffectSpawn(new Vector2(enemyList[i].GetEnemyTransform.Position.X, enemyList[i].GetEnemyTransform.Position.Y + 32), "assets/animations/explosion/", 13, 0.077f);
                                 projectileList.RemoveAt(j);
                             }
                         }
