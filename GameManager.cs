@@ -35,7 +35,7 @@ namespace MyGame
         public void Update()
         {
             level.Update();
-            if (level.GetPlayerPower == 0)
+            if (level.GetTries == 0)
             {
                 Console.WriteLine("Pulsa Enter para salir.");
                 Console.ReadLine();

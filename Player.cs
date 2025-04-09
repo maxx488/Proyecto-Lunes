@@ -48,10 +48,6 @@ namespace MyGame
                         shootCooldown = 0.3f;
                     }
                     Engine.Debug($"\nPoder = {power}\n");
-                    if (value == 0)
-                    {
-                        Kill();
-                    }
                 }
             }
         }
@@ -95,11 +91,6 @@ namespace MyGame
                     shootTimer = 0;
                 }
             }
-        }
-
-        private void Kill()
-        {
-            Engine.Debug("El Jugador ha muerto.");
         }
     }
 }

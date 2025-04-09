@@ -9,7 +9,7 @@ namespace MyGame
     public class Level
     {
         private Image background = Engine.LoadImage("assets/background.png");
-        private Player player = new Player(new Vector2 (400, 650));
+        private Player player;
         private List<Enemy> enemyList = new List<Enemy>();
         private Random random = new Random();
         private int enemyCount;
@@ -24,10 +24,15 @@ namespace MyGame
         private float powerUpSpawnCooldown;
         private float collisionTimer;
         private float collisionCooldown = 2;
+        private float respawnTimer;
+        private float respawnCooldown = 1.5f;
+        private int tries;
 
 
         public Level()
         {
+            tries = 3; //Respawns del jugador (dependeria de la dificultad)
+            player = new Player(new Vector2(400, 650));
             enemyCount = random.Next(20,31); // Enemigos a derrotar para completar el nivel (sin utilizar todavia)
             enemySpawnCooldown = (float) random.Next(3); // Segundos que pasaran hasta spawnear un enemigo
             powerUpSpawnCooldown = (float) random.Next(15, 20); // Segundos que pasaran hasta spawnear un powerup
@@ -35,18 +40,21 @@ namespace MyGame
             levelHud = new LevelHud(powerUpStack); // Crear HUD
         }
 
+        public int GetTries => tries;
+
         public int GetPlayerPower => player.GetPower;
 
         public void Input()
         {
-            player.Input();
+            PlayerInput();
         }
 
         public void Update()
         {
+            PlayerSpawn();
             EnemySpawn();
             EnemyUpdate();
-            player.Update();
+            PlayerUpdate();
             BulletSpawn();
             ProjectileUpdate();
             PowerUpSpawn();
@@ -60,7 +68,7 @@ namespace MyGame
         {
             Engine.Draw(background, 0, 0);
             EnemyRender();
-            player.Render();
+            PlayerRender();
             ProjectileRender();
             PowerUpRender();
             EffectRender();
@@ -69,15 +77,18 @@ namespace MyGame
 
         private void BulletSpawn()//Cambiar a propia clase
         {
-            if (player.ShootState == true)
+            if (player != null)
             {
-                projectileList.Add(new Projectile(new Vector2(player.GetPlayerTransform.Position.X + 25, player.GetPlayerTransform.Position.Y - 20), 1, 500, player.GetPower));
-                if (player.GetPower == 3)
+                if (player.ShootState == true)
                 {
-                    projectileList.Add(new Projectile(new Vector2(player.GetPlayerTransform.Position.X + 10, player.GetPlayerTransform.Position.Y - 20), 2, 500, player.GetPower));
-                    projectileList.Add(new Projectile(new Vector2(player.GetPlayerTransform.Position.X + 40, player.GetPlayerTransform.Position.Y - 20), 3, 500, player.GetPower));
+                    projectileList.Add(new Projectile(new Vector2(player.GetPlayerTransform.Position.X + 25, player.GetPlayerTransform.Position.Y - 20), 1, 500, player.GetPower));
+                    if (player.GetPower == 3)
+                    {
+                        projectileList.Add(new Projectile(new Vector2(player.GetPlayerTransform.Position.X + 10, player.GetPlayerTransform.Position.Y - 20), 2, 500, player.GetPower));
+                        projectileList.Add(new Projectile(new Vector2(player.GetPlayerTransform.Position.X + 40, player.GetPlayerTransform.Position.Y - 20), 3, 500, player.GetPower));
+                    }
+                    player.ShootState = false;
                 }
-                player.ShootState = false;
             }
             if (enemyList.Count > 0)
             {
@@ -168,6 +179,44 @@ namespace MyGame
             }
         }
 
+        private void PlayerSpawn()//Cambiar a propia clase
+        {
+            if (player == null && tries > 0)
+            {
+                respawnTimer += Program.deltaTime;
+                if (respawnTimer > respawnCooldown)
+                {
+                    respawnTimer = 0;
+                    collisionTimer = 0;
+                    player = new Player(new Vector2(400, 650));
+                }
+            }
+        }
+
+        private void PlayerInput()//Cambiar a propia clase
+        {
+            if (player != null && tries > 0)
+            {
+                player.Input();
+            }
+        }
+
+        private void PlayerUpdate()//Cambiar a propia clase
+        {
+            if (player != null && tries > 0)
+            {
+                player.Update();
+            }
+        }
+
+        private void PlayerRender()//Cambiar a propia clase
+        {
+            if (player != null && tries > 0)
+            {
+                player.Render();
+            }
+        }
+
         private void PowerUpSpawn()//Cambiar a propia clase
         {
             powerUpSpawnTimer += Program.deltaTime;
@@ -251,7 +300,11 @@ namespace MyGame
             }
             else
             {
-                player.SetPower = 0;
+                Engine.Debug("El Jugador ha muerto.\n");
+                EffectSpawn(new Vector2(player.GetPlayerTransform.Position.X, player.GetPlayerTransform.Position.Y + 32), "assets/animations/explosion/", 13, 0.077f);
+                player = null;
+                tries--;
+                Engine.Debug($"Intentos restantes: {tries}\n");
             }
         }
 
@@ -260,7 +313,7 @@ namespace MyGame
             collisionTimer += Program.deltaTime;
             if (collisionTimer > collisionCooldown)
             {
-                if (enemyList.Count > 0)
+                if (enemyList.Count > 0 && player != null)
                 {
                     for (int i = 0; i < enemyList.Count; i++) //Colision Enemigo / Player
                     {
@@ -272,7 +325,7 @@ namespace MyGame
                             break;
                         }
                     }
-                    if (projectileList.Count > 0)
+                    if (projectileList.Count > 0 && player != null)
                     {
                         for (int i = 0; i < projectileList.Count; i++) //Colision Proyectil Enemigo / Player
                         {
@@ -310,7 +363,7 @@ namespace MyGame
                     }
                 }
             }
-            if (powerUp != null)
+            if (powerUp != null && player != null)
             {
                 var collision = new Collider(powerUp.GetPowerUpTransform.Position, new Vector2(20, 10), player.GetPlayerTransform.Position, new Vector2(60, 66));
                 if (collision.IsBoxColliding() == true)
