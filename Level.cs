@@ -297,6 +297,7 @@ namespace MyGame
                     }
                 }
                 levelHud.DisplayStackUpdate();
+                EffectSpawn(new Vector2(player.GetPlayerTransform.Position.X, player.GetPlayerTransform.Position.Y), "assets/animations/powerdown/", 8, 0.077f);
             }
             else
             {
