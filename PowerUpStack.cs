@@ -42,12 +42,15 @@ namespace MyGame
         {
             return a[index - 1];
         }
-        public void ShowStack()
+        public int[] ShowStack(int[] b)
         {
+            b = new int[index];
             for (int i = index - 1; i >= 0; i--)
             {
+                b[i] = a[i];
                 Console.WriteLine($"Elemento {i}: " + a[i]);
             }
+            return b;
         }
     }
 }

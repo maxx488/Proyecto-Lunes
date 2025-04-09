@@ -15,10 +15,9 @@ namespace MyGame
         private int enemyCount;
         private List<Projectile> projectileList = new List<Projectile>();
         private List<Effect> effectList = new List<Effect>();
+        private LevelHud levelHud;
         private PowerUpStack powerUpStack = new PowerUpStack();
         private PowerUp powerUp;
-        private float timer;
-        private float cooldown = 0.25f;
         private float enemySpawnTimer;
         private float enemySpawnCooldown;
         private float powerUpSpawnTimer;
@@ -33,6 +32,7 @@ namespace MyGame
             enemySpawnCooldown = (float) random.Next(3); // Segundos que pasaran hasta spawnear un enemigo
             powerUpSpawnCooldown = (float) random.Next(15, 20); // Segundos que pasaran hasta spawnear un powerup
             powerUpStack.InitializeStack(); // Inicializar pila PowerUps
+            levelHud = new LevelHud(powerUpStack); // Crear HUD
         }
 
         public int GetPlayerPower => player.GetPower;
@@ -53,6 +53,7 @@ namespace MyGame
             PowerUpUpdate();
             Collisions();
             EffectUpdate();
+            HudUpdate();
         }
 
         public void Render()
@@ -63,6 +64,7 @@ namespace MyGame
             ProjectileRender();
             PowerUpRender();
             EffectRender();
+            HudRender();
         }
 
         private void BulletSpawn()//Cambiar a propia clase
@@ -239,13 +241,13 @@ namespace MyGame
                     if (powerUpStack.EmptyStack() == false)
                     {
                         player.SetPower = powerUpStack.Top();
-                        powerUpStack.ShowStack();
                     }
                     else
                     {
                         player.SetPower = 1;
                     }
                 }
+                levelHud.DisplayStackUpdate();
             }
             else
             {
@@ -262,8 +264,8 @@ namespace MyGame
                 {
                     for (int i = 0; i < enemyList.Count; i++) //Colision Enemigo / Player
                     {
-                        var colision = new Collider(enemyList[i].GetEnemyTransform.Position, new Vector2(64, 64), player.GetPlayerTransform.Position, new Vector2(60, 66));
-                        if (colision.IsBoxColliding() == true)
+                        var collision = new Collider(enemyList[i].GetEnemyTransform.Position, new Vector2(64, 64), player.GetPlayerTransform.Position, new Vector2(60, 66));
+                        if (collision.IsBoxColliding() == true)
                         {
                             collisionTimer = 0;
                             DamagePlayer();
@@ -274,10 +276,10 @@ namespace MyGame
                     {
                         for (int i = 0; i < projectileList.Count; i++) //Colision Proyectil Enemigo / Player
                         {
-                            var colision = new Collider(new Vector2(projectileList[i].GetProjectileTransform.Position.X, projectileList[i].GetProjectileTransform.Position.Y), new Vector2(10, 20), player.GetPlayerTransform.Position, new Vector2(60, 66));
+                            var collision = new Collider(new Vector2(projectileList[i].GetProjectileTransform.Position.X, projectileList[i].GetProjectileTransform.Position.Y), new Vector2(10, 20), player.GetPlayerTransform.Position, new Vector2(60, 66));
                             if (projectileList[i].Direction == -1)
                             {
-                                if (colision.IsBoxColliding() == true)
+                                if (collision.IsBoxColliding() == true)
                                 {
                                     collisionTimer = 0;
                                     DamagePlayer();
@@ -295,10 +297,10 @@ namespace MyGame
                 {
                     for (int j = 0; j < projectileList.Count; j++)
                     {
-                        var colision = new Collider(enemyList[i].GetEnemyTransform.Position, new Vector2(64, 64), new Vector2(projectileList[j].GetProjectileTransform.Position.X, projectileList[j].GetProjectileTransform.Position.Y), new Vector2(10, 20));
+                        var collision = new Collider(enemyList[i].GetEnemyTransform.Position, new Vector2(64, 64), new Vector2(projectileList[j].GetProjectileTransform.Position.X, projectileList[j].GetProjectileTransform.Position.Y), new Vector2(10, 20));
                         if (projectileList[j].Direction > 0)
                         {
-                            if (colision.IsBoxColliding() == true)
+                            if (collision.IsBoxColliding() == true)
                             {
                                 enemyList[i].Destroyed = true;
                                 EffectSpawn(new Vector2(enemyList[i].GetEnemyTransform.Position.X, enemyList[i].GetEnemyTransform.Position.Y + 32), "assets/animations/explosion/", 13, 0.077f);
@@ -310,18 +312,28 @@ namespace MyGame
             }
             if (powerUp != null)
             {
-                var colision = new Collider(powerUp.GetPowerUpTransform.Position, new Vector2(20, 10), player.GetPlayerTransform.Position, new Vector2(60, 66));
-                if (colision.IsBoxColliding() == true)
+                var collision = new Collider(powerUp.GetPowerUpTransform.Position, new Vector2(20, 10), player.GetPlayerTransform.Position, new Vector2(60, 66));
+                if (collision.IsBoxColliding() == true)
                 {
                     if (powerUpStack.FullStack() == false)
                     {
                         powerUpStack.Stack(powerUp.Type);
                         powerUp = null;
                         player.SetPower = powerUpStack.Top();
-                        powerUpStack.ShowStack();
+                        levelHud.DisplayStackUpdate();
                     }
                 }
             }
+        }
+
+        private void HudUpdate()
+        {
+            levelHud.Update();
+        }
+
+        private void HudRender()
+        {
+            levelHud.Render();
         }
     }
 }

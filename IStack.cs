@@ -20,7 +20,7 @@ namespace MyGame
         // siempre que la pila esté inicializada y no esté vacía
         int Top();
         // Devolver tope
-        void ShowStack();
-        // Mostrar Pila
+        int[] ShowStack(int[] b);
+        // Devolver copia Pila
     }
 }
