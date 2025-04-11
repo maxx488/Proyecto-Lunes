@@ -324,8 +324,16 @@ namespace MyGame
                         {
                             if (collision.IsBoxColliding() == true)
                             {
-                                enemySpawner.EnemyList[i].Destroyed = true;
-                                EffectSpawn(new Vector2(enemySpawner.EnemyList[i].GetEnemyTransform.Position.X, enemySpawner.EnemyList[i].GetEnemyTransform.Position.Y + 32), "assets/animations/explosion/", 13, 0.077f);
+                                if (enemySpawner.EnemyList[i].Power  > 1)
+                                {
+                                    enemySpawner.EnemyList[i].Power--;
+                                    EffectSpawn(new Vector2(projectileList[j].GetProjectileTransform.Position.X - 20, projectileList[j].GetProjectileTransform.Position.Y), "assets/animations/bullethits/", 6, 0.02f);
+                                }
+                                else
+                                {
+                                    enemySpawner.EnemyList[i].Destroyed = true;
+                                    EffectSpawn(new Vector2(enemySpawner.EnemyList[i].GetEnemyTransform.Position.X, enemySpawner.EnemyList[i].GetEnemyTransform.Position.Y + 32), "assets/animations/explosion/", 13, 0.077f);
+                                }
                                 projectileList.RemoveAt(j);
                             }
                         }

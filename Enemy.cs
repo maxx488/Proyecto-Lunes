@@ -12,6 +12,8 @@ namespace MyGame
         private EnemyController enemyController;
         private Transform enemyTransform;
         private AnimationController animationController;
+        private int power;
+        private int type;
         private float shootTimer;
         private float shootCooldown = 1f;
         private bool shoot = false;
@@ -22,6 +24,7 @@ namespace MyGame
         public Enemy(Vector2 position, bool boss) 
         {
             isBoss = boss;
+            power = 3;
             enemyTransform = new Transform(position);
             enemyController = new EnemyController(enemyTransform, isBoss);
             animationController = new AnimationController(enemyTransform, $"assets/animations/enemies/1/", 5, 0.15f);
@@ -32,6 +35,18 @@ namespace MyGame
         public bool InBounds => inBounds;
 
         public bool IsBoss => isBoss;
+
+        public int Power
+        {
+            get
+            {
+                return power;
+            }
+            set
+            {
+                power = value;
+            }
+        }
 
         public bool ShootState
         {
