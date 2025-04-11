@@ -10,7 +10,8 @@ namespace MyGame
     {
         private Image background = Engine.LoadImage("assets/background.png");
         private Player player;
-        private List<Enemy> enemyList = new List<Enemy>();
+        private EnemySpawner enemySpawner;
+        private EnemyManager enemyManager;
         private Random random = new Random();
         private int enemyCount;
         private List<Projectile> projectileList = new List<Projectile>();
@@ -18,8 +19,6 @@ namespace MyGame
         private LevelHud levelHud;
         private PowerUpStack powerUpStack = new PowerUpStack();
         private PowerUp powerUp;
-        private float enemySpawnTimer;
-        private float enemySpawnCooldown;
         private float powerUpSpawnTimer;
         private float powerUpSpawnCooldown;
         private float collisionTimer;
@@ -34,7 +33,8 @@ namespace MyGame
             tries = 3; //Respawns del jugador (dependeria de la dificultad)
             player = new Player(new Vector2(400, 650));
             enemyCount = random.Next(20,31); // Enemigos a derrotar para completar el nivel (sin utilizar todavia)
-            enemySpawnCooldown = (float) random.Next(3); // Segundos que pasaran hasta spawnear un enemigo
+            enemySpawner = new EnemySpawner();
+            enemyManager = new EnemyManager(enemySpawner.EnemyList);
             powerUpSpawnCooldown = (float) random.Next(15, 20); // Segundos que pasaran hasta spawnear un powerup
             powerUpStack.InitializeStack(); // Inicializar pila PowerUps
             levelHud = new LevelHud(powerUpStack); // Crear HUD
@@ -90,14 +90,14 @@ namespace MyGame
                     player.ShootState = false;
                 }
             }
-            if (enemyList.Count > 0)
+            if (enemySpawner.EnemyList.Count > 0)
             {
-                for (int i = 0; i < enemyList.Count; i++)
+                for (int i = 0; i < enemySpawner.EnemyList.Count; i++)
                 {
-                    if (enemyList[i].ShootState == true)
+                    if (enemySpawner.EnemyList[i].ShootState == true)
                     {
-                        projectileList.Add(new Projectile(new Vector2(enemyList[i].GetEnemyTransform.Position.X + 27, enemyList[i].GetEnemyTransform.Position.Y + 65), -1, 500, 1));
-                        enemyList[i].ShootState = false;
+                        projectileList.Add(new Projectile(new Vector2(enemySpawner.EnemyList[i].GetEnemyTransform.Position.X + 27, enemySpawner.EnemyList[i].GetEnemyTransform.Position.Y + 65), -1, 500, 1));
+                        enemySpawner.EnemyList[i].ShootState = false;
                     }
                 }
             }
@@ -132,51 +132,19 @@ namespace MyGame
             }
         }
 
-        private void EnemySpawn()//Cambiar a propia clase
+        private void EnemySpawn()
         {
-            enemySpawnTimer += Program.deltaTime;
-            if (enemySpawnTimer > enemySpawnCooldown)
-            {
-                enemyList.Add(new Enemy(new Vector2(random.Next(960), -64), false));
-                enemySpawnTimer = 0;
-                enemySpawnCooldown = (float)random.Next(3);
-            }
+            enemySpawner.Update();
         }
 
         private void EnemyUpdate()
         {
-            if (enemyList.Count > 0)
-            {
-                for (int i = 0; i < enemyList.Count; i++)
-                {
-                    enemyList[i].Update();
-                }
-                for (int i = 0; i < enemyList.Count; i++)
-                {
-                    if (enemyList[i].InBounds == false)
-                    {
-                        enemyList.RemoveAt(i);
-                    }
-                }
-                for (int i = 0; i < enemyList.Count; i++)
-                {
-                    if (enemyList[i].Destroyed == true)
-                    {
-                        enemyList.RemoveAt(i);
-                    }
-                }
-            }
+            enemyManager.Update();
         }
 
         private void EnemyRender()
         {
-            if (enemyList.Count > 0)
-            {
-                for (int i = 0; i < enemyList.Count; i++)
-                {
-                    enemyList[i].Render();
-                }
-            }
+            enemyManager.Render();
         }
 
         private void PlayerSpawn()//Cambiar a propia clase
@@ -314,11 +282,11 @@ namespace MyGame
             collisionTimer += Program.deltaTime;
             if (collisionTimer > collisionCooldown)
             {
-                if (enemyList.Count > 0 && player != null)
+                if (enemySpawner.EnemyList.Count > 0 && player != null)
                 {
-                    for (int i = 0; i < enemyList.Count; i++) //Colision Enemigo / Player
+                    for (int i = 0; i < enemySpawner.EnemyList.Count; i++) //Colision Enemigo / Player
                     {
-                        var collision = new Collider(enemyList[i].GetEnemyTransform.Position, new Vector2(64, 64), player.GetPlayerTransform.Position, new Vector2(60, 66));
+                        var collision = new Collider(enemySpawner.EnemyList[i].GetEnemyTransform.Position, new Vector2(64, 64), player.GetPlayerTransform.Position, new Vector2(60, 66));
                         if (collision.IsBoxColliding() == true)
                         {
                             collisionTimer = 0;
@@ -347,17 +315,17 @@ namespace MyGame
             }
             if (projectileList.Count > 0)
             {
-                for (int i = 0; i < enemyList.Count; i++) //Colision Enemigo / Proyectil Player
+                for (int i = 0; i < enemySpawner.EnemyList.Count; i++) //Colision Enemigo / Proyectil Player
                 {
                     for (int j = 0; j < projectileList.Count; j++)
                     {
-                        var collision = new Collider(enemyList[i].GetEnemyTransform.Position, new Vector2(64, 64), new Vector2(projectileList[j].GetProjectileTransform.Position.X, projectileList[j].GetProjectileTransform.Position.Y), new Vector2(10, 20));
+                        var collision = new Collider(enemySpawner.EnemyList[i].GetEnemyTransform.Position, new Vector2(64, 64), new Vector2(projectileList[j].GetProjectileTransform.Position.X, projectileList[j].GetProjectileTransform.Position.Y), new Vector2(10, 20));
                         if (projectileList[j].Direction > 0)
                         {
                             if (collision.IsBoxColliding() == true)
                             {
-                                enemyList[i].Destroyed = true;
-                                EffectSpawn(new Vector2(enemyList[i].GetEnemyTransform.Position.X, enemyList[i].GetEnemyTransform.Position.Y + 32), "assets/animations/explosion/", 13, 0.077f);
+                                enemySpawner.EnemyList[i].Destroyed = true;
+                                EffectSpawn(new Vector2(enemySpawner.EnemyList[i].GetEnemyTransform.Position.X, enemySpawner.EnemyList[i].GetEnemyTransform.Position.Y + 32), "assets/animations/explosion/", 13, 0.077f);
                                 projectileList.RemoveAt(j);
                             }
                         }
