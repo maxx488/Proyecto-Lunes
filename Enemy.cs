@@ -12,7 +12,9 @@ namespace MyGame
         private EnemyController enemyController;
         private Transform enemyTransform;
         private AnimationController animationController;
+        private EnemyData enemyData;
         private int power;
+        private int faction;
         private int type;
         private float shootTimer;
         private float shootCooldown = 1f;
@@ -21,16 +23,21 @@ namespace MyGame
         private bool destroyed = false;
         private bool isBoss;
 
-        public Enemy(Vector2 position, bool boss) 
+        public Enemy(Vector2 position,int fact,int typ, bool boss) 
         {
+            faction = fact;
+            type = typ;
             isBoss = boss;
             power = 3;
             enemyTransform = new Transform(position);
             enemyController = new EnemyController(enemyTransform, isBoss);
-            animationController = new AnimationController(enemyTransform, $"assets/animations/enemies/1/", 5, 0.15f);
+            animationController = new AnimationController(enemyTransform, $"assets/animations/enemies/{faction}/{type}/", 5, 0.15f);
+            enemyData = new EnemyData(type);
         }
 
         public Transform GetEnemyTransform => enemyTransform;
+
+        public EnemyData GetEnemyData => enemyData;
 
         public bool InBounds => inBounds;
 

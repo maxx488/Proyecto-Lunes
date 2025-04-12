@@ -12,9 +12,11 @@ namespace MyGame
         private Random random = new Random();
         private float enemySpawnTimer;
         private float enemySpawnCooldown;
+        private int faction;
 
-        public EnemySpawner()
+        public EnemySpawner(int fact)
         {
+            faction = fact;
             enemySpawnCooldown = (float) random.Next(3); // Segundos que pasaran hasta spawnear un enemigo
         }
 
@@ -25,7 +27,17 @@ namespace MyGame
             enemySpawnTimer += Program.deltaTime;
             if (enemySpawnTimer > enemySpawnCooldown)
             {
-                enemyList.Add(new Enemy(new Vector2(random.Next(960), -64), false));
+                var typ = random.Next(1, 4);
+                if (typ == 1 || typ == 2)
+                {
+                    var spawnX = random.Next(960);
+                    enemyList.Add(new Enemy(new Vector2(spawnX, -64), faction, typ, false));
+                }
+                else
+                {
+                    var spawnX = random.Next(896);
+                    enemyList.Add(new Enemy(new Vector2(spawnX, -64), faction, typ, false));
+                }
                 enemySpawnTimer = 0;
                 enemySpawnCooldown = (float) random.Next(3);
             }

@@ -33,7 +33,7 @@ namespace MyGame
             tries = 3; //Respawns del jugador (dependeria de la dificultad)
             player = new Player(new Vector2(400, 650));
             enemyCount = random.Next(20,31); // Enemigos a derrotar para completar el nivel (sin utilizar todavia)
-            enemySpawner = new EnemySpawner();
+            enemySpawner = new EnemySpawner(1); // faccion correspondiente (por ahora 1)
             enemyManager = new EnemyManager(enemySpawner.EnemyList);
             powerUpSpawnCooldown = (float) random.Next(15, 20); // Segundos que pasaran hasta spawnear un powerup
             powerUpStack.InitializeStack(); // Inicializar pila PowerUps
@@ -96,7 +96,10 @@ namespace MyGame
                 {
                     if (enemySpawner.EnemyList[i].ShootState == true)
                     {
-                        projectileList.Add(new Projectile(new Vector2(enemySpawner.EnemyList[i].GetEnemyTransform.Position.X + 27, enemySpawner.EnemyList[i].GetEnemyTransform.Position.Y + 65), -1, 500, 1));
+                        for(int j = 0; j < enemySpawner.EnemyList[i].GetEnemyData.ShootPosX.Length; j++)
+                        {
+                            projectileList.Add(new Projectile(new Vector2(enemySpawner.EnemyList[i].GetEnemyTransform.Position.X + enemySpawner.EnemyList[i].GetEnemyData.ShootPosX[j], enemySpawner.EnemyList[i].GetEnemyTransform.Position.Y + enemySpawner.EnemyList[i].GetEnemyData.ShootPosY), -1, 500, 1));
+                        }
                         enemySpawner.EnemyList[i].ShootState = false;
                     }
                 }
@@ -286,7 +289,7 @@ namespace MyGame
                 {
                     for (int i = 0; i < enemySpawner.EnemyList.Count; i++) //Colision Enemigo / Player
                     {
-                        var collision = new Collider(enemySpawner.EnemyList[i].GetEnemyTransform.Position, new Vector2(64, 64), player.GetPlayerTransform.Position, new Vector2(60, 66));
+                        var collision = new Collider(enemySpawner.EnemyList[i].GetEnemyTransform.Position, new Vector2(enemySpawner.EnemyList[i].GetEnemyData.SizeX, enemySpawner.EnemyList[i].GetEnemyData.SizeY), player.GetPlayerTransform.Position, new Vector2(60, 66));
                         if (collision.IsBoxColliding() == true)
                         {
                             collisionTimer = 0;
@@ -319,7 +322,7 @@ namespace MyGame
                 {
                     for (int j = 0; j < projectileList.Count; j++)
                     {
-                        var collision = new Collider(enemySpawner.EnemyList[i].GetEnemyTransform.Position, new Vector2(64, 64), new Vector2(projectileList[j].GetProjectileTransform.Position.X, projectileList[j].GetProjectileTransform.Position.Y), new Vector2(10, 20));
+                        var collision = new Collider(enemySpawner.EnemyList[i].GetEnemyTransform.Position, new Vector2(enemySpawner.EnemyList[i].GetEnemyData.SizeX, enemySpawner.EnemyList[i].GetEnemyData.SizeY), new Vector2(projectileList[j].GetProjectileTransform.Position.X, projectileList[j].GetProjectileTransform.Position.Y), new Vector2(10, 20));
                         if (projectileList[j].Direction > 0)
                         {
                             if (collision.IsBoxColliding() == true)
