@@ -16,9 +16,6 @@ namespace MyGame
         private int power;
         private int faction;
         private int type;
-        private float shootTimer;
-        private float shootCooldown = 1f;
-        private bool shoot = false;
         private bool inBounds = true;
         private bool destroyed = false;
         private bool isBoss;
@@ -30,7 +27,7 @@ namespace MyGame
             isBoss = boss;
             power = 3;
             enemyTransform = new Transform(position);
-            enemyController = new EnemyController(enemyTransform, isBoss);
+            enemyController = new EnemyController(enemyTransform, isBoss, type);
             animationController = new AnimationController(enemyTransform, $"assets/animations/enemies/{faction}/{type}/", 5, 0.15f);
             enemyData = new EnemyData(type);
         }
@@ -59,11 +56,7 @@ namespace MyGame
         {
             get
             {
-                return shoot;
-            }
-            set
-            {
-                shoot = value;
+                return enemyController.GetShoot;
             }
         }
 
@@ -81,9 +74,9 @@ namespace MyGame
 
         public void Update()
         {
-            MovementUpdate();
+            enemyController.Update();
+            BoundsUpdate();
             AnimationUpdate();
-            Shoot();
         }
 
         public void Render()
@@ -91,20 +84,8 @@ namespace MyGame
             AnimationRender();
         }
 
-        private void MovementUpdate()
+        private void BoundsUpdate()
         {
-            // MOVIMIENTO PARA JEFE
-            /*timer += Program.deltaTime;
-            if (timer > cooldown)
-            {
-                if (posX > 956 || posX < 1)
-                {
-                    timer = 0;
-                    speed *= -1;
-                }
-            }
-            posX += speed * Program.deltaTime;*/
-            enemyController.Update();
             if (enemyTransform.Position.Y > 768)
             {
                 inBounds = false;
@@ -119,16 +100,6 @@ namespace MyGame
         private void AnimationUpdate()
         {
             animationController.Update();
-        }
-
-        private void Shoot()
-        {
-            shootTimer += Program.deltaTime;
-            if (shootTimer > shootCooldown)
-            {
-                shootTimer = 0;
-                shoot = true;
-            }
         }
     }
 }

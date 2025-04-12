@@ -48,6 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnimationController.cs" />
+    <Compile Include="ProyectileManager.cs" />
+    <Compile Include="ProyectileSpawner.cs" />
     <Compile Include="Collider.cs" />
     <Compile Include="Effect.cs" />
     <Compile Include="Enemy.cs" />

@@ -11,6 +11,8 @@ namespace MyGame
         private Transform transform;
         private float speed = 500;
         private bool shoot = false;
+        private float shootTimer;
+        private float shootCooldown = 0.3f;
         private Vector2 up = new Vector2(0, -1);
         private Vector2 down = new Vector2(0 ,1);
         private Vector2 left = new Vector2(-1 ,0);
@@ -22,6 +24,18 @@ namespace MyGame
         }
 
         public bool GetShoot => shoot;
+
+        public float ShootCooldown
+        {
+            get
+            {
+                return shootCooldown;
+            }
+            set
+            {
+                shootCooldown = value;
+            }
+        }
 
         public void Input()
         {
@@ -51,9 +65,14 @@ namespace MyGame
 
         private void Shoot()
         {
-            if (Engine.GetKey(Engine.KEY_ESP))
+            shootTimer += Program.deltaTime;
+            if (shootTimer > shootCooldown)
             {
-                shoot = true;
+                if (Engine.GetKey(Engine.KEY_ESP))
+                {
+                    shoot = true;
+                    shootTimer = 0;
+                }
             }
             else
             {

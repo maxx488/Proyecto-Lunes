@@ -11,9 +11,6 @@ namespace MyGame
         private PlayerController playerController;
         private Transform playerTransform;
         private AnimationController animationController;
-        private float shootTimer;
-        private float shootCooldown = 0.3f;
-        private bool shoot = false;
         private int power = 1;
 
         public Player(Vector2 position)
@@ -41,11 +38,11 @@ namespace MyGame
                     animationController.Path = $"assets/animations/player/{power}/";
                     if (value == 2 || value == 3)
                     {
-                        shootCooldown = 0.1f;
+                        playerController.ShootCooldown = 0.1f;
                     }
                     else
                     {
-                        shootCooldown = 0.3f;
+                        playerController.ShootCooldown = 0.3f;
                     }
                     Engine.Debug($"\nPoder = {power}\n");
                 }
@@ -56,18 +53,13 @@ namespace MyGame
         {
             get
             {
-                return shoot;
-            }
-            set 
-            {
-                shoot = value;
+                return playerController.GetShoot;
             }
         }
 
         public void Input() 
         {
             playerController.Input();
-            Shoot();
         }
 
         public void Update()
@@ -78,19 +70,6 @@ namespace MyGame
         public void Render()
         {
             animationController.Render();
-        }
-
-        private void Shoot()
-        {
-            shootTimer += Program.deltaTime;
-            if (shootTimer > shootCooldown)
-            {
-                if (playerController.GetShoot == true)
-                {
-                    shoot = true;
-                    shootTimer = 0;
-                }
-            }
         }
     }
 }
