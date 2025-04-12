@@ -20,10 +20,9 @@ namespace MyGame
         private LevelHud levelHud;
         private PowerUpStack powerUpStack = new PowerUpStack();
         private PowerUp powerUp;
+        private LevelCollider levelCollider;
         private float powerUpSpawnTimer;
         private float powerUpSpawnCooldown;
-        private float collisionTimer;
-        private float collisionCooldown = 2;
         private float respawnTimer;
         private float respawnCooldown = 1.5f;
         private int tries;
@@ -41,6 +40,7 @@ namespace MyGame
             powerUpSpawnCooldown = (float) random.Next(15, 20); // Segundos que pasaran hasta spawnear un powerup
             powerUpStack.InitializeStack(); // Inicializar pila PowerUps
             levelHud = new LevelHud(powerUpStack); // Crear HUD
+            levelCollider = new LevelCollider(player, enemySpawner.EnemyList, proyectileSpawner.ProjectileList, powerUp, powerUpStack, levelHud, effectList);
         }
 
         public int GetTries => tries;
@@ -63,6 +63,8 @@ namespace MyGame
             PowerUpSpawn();
             PowerUpUpdate();
             Collisions();
+            PowerUpPicked();
+            DestroyedPlayer();
             EffectUpdate();
             HudUpdate();
         }
@@ -116,9 +118,9 @@ namespace MyGame
                 if (respawnTimer > respawnCooldown)
                 {
                     respawnTimer = 0;
-                    collisionTimer = 0;
                     player = new Player(new Vector2(400, 650));
                     proyectileSpawner.SetPlayerToCheck = player;
+                    levelCollider.SetPlayerToCheck = player;
                 }
             }
         }
@@ -153,6 +155,7 @@ namespace MyGame
             if (powerUpSpawnTimer > powerUpSpawnCooldown)
             {
                 powerUp = new PowerUp(new Vector2(random.Next(1004), -10), random.Next(2, 4));
+                levelCollider.PowerUpToCheck = powerUp;
                 powerUpSpawnTimer = 0;
                 powerUpSpawnCooldown = (float) random.Next(15, 20);
             }
@@ -210,112 +213,28 @@ namespace MyGame
             }
         }
 
-        private void DamagePlayer()
+        private void DestroyedPlayer()
         {
-            if (player.GetPower != 1)
-            {
-                if (powerUpStack.EmptyStack() == false)
-                {
-                    powerUpStack.Remove();
-                    if (powerUpStack.EmptyStack() == false)
-                    {
-                        player.SetPower = powerUpStack.Top();
-                    }
-                    else
-                    {
-                        player.SetPower = 1;
-                    }
-                }
-                levelHud.DisplayStackUpdate();
-                EffectSpawn(new Vector2(player.GetPlayerTransform.Position.X, player.GetPlayerTransform.Position.Y), "assets/animations/powerdown/", 8, 0.077f);
-            }
-            else
+            if (levelCollider.PlayerDestroyed == true)
             {
                 Engine.Debug("El Jugador ha muerto.\n");
-                EffectSpawn(new Vector2(player.GetPlayerTransform.Position.X, player.GetPlayerTransform.Position.Y + 32), "assets/animations/explosion/", 13, 0.077f);
                 player = null;
                 tries--;
                 Engine.Debug($"Intentos restantes: {tries}\n");
             }
         }
 
+        private void PowerUpPicked()
+        {
+            if (levelCollider.PowerUpToCheck == null)
+            {
+                powerUp = null;
+            }
+        }
+
         private void Collisions()
         {
-            collisionTimer += Program.deltaTime;
-            if (collisionTimer > collisionCooldown)
-            {
-                if (enemySpawner.EnemyList.Count > 0 && player != null)
-                {
-                    for (int i = 0; i < enemySpawner.EnemyList.Count; i++) //Colision Enemigo / Player
-                    {
-                        var collision = new Collider(enemySpawner.EnemyList[i].GetEnemyTransform.Position, new Vector2(enemySpawner.EnemyList[i].GetEnemyData.SizeX, enemySpawner.EnemyList[i].GetEnemyData.SizeY), player.GetPlayerTransform.Position, new Vector2(60, 66));
-                        if (collision.IsBoxColliding() == true)
-                        {
-                            collisionTimer = 0;
-                            DamagePlayer();
-                            break;
-                        }
-                    }
-                    if (proyectileSpawner.ProjectileList.Count > 0 && player != null)
-                    {
-                        for (int i = 0; i < proyectileSpawner.ProjectileList.Count; i++) //Colision Proyectil Enemigo / Player
-                        {
-                            var collision = new Collider(new Vector2(proyectileSpawner.ProjectileList[i].GetProjectileTransform.Position.X, proyectileSpawner.ProjectileList[i].GetProjectileTransform.Position.Y), new Vector2(10, 20), player.GetPlayerTransform.Position, new Vector2(60, 66));
-                            if (proyectileSpawner.ProjectileList[i].Direction == -1)
-                            {
-                                if (collision.IsBoxColliding() == true)
-                                {
-                                    collisionTimer = 0;
-                                    DamagePlayer();
-                                    proyectileSpawner.ProjectileList.RemoveAt(i);
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            if (proyectileSpawner.ProjectileList.Count > 0)
-            {
-                for (int i = 0; i < enemySpawner.EnemyList.Count; i++) //Colision Enemigo / Proyectil Player
-                {
-                    for (int j = 0; j < proyectileSpawner.ProjectileList.Count; j++)
-                    {
-                        var collision = new Collider(enemySpawner.EnemyList[i].GetEnemyTransform.Position, new Vector2(enemySpawner.EnemyList[i].GetEnemyData.SizeX, enemySpawner.EnemyList[i].GetEnemyData.SizeY), new Vector2(proyectileSpawner.ProjectileList[j].GetProjectileTransform.Position.X, proyectileSpawner.ProjectileList[j].GetProjectileTransform.Position.Y), new Vector2(10, 20));
-                        if (proyectileSpawner.ProjectileList[j].Direction > 0)
-                        {
-                            if (collision.IsBoxColliding() == true)
-                            {
-                                if (enemySpawner.EnemyList[i].Power  > 1)
-                                {
-                                    enemySpawner.EnemyList[i].Power--;
-                                    EffectSpawn(new Vector2(proyectileSpawner.ProjectileList[j].GetProjectileTransform.Position.X - 20, proyectileSpawner.ProjectileList[j].GetProjectileTransform.Position.Y), "assets/animations/bullethits/", 6, 0.02f);
-                                }
-                                else
-                                {
-                                    enemySpawner.EnemyList[i].Destroyed = true;
-                                    EffectSpawn(new Vector2(enemySpawner.EnemyList[i].GetEnemyTransform.Position.X, enemySpawner.EnemyList[i].GetEnemyTransform.Position.Y + 32), "assets/animations/explosion/", 13, 0.077f);
-                                }
-                                proyectileSpawner.ProjectileList.RemoveAt(j);
-                            }
-                        }
-                    }
-                }
-            }
-            if (powerUp != null && player != null)
-            {
-                var collision = new Collider(powerUp.GetPowerUpTransform.Position, new Vector2(20, 10), player.GetPlayerTransform.Position, new Vector2(60, 66));
-                if (collision.IsBoxColliding() == true)
-                {
-                    if (powerUpStack.FullStack() == false)
-                    {
-                        powerUpStack.Stack(powerUp.Type);
-                        powerUp = null;
-                        player.SetPower = powerUpStack.Top();
-                        levelHud.DisplayStackUpdate();
-                    }
-                }
-            }
+            levelCollider.Update();
         }
 
         private void HudUpdate()

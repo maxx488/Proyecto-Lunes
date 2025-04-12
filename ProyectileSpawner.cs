@@ -12,10 +12,10 @@ namespace MyGame
         private List<Enemy> enemiesToCheck;
         private List<Projectile> projectileList = new List<Projectile>();
 
-        public ProyectileSpawner(Player player, List<Enemy> enemies)
+        public ProyectileSpawner(Player playerToCheck, List<Enemy> enemiesToCheck)
         {
-            this.playerToCheck = player;
-            this.enemiesToCheck = enemies;
+            this.playerToCheck = playerToCheck;
+            this.enemiesToCheck = enemiesToCheck;
         }
 
         public List<Projectile> ProjectileList => projectileList;
