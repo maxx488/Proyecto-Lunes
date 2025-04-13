@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnimationController.cs" />
+    <Compile Include="EnemyPowerController.cs" />
     <Compile Include="LevelCollider.cs" />
     <Compile Include="ProyectileManager.cs" />
     <Compile Include="ProyectileSpawner.cs" />

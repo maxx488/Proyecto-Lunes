@@ -8,11 +8,11 @@ namespace MyGame
 {
     public class ProyectileSpawner
     {
-        private Player playerToCheck;
+        private List<Player> playerToCheck;
         private List<Enemy> enemiesToCheck;
         private List<Projectile> projectileList = new List<Projectile>();
 
-        public ProyectileSpawner(Player playerToCheck, List<Enemy> enemiesToCheck)
+        public ProyectileSpawner(List<Player> playerToCheck, List<Enemy> enemiesToCheck)
         {
             this.playerToCheck = playerToCheck;
             this.enemiesToCheck = enemiesToCheck;
@@ -20,25 +20,17 @@ namespace MyGame
 
         public List<Projectile> ProjectileList => projectileList;
 
-        public Player SetPlayerToCheck
-        {
-            set
-            {
-                playerToCheck = value;
-            }
-        }
-
         public void Update()
         {
-            if (playerToCheck != null)
+            if (playerToCheck.Count > 0)
             {
-                if (playerToCheck.ShootState == true)
+                if (playerToCheck[0].ShootState == true)
                 {
-                    projectileList.Add(new Projectile(new Vector2(playerToCheck.GetPlayerTransform.Position.X + 25, playerToCheck.GetPlayerTransform.Position.Y - 20), 1, 500, playerToCheck.GetPower));
-                    if (playerToCheck.GetPower == 3)
+                    projectileList.Add(new Projectile(new Vector2(playerToCheck[0].GetPlayerTransform.Position.X + 25, playerToCheck[0].GetPlayerTransform.Position.Y - 20), 1, 500, playerToCheck[0].GetPower));
+                    if (playerToCheck[0].GetPower == 3)
                     {
-                        projectileList.Add(new Projectile(new Vector2(playerToCheck.GetPlayerTransform.Position.X + 10, playerToCheck.GetPlayerTransform.Position.Y - 20), 2, 500, playerToCheck.GetPower));
-                        projectileList.Add(new Projectile(new Vector2(playerToCheck.GetPlayerTransform.Position.X + 40, playerToCheck.GetPlayerTransform.Position.Y - 20), 3, 500, playerToCheck.GetPower));
+                        projectileList.Add(new Projectile(new Vector2(playerToCheck[0].GetPlayerTransform.Position.X + 10, playerToCheck[0].GetPlayerTransform.Position.Y - 20), 2, 500, playerToCheck[0].GetPower));
+                        projectileList.Add(new Projectile(new Vector2(playerToCheck[0].GetPlayerTransform.Position.X + 40, playerToCheck[0].GetPlayerTransform.Position.Y - 20), 3, 500, playerToCheck[0].GetPower));
                     }
                 }
             }

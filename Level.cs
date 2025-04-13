@@ -9,7 +9,7 @@ namespace MyGame
     public class Level
     {
         private Image background = Engine.LoadImage("assets/background.png");
-        private Player player;
+        private List<Player> playerList = new List<Player>();
         private EnemySpawner enemySpawner;
         private EnemyManager enemyManager;
         private ProyectileSpawner proyectileSpawner;
@@ -19,7 +19,7 @@ namespace MyGame
         private List<Effect> effectList = new List<Effect>();
         private LevelHud levelHud;
         private PowerUpStack powerUpStack = new PowerUpStack();
-        private PowerUp powerUp;
+        private List<PowerUp> powerUpList = new List<PowerUp>();
         private LevelCollider levelCollider;
         private float powerUpSpawnTimer;
         private float powerUpSpawnCooldown;
@@ -31,21 +31,19 @@ namespace MyGame
         public Level()
         {
             tries = 3; //Respawns del jugador (dependeria de la dificultad)
-            player = new Player(new Vector2(400, 650));
+            playerList.Add(new Player(new Vector2(400, 650))); // Se agrega jugador a lista (se podrian agregar mas a futuro con powerup)
             enemyCount = random.Next(20,31); // Enemigos a derrotar para completar el nivel (sin utilizar todavia)
             enemySpawner = new EnemySpawner(1); // faccion correspondiente (por ahora 1)
             enemyManager = new EnemyManager(enemySpawner.EnemyList);
-            proyectileSpawner = new ProyectileSpawner(player, enemySpawner.EnemyList); // spawner de proyectiles
+            proyectileSpawner = new ProyectileSpawner(playerList, enemySpawner.EnemyList); // spawner de proyectiles
             proyectileManager = new ProyectileManager(proyectileSpawner.ProjectileList);
             powerUpSpawnCooldown = (float) random.Next(15, 20); // Segundos que pasaran hasta spawnear un powerup
             powerUpStack.InitializeStack(); // Inicializar pila PowerUps
             levelHud = new LevelHud(powerUpStack); // Crear HUD
-            levelCollider = new LevelCollider(player, enemySpawner.EnemyList, proyectileSpawner.ProjectileList, powerUp, powerUpStack, levelHud, effectList);
+            levelCollider = new LevelCollider(playerList, enemySpawner.EnemyList, proyectileSpawner.ProjectileList, powerUpList, powerUpStack, levelHud, effectList);
         }
 
         public int GetTries => tries;
-
-        public int GetPlayerPower => player.GetPower;
 
         public void Input()
         {
@@ -63,8 +61,6 @@ namespace MyGame
             PowerUpSpawn();
             PowerUpUpdate();
             Collisions();
-            PowerUpPicked();
-            DestroyedPlayer();
             EffectUpdate();
             HudUpdate();
         }
@@ -112,40 +108,44 @@ namespace MyGame
 
         private void PlayerSpawn()//Cambiar a propia clase
         {
-            if (player == null && tries > 0)
+            if (playerList.Count < 1 && tries > 0)
             {
                 respawnTimer += Program.deltaTime;
                 if (respawnTimer > respawnCooldown)
                 {
+                    Engine.Debug("El Jugador ha muerto.\n");
+                    tries--;
+                    Engine.Debug($"Intentos restantes: {tries}\n");
                     respawnTimer = 0;
-                    player = new Player(new Vector2(400, 650));
-                    proyectileSpawner.SetPlayerToCheck = player;
-                    levelCollider.SetPlayerToCheck = player;
+                    if (tries > 0)
+                    {
+                        playerList.Add(new Player(new Vector2(400, 650)));
+                    }
                 }
             }
         }
 
         private void PlayerInput()//Cambiar a propia clase
         {
-            if (player != null && tries > 0)
+            if (playerList.Count > 0 && tries > 0)
             {
-                player.Input();
+                playerList[0].Input();
             }
         }
 
         private void PlayerUpdate()//Cambiar a propia clase
         {
-            if (player != null && tries > 0)
+            if (playerList.Count > 0 && tries > 0)
             {
-                player.Update();
+                playerList[0].Update();
             }
         }
 
         private void PlayerRender()//Cambiar a propia clase
         {
-            if (player != null && tries > 0)
+            if (playerList.Count > 0 && tries > 0)
             {
-                player.Render();
+                playerList[0].Render();
             }
         }
 
@@ -154,8 +154,7 @@ namespace MyGame
             powerUpSpawnTimer += Program.deltaTime;
             if (powerUpSpawnTimer > powerUpSpawnCooldown)
             {
-                powerUp = new PowerUp(new Vector2(random.Next(1004), -10), random.Next(2, 4));
-                levelCollider.PowerUpToCheck = powerUp;
+                powerUpList.Add(new PowerUp(new Vector2(random.Next(1004), -10), random.Next(2, 4)));
                 powerUpSpawnTimer = 0;
                 powerUpSpawnCooldown = (float) random.Next(15, 20);
             }
@@ -164,27 +163,28 @@ namespace MyGame
 
         private void PowerUpUpdate()
         {
-            if (powerUp != null)
+            if (powerUpList.Count > 0)
             {
-                powerUp.Update();
-                if (powerUp.InBounds == false)
+                for (int i = 0; i < powerUpList.Count; i++)
                 {
-                    powerUp = null;
+                    powerUpList[i].Update();
+                    if (powerUpList[i].InBounds == false)
+                    {
+                        powerUpList.RemoveAt(i);
+                    }
                 }
             }
         }
 
         private void PowerUpRender()
         {
-            if (powerUp != null)
+            if (powerUpList.Count > 0)
             {
-                powerUp.Render();
+                for (int i = 0; i < powerUpList.Count; i++)
+                {
+                    powerUpList[i].Render();
+                }
             }
-        }
-
-        private void EffectSpawn(Vector2 location, string path, int maxIndex, float animCooldown)//Cambiar a propia clase
-        {
-            effectList.Add(new Effect(location, path, maxIndex, animCooldown));
         }
 
         private void EffectUpdate()
@@ -210,25 +210,6 @@ namespace MyGame
                 {
                     effectList[i].Render();
                 }
-            }
-        }
-
-        private void DestroyedPlayer()
-        {
-            if (levelCollider.PlayerDestroyed == true)
-            {
-                Engine.Debug("El Jugador ha muerto.\n");
-                player = null;
-                tries--;
-                Engine.Debug($"Intentos restantes: {tries}\n");
-            }
-        }
-
-        private void PowerUpPicked()
-        {
-            if (levelCollider.PowerUpToCheck == null)
-            {
-                powerUp = null;
             }
         }
 

@@ -32,7 +32,7 @@ namespace MyGame
                 }
                 for (int i = 0; i < enemiesToManage.Count; i++)
                 {
-                    if (enemiesToManage[i].Destroyed == true)
+                    if (enemiesToManage[i].PowerController.Destroyed == true)
                     {
                         enemiesToManage.RemoveAt(i);
                     }

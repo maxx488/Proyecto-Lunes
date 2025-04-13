@@ -10,16 +10,15 @@ namespace MyGame
     {
         private float collisionTimer;
         private float collisionCooldown = 2;
-        private Player playerToCheck;
+        private List<Player> playerToCheck;
         private List<Enemy> enemiesToCheck;
         private List<Projectile> projectilesToCheck = new List<Projectile>();
         private List<Effect> effectListRef;
-        private PowerUp powerUpToCheck;
+        private List<PowerUp> powerUpToCheck;
         private PowerUpStack powerUpStackRef;
         private LevelHud levelHudRef;
-        private bool playerDestroyed = false;
 
-        public LevelCollider(Player player, List<Enemy> enemies, List<Projectile> projectiles, PowerUp powerUp, PowerUpStack powerUpStack, LevelHud hud , List<Effect> effects)
+        public LevelCollider(List<Player> player, List<Enemy> enemies, List<Projectile> projectiles, List<PowerUp> powerUp, PowerUpStack powerUpStack, LevelHud hud , List<Effect> effects)
         {
             this.playerToCheck = player;
             this.enemiesToCheck = enemies;
@@ -30,48 +29,20 @@ namespace MyGame
             this.effectListRef = effects;
         }
 
-        public Player SetPlayerToCheck
-        {
-            set
-            {
-                playerToCheck = value;
-            }
-        }
-
-        public PowerUp PowerUpToCheck
-        {
-            get
-            {
-                return powerUpToCheck;
-            }
-            set
-            {
-                powerUpToCheck = value;
-            }
-        }
-
-        public bool PlayerDestroyed => playerDestroyed;
-
-
-
         public void Update()
         {
-            if (playerDestroyed == true)
-            {
-                playerDestroyed = false;
-            }
-            if (playerToCheck == null)
+            if (playerToCheck.Count < 1)
             {
                 collisionTimer = 0;
             }
             collisionTimer += Program.deltaTime;
             if (collisionTimer > collisionCooldown)
             {
-                if (enemiesToCheck.Count > 0 && playerToCheck != null)
+                if (enemiesToCheck.Count > 0 && playerToCheck.Count > 0)
                 {
                     for (int i = 0; i < enemiesToCheck.Count; i++) //Colision Enemigo / Player
                     {
-                        var collision = new Collider(enemiesToCheck[i].GetEnemyTransform.Position, new Vector2(enemiesToCheck[i].GetEnemyData.SizeX, enemiesToCheck[i].GetEnemyData.SizeY), playerToCheck.GetPlayerTransform.Position, new Vector2(60, 66));
+                        var collision = new Collider(enemiesToCheck[i].GetEnemyTransform.Position, new Vector2(enemiesToCheck[i].GetEnemyData.SizeX, enemiesToCheck[i].GetEnemyData.SizeY), playerToCheck[0].GetPlayerTransform.Position, new Vector2(60, 66));
                         if (collision.IsBoxColliding() == true)
                         {
                             collisionTimer = 0;
@@ -79,11 +50,11 @@ namespace MyGame
                             break;
                         }
                     }
-                    if (projectilesToCheck.Count > 0 && playerToCheck != null)
+                    if (projectilesToCheck.Count > 0 && playerToCheck.Count > 0)
                     {
                         for (int i = 0; i < projectilesToCheck.Count; i++) //Colision Proyectil Enemigo / Player
                         {
-                            var collision = new Collider(new Vector2(projectilesToCheck[i].GetProjectileTransform.Position.X, projectilesToCheck[i].GetProjectileTransform.Position.Y), new Vector2(10, 20), playerToCheck.GetPlayerTransform.Position, new Vector2(60, 66));
+                            var collision = new Collider(new Vector2(projectilesToCheck[i].GetProjectileTransform.Position.X, projectilesToCheck[i].GetProjectileTransform.Position.Y), new Vector2(10, 20), playerToCheck[0].GetPlayerTransform.Position, new Vector2(60, 66));
                             if (projectilesToCheck[i].Direction == -1)
                             {
                                 if (collision.IsBoxColliding() == true)
@@ -109,14 +80,13 @@ namespace MyGame
                         {
                             if (collision.IsBoxColliding() == true)
                             {
-                                if (enemiesToCheck[i].Power > 1)
+                                enemiesToCheck[i].PowerController.DamageEnemy();
+                                if (enemiesToCheck[i].PowerController.Power > 0)
                                 {
-                                    enemiesToCheck[i].Power--;
                                     effectListRef.Add(new Effect(new Vector2(projectilesToCheck[j].GetProjectileTransform.Position.X - 20, projectilesToCheck[j].GetProjectileTransform.Position.Y), "assets/animations/bullethits/", 6, 0.02f));
                                 }
                                 else
                                 {
-                                    enemiesToCheck[i].Destroyed = true;
                                     effectListRef.Add(new Effect(new Vector2(enemiesToCheck[i].GetEnemyTransform.Position.X, enemiesToCheck[i].GetEnemyTransform.Position.Y + 32), "assets/animations/explosion/", 13, 0.077f));
                                 }
                                 projectilesToCheck.RemoveAt(j);
@@ -125,16 +95,16 @@ namespace MyGame
                     }
                 }
             }
-            if (powerUpToCheck != null && playerToCheck != null)
+            if (powerUpToCheck.Count > 0 && playerToCheck.Count > 0)
             {
-                var collision = new Collider(powerUpToCheck.GetPowerUpTransform.Position, new Vector2(20, 10), playerToCheck.GetPlayerTransform.Position, new Vector2(60, 66));
+                var collision = new Collider(powerUpToCheck[0].GetPowerUpTransform.Position, new Vector2(20, 10), playerToCheck[0].GetPlayerTransform.Position, new Vector2(60, 66));
                 if (collision.IsBoxColliding() == true)
                 {
                     if (powerUpStackRef.FullStack() == false)
                     {
-                        powerUpStackRef.Stack(powerUpToCheck.Type);
-                        powerUpToCheck = null;
-                        playerToCheck.SetPower = powerUpStackRef.Top();
+                        powerUpStackRef.Stack(powerUpToCheck[0].Type);
+                        powerUpToCheck.RemoveAt(0);
+                        playerToCheck[0].SetPower = powerUpStackRef.Top();
                         levelHudRef.DisplayStackUpdate();
                     }
                 }
@@ -143,28 +113,27 @@ namespace MyGame
 
         private void DamagePlayer()
         {
-            if (playerToCheck.GetPower != 1)
+            if (playerToCheck[0].GetPower != 1)
             {
                 if (powerUpStackRef.EmptyStack() == false)
                 {
                     powerUpStackRef.Remove();
                     if (powerUpStackRef.EmptyStack() == false)
                     {
-                        playerToCheck.SetPower = powerUpStackRef.Top();
+                        playerToCheck[0].SetPower = powerUpStackRef.Top();
                     }
                     else
                     {
-                        playerToCheck.SetPower = 1;
+                        playerToCheck[0].SetPower = 1;
                     }
                 }
                 levelHudRef.DisplayStackUpdate();
-                effectListRef.Add(new Effect(new Vector2(playerToCheck.GetPlayerTransform.Position.X, playerToCheck.GetPlayerTransform.Position.Y), "assets/animations/powerdown/", 8, 0.077f));
+                effectListRef.Add(new Effect(new Vector2(playerToCheck[0].GetPlayerTransform.Position.X, playerToCheck[0].GetPlayerTransform.Position.Y), "assets/animations/powerdown/", 8, 0.077f));
             }
             else
             {
-                playerDestroyed = true;
-                effectListRef.Add(new Effect(new Vector2(playerToCheck.GetPlayerTransform.Position.X, playerToCheck.GetPlayerTransform.Position.Y + 32), "assets/animations/explosion/", 13, 0.077f));
-                playerToCheck = null;
+                effectListRef.Add(new Effect(new Vector2(playerToCheck[0].GetPlayerTransform.Position.X, playerToCheck[0].GetPlayerTransform.Position.Y + 32), "assets/animations/explosion/", 13, 0.077f));
+                playerToCheck.RemoveAt(0);
             }
         }
     }
