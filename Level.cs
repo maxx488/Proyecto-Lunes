@@ -12,6 +12,7 @@ namespace MyGame
         private List<Player> playerList = new List<Player>();
         private EnemySpawner enemySpawner;
         private EnemyManager enemyManager;
+        private EnemyQueue enemyQueue = new EnemyQueue();
         private ProyectileSpawner proyectileSpawner;
         private ProyectileManager proyectileManager;
         private Random random = new Random();
@@ -28,18 +29,19 @@ namespace MyGame
         private int tries;
 
 
-        public Level()
+        public Level() //Deberia recibir faccion enemiga
         {
-            tries = 3; //Respawns del jugador (dependeria de la dificultad)
+            tries = 3; //Intentos del jugador (dependeria de la dificultad)
             playerList.Add(new Player(new Vector2(400, 650))); // Se agrega jugador a lista (se podrian agregar mas a futuro con powerup)
             enemyCount = random.Next(20,31); // Enemigos a derrotar para completar el nivel (sin utilizar todavia)
-            enemySpawner = new EnemySpawner(1); // faccion correspondiente (por ahora 1)
+            powerUpStack.InitializeStack(); // Inicializar pila PowerUps
+            enemyQueue.InitializeQueue(); // Inicializar cola enemigos
+            levelHud = new LevelHud(powerUpStack, enemyQueue, 1); // Crear HUD (tomar faccion enemiga, 1 por ahora)
+            enemySpawner = new EnemySpawner(1, enemyQueue, levelHud); // faccion correspondiente (por ahora 1)
             enemyManager = new EnemyManager(enemySpawner.EnemyList);
             proyectileSpawner = new ProyectileSpawner(playerList, enemySpawner.EnemyList); // spawner de proyectiles
             proyectileManager = new ProyectileManager(proyectileSpawner.ProjectileList);
             powerUpSpawnCooldown = (float) random.Next(15, 20); // Segundos que pasaran hasta spawnear un powerup
-            powerUpStack.InitializeStack(); // Inicializar pila PowerUps
-            levelHud = new LevelHud(powerUpStack); // Crear HUD
             levelCollider = new LevelCollider(playerList, enemySpawner.EnemyList, proyectileSpawner.ProjectileList, powerUpList, powerUpStack, levelHud, effectList);
         }
 
@@ -168,6 +170,9 @@ namespace MyGame
                 for (int i = 0; i < powerUpList.Count; i++)
                 {
                     powerUpList[i].Update();
+                }
+                for (int i = 0; i < powerUpList.Count; i++)
+                {
                     if (powerUpList[i].InBounds == false)
                     {
                         powerUpList.RemoveAt(i);

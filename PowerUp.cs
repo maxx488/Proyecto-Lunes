@@ -32,6 +32,10 @@ namespace MyGame
         {
             transform.Translate(down, speed);
             animationController.Update();
+            if (transform.Position.Y > 768)
+            {
+                inBounds = false;
+            }
         }
 
         public void Render()

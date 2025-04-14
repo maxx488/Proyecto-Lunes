@@ -49,6 +49,8 @@
   <ItemGroup>
     <Compile Include="AnimationController.cs" />
     <Compile Include="EnemyPowerController.cs" />
+    <Compile Include="EnemyQueue.cs" />
+    <Compile Include="IQueue.cs" />
     <Compile Include="LevelCollider.cs" />
     <Compile Include="ProyectileManager.cs" />
     <Compile Include="ProyectileSpawner.cs" />
@@ -373,7 +375,19 @@
     <Content Include="assets\background.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\powerstack.png">
+    <Content Include="assets\hud\enemyqueue.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\hud\enemyqueue\1\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\hud\enemyqueue\1\2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\hud\enemyqueue\1\3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\hud\powerstack.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
