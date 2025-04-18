@@ -39,7 +39,7 @@ namespace MyGame
         private void MovementUpdate()
         {
             // MOVIMIENTO PARA JEFE
-            /*timer += Program.deltaTime;
+            /*timer += Time.DeltaTime;
             if (timer > cooldown)
             {
                 if (posX > 956 || posX < 1)
@@ -48,7 +48,7 @@ namespace MyGame
                     speed *= -1;
                 }
             }
-            posX += speed * Program.deltaTime;*/
+            posX += speed * Time.DeltaTime;*/
             if (isBoss != true)
             {
                 transform.Translate(down, speed);
@@ -57,7 +57,7 @@ namespace MyGame
 
         private void Shoot()
         {
-            shootTimer += Program.deltaTime;
+            shootTimer += Time.DeltaTime;
             if (shootTimer > shootCooldown)
             {
                 if (type == 2)

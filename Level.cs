@@ -8,7 +8,7 @@ namespace MyGame
 {
     public class Level
     {
-        private Image background = Engine.LoadImage("assets/background.png");
+        private Image background;
         private List<Player> playerList = new List<Player>();
         private EnemySpawner enemySpawner;
         private EnemyManager enemyManager;
@@ -27,17 +27,18 @@ namespace MyGame
         private float respawnTimer;
         private float respawnCooldown = 1.5f;
         private int tries;
+        private int enemiesDestroyed = 0;
 
-
-        public Level() //Deberia recibir faccion enemiga
+        public Level(int faction)
         {
-            tries = 3; //Intentos del jugador (dependeria de la dificultad)
+            tries = 3; //Intentos del jugador (dependeria de la dificultad?)
+            background = Engine.LoadImage($"assets/level/{faction}.png"); // cambiar forma de obtener fondo y/o datos de nivel en el futuro
             playerList.Add(new Player(new Vector2(400, 650))); // Se agrega jugador a lista (se podrian agregar mas a futuro con powerup)
-            enemyCount = random.Next(20,31); // Enemigos a derrotar para completar el nivel (sin utilizar todavia)
+            enemyCount = random.Next(20,51); // Enemigos a derrotar para completar el nivel (mas adelante atarlo a dificultad en vez de random)
             powerUpStack.InitializeStack(); // Inicializar pila PowerUps
             enemyQueue.InitializeQueue(); // Inicializar cola enemigos
-            levelHud = new LevelHud(powerUpStack, enemyQueue, 1); // Crear HUD (tomar faccion enemiga, 1 por ahora)
-            enemySpawner = new EnemySpawner(1, enemyQueue, levelHud); // faccion correspondiente (por ahora 1)
+            levelHud = new LevelHud(powerUpStack, enemyQueue, faction, tries); // Crear HUD (tomar faccion enemiga)
+            enemySpawner = new EnemySpawner(faction, enemyQueue, levelHud); // faccion correspondiente (por ahora 1)
             enemyManager = new EnemyManager(enemySpawner.EnemyList);
             proyectileSpawner = new ProyectileSpawner(playerList, enemySpawner.EnemyList); // spawner de proyectiles
             proyectileManager = new ProyectileManager(proyectileSpawner.ProjectileList);
@@ -46,6 +47,14 @@ namespace MyGame
         }
 
         public int GetTries => tries;
+
+        public bool EnemiesDestroyed
+        {
+            get
+            {
+                return enemiesDestroyed == enemyCount;
+            }
+        }
 
         public void Input()
         {
@@ -101,6 +110,7 @@ namespace MyGame
         private void EnemyUpdate()
         {
             enemyManager.Update();
+            enemiesDestroyed = enemyManager.EnemiesDestroyed;
         }
 
         private void EnemyRender()
@@ -112,7 +122,7 @@ namespace MyGame
         {
             if (playerList.Count < 1 && tries > 0)
             {
-                respawnTimer += Program.deltaTime;
+                respawnTimer += Time.DeltaTime;
                 if (respawnTimer > respawnCooldown)
                 {
                     Engine.Debug("El Jugador ha muerto.\n");
@@ -121,13 +131,14 @@ namespace MyGame
                     respawnTimer = 0;
                     if (tries > 0)
                     {
+                        levelHud.Tries--;
                         playerList.Add(new Player(new Vector2(400, 650)));
                     }
                 }
             }
         }
 
-        private void PlayerInput()//Cambiar a propia clase
+        private void PlayerInput()
         {
             if (playerList.Count > 0 && tries > 0)
             {
@@ -135,7 +146,7 @@ namespace MyGame
             }
         }
 
-        private void PlayerUpdate()//Cambiar a propia clase
+        private void PlayerUpdate()
         {
             if (playerList.Count > 0 && tries > 0)
             {
@@ -143,7 +154,7 @@ namespace MyGame
             }
         }
 
-        private void PlayerRender()//Cambiar a propia clase
+        private void PlayerRender()
         {
             if (playerList.Count > 0 && tries > 0)
             {
@@ -153,7 +164,7 @@ namespace MyGame
 
         private void PowerUpSpawn()//Cambiar a propia clase
         {
-            powerUpSpawnTimer += Program.deltaTime;
+            powerUpSpawnTimer += Time.DeltaTime;
             if (powerUpSpawnTimer > powerUpSpawnCooldown)
             {
                 powerUpList.Add(new PowerUp(new Vector2(random.Next(1004), -10), random.Next(2, 4)));

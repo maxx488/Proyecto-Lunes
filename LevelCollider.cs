@@ -35,7 +35,7 @@ namespace MyGame
             {
                 collisionTimer = 0;
             }
-            collisionTimer += Program.deltaTime;
+            collisionTimer += Time.DeltaTime;
             if (collisionTimer > collisionCooldown)
             {
                 if (enemiesToCheck.Count > 0 && playerToCheck.Count > 0)

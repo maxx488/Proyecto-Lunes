@@ -9,11 +9,16 @@ namespace MyGame
 {
     public class GameManager
     {
+        private static GameState state;
         private Level level;
+        private int timesWon;
+        private Image menu = Engine.LoadImage("assets/gamestate/menu.png");
+        private Image win = Engine.LoadImage("assets/gamestate/win.png");
+        private Image lose = Engine.LoadImage("assets/gamestate/lose.png");
 
         private GameManager() 
         {
-            level = new Level();
+            state = GameState.menu;
         }
 
         private static GameManager _instance;
@@ -29,23 +34,84 @@ namespace MyGame
 
         public void Input()
         {
-            level.Input();
+            switch (state)
+            {
+                case GameState.menu:
+                    if (Engine.GetKey(Engine.KEY_ESP))
+                    {
+                        timesWon = 0;
+                        level = new Level(timesWon + 1); // faccion enemiga
+                        state = GameState.game;
+                    }
+                    break;
+                case GameState.game:
+                    level.Input();
+                    break;
+                case GameState.win:
+                    if (Engine.GetKey(Engine.KEY_ENT))
+                    {
+                        timesWon++;
+                        if (timesWon > 1) //depende de cantidad de facciones por ahora, mas adelante cambiara la logica de elegir nivel
+                        {
+                            state = GameState.menu;
+                        }
+                        else
+                        {
+                            level = new Level(timesWon + 1); // faccion enemiga
+                            state = GameState.game;
+                        }
+                    }
+                    break;
+                case GameState.lose:
+                    if (Engine.GetKey(Engine.KEY_ENT))
+                    {
+                        state = GameState.menu;
+                    }
+                    break;
+            }
         }
 
         public void Update()
         {
-            level.Update();
-            if (level.GetTries == 0)
+            switch (state)
             {
-                Console.WriteLine("Pulsa Enter para salir.");
-                Console.ReadLine();
-                Environment.Exit(0);
+                case GameState.menu:
+                    break;
+                case GameState.game:
+                    level.Update();
+                    if (level.GetTries == 0)
+                    {
+                        state = GameState.lose;
+                    }
+                    if (level.EnemiesDestroyed == true)
+                    {
+                        state = GameState.win;
+                    }
+                    break;
+                case GameState.win:
+                    break;
+                case GameState.lose:
+                    break;
             }
         }
 
         public void Render()
         {
-            level.Render();
+            switch (state)
+            {
+                case GameState.menu:
+                    Engine.Draw(menu,0,0);
+                    break;
+                case GameState.game:
+                    level.Render();
+                    break;
+                case GameState.win:
+                    Engine.Draw(win, 0, 0);
+                    break;
+                case GameState.lose:
+                    Engine.Draw(lose, 0, 0);
+                    break;
+            }
         }
     }
 }

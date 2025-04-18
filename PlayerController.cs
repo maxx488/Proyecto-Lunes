@@ -65,7 +65,7 @@ namespace MyGame
 
         private void Shoot()
         {
-            shootTimer += Program.deltaTime;
+            shootTimer += Time.DeltaTime;
             if (shootTimer > shootCooldown)
             {
                 if (Engine.GetKey(Engine.KEY_ESP))

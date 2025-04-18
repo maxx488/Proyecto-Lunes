@@ -33,7 +33,7 @@ namespace MyGame
                 enemyQueueRef.Enqueue(random.Next(1, 4)); // agregar enemigo a cola
             }
             levelHudRef.DisplayQueueUpdate();
-            enemySpawnTimer += Program.deltaTime;
+            enemySpawnTimer += Time.DeltaTime;
             if (enemySpawnTimer > enemySpawnCooldown)
             {
                 var typ = enemyQueueRef.First();

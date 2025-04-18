@@ -10,6 +10,8 @@ namespace MyGame
 {
     public class LevelHud
     {
+        private int tries;
+        private Image triesImage;
         private PowerUpStack activePowerUps;
         private AnimationController powerAnimation1;
         private AnimationController powerAnimation2;
@@ -34,13 +36,26 @@ namespace MyGame
         private Vector2 nextEnemyLocation4 = new Vector2(905, 702);
         private Vector2 nextEnemyLocation5 = new Vector2(945, 702);
 
-        public LevelHud(PowerUpStack powerups, EnemyQueue queue, int faction)
+        public LevelHud(PowerUpStack powerups, EnemyQueue queue, int faction, int tries)
         {
             powerStack = Engine.LoadImage("assets/hud/powerstack.png");
             enemyQueue = Engine.LoadImage("assets/hud/enemyqueue.png");
             this.activePowerUps = powerups;
             this.currentQueue = queue;
             this.faction = faction;
+            this.tries = tries;
+        }
+
+        public int Tries
+        {
+            get
+            {
+                return tries;
+            }
+            set
+            {
+                tries = value;
+            }
         }
 
         public void Update()
@@ -57,6 +72,7 @@ namespace MyGame
             {
                 powerAnimation3.Update();
             }
+            triesImage = Engine.LoadImage($"assets/hud/tries/{tries}.png");
         }
 
         public void DisplayStackUpdate()
@@ -138,8 +154,9 @@ namespace MyGame
 
         public void Render()
         {
-            Engine.Draw(powerStack, 5, 495);
-            Engine.Draw(enemyQueue, 751, 676);
+            Engine.Draw(powerStack, 5, 485);
+            Engine.Draw(enemyQueue, 697, 676);
+            Engine.Draw(triesImage, 97, 731);
             if (powerAnimation1 != null)
             {
                 powerAnimation1.Render();

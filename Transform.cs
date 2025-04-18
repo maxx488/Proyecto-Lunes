@@ -19,8 +19,8 @@ namespace MyGame
 
         public void Translate(Vector2 dir,float spd)
         {
-            position.X += dir.X * spd * Program.deltaTime;
-            position.Y += dir.Y * spd * Program.deltaTime;
+            position.X += dir.X * spd * Time.DeltaTime;
+            position.Y += dir.Y * spd * Time.DeltaTime;
         }
     }
 }

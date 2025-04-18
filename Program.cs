@@ -11,17 +11,14 @@ namespace MyGame
 
     class Program
     {
-
-        public static float deltaTime;
-        public static DateTime startTime;
-        private static float lastFrameTime;
+        private static Time time;
         private static GameManager gameManager;
 
         static void Main(string[] args)
         {
             Engine.Initialize();
+            time = new Time();
             gameManager = GameManager.GetInstance();
-            startTime = DateTime.Now;
 
             while (true)
             {
@@ -38,7 +35,7 @@ namespace MyGame
 
         static void Update()
         {
-            DeltaTime();
+            time.Update();
             gameManager.Update();
         }
 
@@ -48,13 +45,6 @@ namespace MyGame
             gameManager.Render();
             Engine.Show();
             
-        }
-
-        static void DeltaTime()
-        {
-            var currentTime = (float)(DateTime.Now - startTime).TotalSeconds;
-            deltaTime = currentTime - lastFrameTime;
-            lastFrameTime = currentTime;
         }
     }
 }

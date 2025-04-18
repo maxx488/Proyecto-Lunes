@@ -100,7 +100,6 @@ C:\Users\Maxi\Desktop\Proyecto Base\obj\Debug\MyGame.csproj.CoreCompileInputs.ca
 C:\Users\Maxi\Desktop\Proyecto Base\obj\Debug\MyGame.csproj.Up2Date
 C:\Users\Maxi\Desktop\Proyecto Base\obj\Debug\MyGame.exe
 C:\Users\Maxi\Desktop\Proyecto Base\obj\Debug\MyGame.pdb
-C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\background.png
 C:\Users\alu864\Downloads\Proyecto Base\bin\Debug\assets\animations\enemies\1\1.png
 C:\Users\alu864\Downloads\Proyecto Base\bin\Debug\assets\animations\enemies\1\2.png
 C:\Users\alu864\Downloads\Proyecto Base\bin\Debug\assets\animations\enemies\1\3.png
@@ -276,6 +275,32 @@ C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\hud\powerstack.png
 C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\hud\enemyqueue\1\1.png
 C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\hud\enemyqueue\1\2.png
 C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\hud\enemyqueue\1\3.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\gamestate\menu.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\gamestate\lose.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\gamestate\win.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\enemies\2\1\1.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\enemies\2\1\2.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\enemies\2\1\3.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\enemies\2\1\4.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\enemies\2\1\5.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\enemies\2\2\1.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\enemies\2\2\2.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\enemies\2\2\3.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\enemies\2\2\4.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\enemies\2\2\5.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\enemies\2\3\1.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\enemies\2\3\2.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\enemies\2\3\3.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\enemies\2\3\4.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\enemies\2\3\5.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\hud\enemyqueue\2\1.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\hud\enemyqueue\2\2.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\hud\enemyqueue\2\3.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\level\1.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\level\2.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\hud\tries\1.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\hud\tries\2.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\hud\tries\3.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\bullethits\1.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\bullethits\2.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\bullethits\3.png
@@ -297,6 +322,21 @@ C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\enemies\1\3\3.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\enemies\1\3\4.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\enemies\1\3\5.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\enemies\2\1\1.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\enemies\2\1\2.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\enemies\2\1\3.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\enemies\2\1\4.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\enemies\2\1\5.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\enemies\2\2\1.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\enemies\2\2\2.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\enemies\2\2\3.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\enemies\2\2\4.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\enemies\2\2\5.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\enemies\2\3\1.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\enemies\2\3\2.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\enemies\2\3\3.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\enemies\2\3\4.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\enemies\2\3\5.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\explosion\1.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\explosion\10.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\explosion\11.png
@@ -372,12 +412,22 @@ C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\projectile\player\2.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\projectile\player\3.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\projectile\player\4.png
-C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\background.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\hud\enemyqueue.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\hud\powerstack.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\hud\tries\1.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\hud\tries\2.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\hud\tries\3.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\level\1.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\gamestate\lose.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\gamestate\menu.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\gamestate\win.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\hud\enemyqueue\1\1.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\hud\enemyqueue\1\2.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\hud\enemyqueue\1\3.png
-C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\hud\powerstack.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\hud\enemyqueue\2\1.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\hud\enemyqueue\2\2.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\hud\enemyqueue\2\3.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\level\2.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\MyGame.exe.config
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\MyGame.exe
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\MyGame.pdb

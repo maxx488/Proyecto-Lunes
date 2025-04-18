@@ -56,7 +56,7 @@ namespace MyGame
 
         private void AnimationUpdate()
         {
-            timer += Program.deltaTime;
+            timer += Time.DeltaTime;
             if (timer > animCooldown)
             {
                 timer = 0;

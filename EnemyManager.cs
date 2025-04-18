@@ -9,11 +9,15 @@ namespace MyGame
     public  class EnemyManager
     {
         private List<Enemy> enemiesToManage;
+        private int enemiesDestroyed;
 
         public EnemyManager(List<Enemy> enemies)
         {
             this.enemiesToManage = enemies;
+            enemiesDestroyed = 0;
         }
+
+        public int EnemiesDestroyed => enemiesDestroyed;
 
         public void Update()
         {
@@ -35,6 +39,7 @@ namespace MyGame
                     if (enemiesToManage[i].PowerController.Destroyed == true)
                     {
                         enemiesToManage.RemoveAt(i);
+                        enemiesDestroyed++;
                     }
                 }
             }
