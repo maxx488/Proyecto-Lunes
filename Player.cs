@@ -12,6 +12,8 @@ namespace MyGame
         private Transform playerTransform;
         private AnimationController animationController;
         private int power = 1;
+        private bool damaged = false;
+        private float damagedTimer = 0;
 
         public Player(Vector2 position)
         {
@@ -49,6 +51,18 @@ namespace MyGame
             }
         }
 
+        public bool Damaged
+        {
+            get
+            {
+                return damaged;
+            }
+            set
+            {
+                damaged = value;
+            }
+        }
+
         public bool ShootState
         {
             get
@@ -69,7 +83,34 @@ namespace MyGame
 
         public void Render()
         {
-            animationController.Render();
+            if (damaged == true)
+            {
+                damagedTimer += Time.DeltaTime;
+                switch (damagedTimer)
+                {
+                    case float n when (n >= 0f && n <= 0.25f):
+                        animationController.Render();
+                        break;
+                    case float n when (n >= 0.5f && n <= 0.75f):
+                        animationController.Render();
+                        break;
+                    case float n when (n >= 1f && n <= 1.25f):
+                        animationController.Render();
+                        break;
+                    case float n when (n >= 1.5f && n <= 1.75f):
+                        animationController.Render();
+                        break;
+                }
+                if (damagedTimer >= 2)
+                {
+                    damagedTimer = 0;
+                    damaged = false;
+                }
+            }
+            else
+            {
+                animationController.Render();
+            }
         }
     }
 }

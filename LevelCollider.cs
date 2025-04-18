@@ -128,6 +128,7 @@ namespace MyGame
                     }
                 }
                 levelHudRef.DisplayStackUpdate();
+                playerToCheck[0].Damaged = true;
                 effectListRef.Add(new Effect(new Vector2(playerToCheck[0].GetPlayerTransform.Position.X, playerToCheck[0].GetPlayerTransform.Position.Y), "assets/animations/powerdown/", 8, 0.077f));
             }
             else
