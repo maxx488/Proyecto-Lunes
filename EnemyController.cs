@@ -11,7 +11,7 @@ namespace MyGame
 
         private Transform transform;
         private bool isBoss;
-        private float speed = 250;
+        private float speed;
         private float shootTimer;
         private float shootCooldown = 1f;
         private bool shoot = false;
@@ -21,11 +21,12 @@ namespace MyGame
         private Vector2 left = new Vector2(-1, 0);
         private Vector2 right = new Vector2(1, 0);
 
-        public EnemyController(Transform transform, bool isBoss, int typ)
+        public EnemyController(Transform transform, bool isBoss, int typ, float spd)
         {
             this.transform = transform;
             this.isBoss = isBoss;
             this.type = typ;
+            speed = spd;
         }
 
         public bool GetShoot => shoot;

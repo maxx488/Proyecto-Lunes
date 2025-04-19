@@ -30,7 +30,7 @@ namespace MyGame
         {
             for (int i = 0; enemyQueueRef.FullQueue() == false; i++) // Mientras que la cola no este llena
             {
-                enemyQueueRef.Enqueue(random.Next(1, 4)); // agregar enemigo a cola
+                enemyQueueRef.Enqueue(random.Next(1, 5)); // agregar enemigo a cola
             }
             levelHudRef.DisplayQueueUpdate();
             enemySpawnTimer += Time.DeltaTime;
@@ -42,10 +42,15 @@ namespace MyGame
                     var spawnX = random.Next(960);
                     enemyList.Add(new Enemy(new Vector2(spawnX, -64), faction, typ, false));
                 }
-                else
+                else if (typ == 3)
                 {
                     var spawnX = random.Next(896);
                     enemyList.Add(new Enemy(new Vector2(spawnX, -64), faction, typ, false));
+                }
+                else
+                {
+                    var spawnX = random.Next(980);
+                    enemyList.Add(new Enemy(new Vector2(spawnX, -52), faction, typ, false));
                 }
                 enemyQueueRef.Dequeue();
                 enemySpawnTimer = 0;

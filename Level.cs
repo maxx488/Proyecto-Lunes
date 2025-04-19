@@ -38,12 +38,12 @@ namespace MyGame
             powerUpStack.InitializeStack(); // Inicializar pila PowerUps
             enemyQueue.InitializeQueue(); // Inicializar cola enemigos
             levelHud = new LevelHud(powerUpStack, enemyQueue, faction, tries); // Crear HUD (tomar faccion enemiga)
-            enemySpawner = new EnemySpawner(faction, enemyQueue, levelHud); // faccion correspondiente (por ahora 1)
-            enemyManager = new EnemyManager(enemySpawner.EnemyList);
+            enemySpawner = new EnemySpawner(faction, enemyQueue, levelHud); // faccion correspondiente
+            enemyManager = new EnemyManager(enemySpawner.EnemyList); // Manager de enemigos
             proyectileSpawner = new ProyectileSpawner(playerList, enemySpawner.EnemyList); // spawner de proyectiles
-            proyectileManager = new ProyectileManager(proyectileSpawner.ProjectileList);
+            proyectileManager = new ProyectileManager(proyectileSpawner.ProjectileList); // Manager de proyectiles
             powerUpSpawnCooldown = (float) random.Next(15, 20); // Segundos que pasaran hasta spawnear un powerup
-            levelCollider = new LevelCollider(playerList, enemySpawner.EnemyList, proyectileSpawner.ProjectileList, powerUpList, powerUpStack, levelHud, effectList);
+            levelCollider = new LevelCollider(playerList, enemySpawner.EnemyList, proyectileSpawner.ProjectileList, powerUpList, powerUpStack, levelHud, effectList); // manejo de colisiones del nivel
         }
 
         public int GetTries => tries;

@@ -14,7 +14,6 @@ namespace MyGame
         private AnimationController animationController;
         private EnemyData enemyData;
         private EnemyPowerController powerController;
-        private int power;
         private int faction;
         private int type;
         private bool inBounds = true;
@@ -25,12 +24,11 @@ namespace MyGame
             faction = fact;
             type = typ;
             isBoss = boss;
-            power = 3; // dependera de tipo
             enemyTransform = new Transform(position);
-            enemyController = new EnemyController(enemyTransform, isBoss, type);
-            animationController = new AnimationController(enemyTransform, $"assets/animations/enemies/{faction}/{type}/", 5, 0.15f);
             enemyData = new EnemyData(type);
-            powerController = new EnemyPowerController(power);
+            enemyController = new EnemyController(enemyTransform, isBoss, type, enemyData.Speed);
+            animationController = new AnimationController(enemyTransform, $"assets/animations/enemies/{faction}/{type}/", 5, 0.15f);
+            powerController = new EnemyPowerController(enemyData.Power);
         }
 
         public Transform GetEnemyTransform => enemyTransform;

@@ -38,7 +38,7 @@ namespace MyGame
             {
                 for (int i = 0; i < enemiesToCheck.Count; i++)
                 {
-                    if (enemiesToCheck[i].ShootState == true)
+                    if (enemiesToCheck[i].ShootState == true && enemiesToCheck[i].GetEnemyData.ShootPosX != null)
                     {
                         for (int j = 0; j < enemiesToCheck[i].GetEnemyData.ShootPosX.Length; j++)
                         {
