@@ -29,21 +29,28 @@ namespace MyGame
         private int tries;
         private int enemiesDestroyed = 0;
 
-        public Level(int faction)
+        public Level(int faction, bool bossLevel)
         {
             tries = 3; //Intentos del jugador (dependeria de la dificultad?)
             background = Engine.LoadImage($"assets/level/{faction}.png"); // cambiar forma de obtener fondo y/o datos de nivel en el futuro
             playerList.Add(new Player(new Vector2(400, 650))); // Se agrega jugador a lista (se podrian agregar mas a futuro con powerup)
-            enemyCount = random.Next(20,51); // Enemigos a derrotar para completar el nivel (mas adelante atarlo a dificultad en vez de random)
             powerUpStack.InitializeStack(); // Inicializar pila PowerUps
             enemyQueue.InitializeQueue(); // Inicializar cola enemigos
             levelHud = new LevelHud(powerUpStack, enemyQueue, faction, tries); // Crear HUD (tomar faccion enemiga)
-            enemySpawner = new EnemySpawner(faction, enemyQueue, levelHud); // faccion correspondiente
+            enemySpawner = new EnemySpawner(faction, enemyQueue, levelHud, bossLevel); // faccion correspondiente
             enemyManager = new EnemyManager(enemySpawner.EnemyList); // Manager de enemigos
             proyectileSpawner = new ProyectileSpawner(playerList, enemySpawner.EnemyList); // spawner de proyectiles
             proyectileManager = new ProyectileManager(proyectileSpawner.ProjectileList); // Manager de proyectiles
             powerUpSpawnCooldown = (float) random.Next(15, 20); // Segundos que pasaran hasta spawnear un powerup
             levelCollider = new LevelCollider(playerList, enemySpawner.EnemyList, proyectileSpawner.ProjectileList, powerUpList, powerUpStack, levelHud, effectList); // manejo de colisiones del nivel
+            if (bossLevel == true)
+            {
+                enemyCount = 1;
+            }
+            else
+            {
+                enemyCount = 15; // Enemigos a derrotar para completar el nivel
+            }
         }
 
         public int GetTries => tries;

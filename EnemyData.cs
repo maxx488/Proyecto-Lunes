@@ -51,6 +51,14 @@ namespace MyGame
                     power = 1;
                     speed = 500;
                     break;
+                case 5:
+                    sizeX = 256;
+                    sizeY = 256;
+                    shootPosX = new int[4] { 0, 56, 190, 246};
+                    shootPosY = 257;
+                    power = 50;
+                    speed = 100;
+                    break;
             }
 
         }

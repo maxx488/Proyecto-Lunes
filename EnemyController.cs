@@ -8,7 +8,6 @@ namespace MyGame
 {
     public class EnemyController
     {
-
         private Transform transform;
         private bool isBoss;
         private float speed;
@@ -39,20 +38,17 @@ namespace MyGame
 
         private void MovementUpdate()
         {
-            // MOVIMIENTO PARA JEFE
-            /*timer += Time.DeltaTime;
-            if (timer > cooldown)
-            {
-                if (posX > 956 || posX < 1)
-                {
-                    timer = 0;
-                    speed *= -1;
-                }
-            }
-            posX += speed * Time.DeltaTime;*/
             if (isBoss != true)
             {
                 transform.Translate(down, speed);
+            }
+            else
+            {
+                if (transform.Position.X > 767 || transform.Position.X < 1)
+                {
+                    speed *= -1;
+                }
+                transform.Translate(right, speed);
             }
         }
 

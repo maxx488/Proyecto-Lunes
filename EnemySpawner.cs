@@ -14,47 +14,56 @@ namespace MyGame
         private float enemySpawnTimer;
         private float enemySpawnCooldown;
         private int faction;
+        private bool bossLevel = false;
         private LevelHud levelHudRef;
 
-        public EnemySpawner(int fact, EnemyQueue queue, LevelHud hud)
+        public EnemySpawner(int fact, EnemyQueue queue, LevelHud hud, bool bossLevel)
         {
             faction = fact;
             this.enemyQueueRef = queue;
             this.levelHudRef = hud;
             enemySpawnCooldown = (float) random.Next(3); // Segundos que pasaran hasta spawnear un enemigo
+            if (bossLevel == true)
+            {
+                this.bossLevel = true;
+                enemyList.Add(new Enemy(new Vector2(200, 25), faction, 5, true));
+            }
         }
 
         public List<Enemy> EnemyList => enemyList;
 
         public void Update()
         {
-            for (int i = 0; enemyQueueRef.FullQueue() == false; i++) // Mientras que la cola no este llena
+            if (bossLevel == false)
             {
-                enemyQueueRef.Enqueue(random.Next(1, 5)); // agregar enemigo a cola
-            }
-            levelHudRef.DisplayQueueUpdate();
-            enemySpawnTimer += Time.DeltaTime;
-            if (enemySpawnTimer > enemySpawnCooldown)
-            {
-                var typ = enemyQueueRef.First();
-                if (typ == 1 || typ == 2)
+                for (int i = 0; enemyQueueRef.FullQueue() == false; i++) // Mientras que la cola no este llena
                 {
-                    var spawnX = random.Next(960);
-                    enemyList.Add(new Enemy(new Vector2(spawnX, -64), faction, typ, false));
+                    enemyQueueRef.Enqueue(random.Next(1, 5)); // agregar enemigo a cola
                 }
-                else if (typ == 3)
+                levelHudRef.DisplayQueueUpdate();
+                enemySpawnTimer += Time.DeltaTime;
+                if (enemySpawnTimer > enemySpawnCooldown)
                 {
-                    var spawnX = random.Next(896);
-                    enemyList.Add(new Enemy(new Vector2(spawnX, -64), faction, typ, false));
+                    var typ = enemyQueueRef.First();
+                    if (typ == 1 || typ == 2)
+                    {
+                        var spawnX = random.Next(960);
+                        enemyList.Add(new Enemy(new Vector2(spawnX, -64), faction, typ, false));
+                    }
+                    else if (typ == 3)
+                    {
+                        var spawnX = random.Next(896);
+                        enemyList.Add(new Enemy(new Vector2(spawnX, -64), faction, typ, false));
+                    }
+                    else
+                    {
+                        var spawnX = random.Next(980);
+                        enemyList.Add(new Enemy(new Vector2(spawnX, -52), faction, typ, false));
+                    }
+                    enemyQueueRef.Dequeue();
+                    enemySpawnTimer = 0;
+                    enemySpawnCooldown = (float)random.Next(3);
                 }
-                else
-                {
-                    var spawnX = random.Next(980);
-                    enemyList.Add(new Enemy(new Vector2(spawnX, -52), faction, typ, false));
-                }
-                enemyQueueRef.Dequeue();
-                enemySpawnTimer = 0;
-                enemySpawnCooldown = (float) random.Next(3);
             }
         }
     }

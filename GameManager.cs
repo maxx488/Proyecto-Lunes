@@ -12,6 +12,7 @@ namespace MyGame
         private static GameState state;
         private Level level;
         private int timesWon;
+        private bool bossLevel;
         private Image menu = Engine.LoadImage("assets/gamestate/menu.png");
         private Image win = Engine.LoadImage("assets/gamestate/win.png");
         private Image lose = Engine.LoadImage("assets/gamestate/lose.png");
@@ -40,32 +41,57 @@ namespace MyGame
                     if (Engine.GetKey(Engine.KEY_ESP))
                     {
                         timesWon = 0;
-                        level = new Level(timesWon + 1); // faccion enemiga
+                        bossLevel = false;
+                        level = new Level(timesWon + 1, bossLevel); // faccion enemiga
                         state = GameState.game;
+                    }
+                    if (Engine.GetKey(Engine.KEY_ESC))
+                    {
+                        Environment.Exit(0);
                     }
                     break;
                 case GameState.game:
                     level.Input();
+                    if (Engine.GetKey(Engine.KEY_ESC))
+                    {
+                        Environment.Exit(0);
+                    }
                     break;
                 case GameState.win:
                     if (Engine.GetKey(Engine.KEY_ENT))
                     {
-                        timesWon++;
+                        if (bossLevel == true)
+                        {
+                            timesWon++;
+                            bossLevel = false;
+                        }
+                        else
+                        {
+                            bossLevel = true;
+                        }
                         if (timesWon > 1) //depende de cantidad de facciones por ahora, mas adelante cambiara la logica de elegir nivel
                         {
                             state = GameState.menu;
                         }
                         else
                         {
-                            level = new Level(timesWon + 1); // faccion enemiga
+                            level = new Level(timesWon + 1, bossLevel); // faccion enemiga
                             state = GameState.game;
                         }
+                    }
+                    if (Engine.GetKey(Engine.KEY_ESC))
+                    {
+                        Environment.Exit(0);
                     }
                     break;
                 case GameState.lose:
                     if (Engine.GetKey(Engine.KEY_ENT))
                     {
                         state = GameState.menu;
+                    }
+                    if (Engine.GetKey(Engine.KEY_ESC))
+                    {
+                        Environment.Exit(0);
                     }
                     break;
             }
