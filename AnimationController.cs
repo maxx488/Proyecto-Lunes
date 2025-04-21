@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyGame
 {
-    public class AnimationController
+    public class AnimationController : IDisposable // interfaz para liberar memoria
     {
         private Image image;
         private Transform transform;
@@ -15,6 +15,7 @@ namespace MyGame
         private string path;
         private int index = 1;
         private int maxIndex;
+        private bool disposed = false;
 
         public AnimationController(Transform transform, string path, int maxIndex, float animCooldown)
         {
@@ -70,8 +71,42 @@ namespace MyGame
 
         private void AnimationRender()
         {
+            if (image != null) // Liberar memoria
+            {
+                image.Dispose();
+                image = null;
+            }
             image = Engine.LoadImage(path + $"{index}.png");
             Engine.Draw(image, transform.Position.X, transform.Position.Y);
+        }
+
+        public void Dispose() // Algoritmo para liberar memoria.
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                if (disposing)
+                {
+                    // Liberar recursos administrados
+                    if (image != null)
+                    {
+                        image.Dispose();
+                        image = null;
+                    }
+                }
+
+                disposed = true;
+            }
+        }
+
+        ~AnimationController()
+        {
+            Dispose(false);
         }
     }
 }

@@ -49,7 +49,7 @@ namespace MyGame
             }
             else
             {
-                enemyCount = 15; // Enemigos a derrotar para completar el nivel
+                enemyCount = random.Next(40, 51); // Enemigos a derrotar para completar el nivel
             }
         }
 
