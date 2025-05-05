@@ -323,6 +323,7 @@ C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\enemies\2\5\2.pn
 C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\enemies\2\5\3.png
 C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\enemies\2\5\4.png
 C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\enemies\2\5\5.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\fonts\PressStart2P.ttf
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\bullethits\1.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\bullethits\2.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\bullethits\3.png
@@ -472,6 +473,7 @@ C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\hud\enemyqu
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\hud\enemyqueue\2\2.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\hud\enemyqueue\2\3.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\level\2.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\fonts\PressStart2P.ttf
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\MyGame.exe.config
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\MyGame.exe
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\MyGame.pdb

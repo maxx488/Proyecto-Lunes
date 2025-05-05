@@ -31,18 +31,6 @@ namespace MyGame
 
         public Level(int faction, bool bossLevel)
         {
-            tries = 3; //Intentos del jugador (dependeria de la dificultad?)
-            background = Engine.LoadImage($"assets/level/{faction}.png"); // cambiar forma de obtener fondo y/o datos de nivel en el futuro
-            playerList.Add(new Player(new Vector2(400, 650))); // Se agrega jugador a lista (se podrian agregar mas a futuro con powerup)
-            powerUpStack.InitializeStack(); // Inicializar pila PowerUps
-            enemyQueue.InitializeQueue(); // Inicializar cola enemigos
-            levelHud = new LevelHud(powerUpStack, enemyQueue, faction, tries); // Crear HUD (tomar faccion enemiga)
-            enemySpawner = new EnemySpawner(faction, enemyQueue, levelHud, bossLevel); // faccion correspondiente
-            enemyManager = new EnemyManager(enemySpawner.EnemyList); // Manager de enemigos
-            proyectileSpawner = new ProyectileSpawner(playerList, enemySpawner.EnemyList); // spawner de proyectiles
-            proyectileManager = new ProyectileManager(proyectileSpawner.ProjectileList); // Manager de proyectiles
-            powerUpSpawnCooldown = (float) random.Next(15, 20); // Segundos que pasaran hasta spawnear un powerup
-            levelCollider = new LevelCollider(playerList, enemySpawner.EnemyList, proyectileSpawner.ProjectileList, powerUpList, powerUpStack, levelHud, effectList); // manejo de colisiones del nivel
             if (bossLevel == true)
             {
                 enemyCount = 1;
@@ -51,6 +39,18 @@ namespace MyGame
             {
                 enemyCount = random.Next(40, 51); // Enemigos a derrotar para completar el nivel
             }
+            tries = 3; //Intentos del jugador (dependeria de la dificultad?)
+            background = Engine.LoadImage($"assets/level/{faction}.png"); // cambiar forma de obtener fondo y/o datos de nivel en el futuro
+            playerList.Add(new Player(new Vector2(400, 650))); // Se agrega jugador a lista (se podrian agregar mas a futuro con powerup)
+            powerUpStack.InitializeStack(); // Inicializar pila PowerUps
+            enemyQueue.InitializeQueue(); // Inicializar cola enemigos
+            levelHud = new LevelHud(powerUpStack, enemyQueue, faction, tries, enemiesDestroyed, enemyCount); // Crear HUD (tomar faccion enemiga)
+            enemySpawner = new EnemySpawner(faction, enemyQueue, levelHud, bossLevel); // faccion correspondiente
+            enemyManager = new EnemyManager(enemySpawner.EnemyList); // Manager de enemigos
+            proyectileSpawner = new ProyectileSpawner(playerList, enemySpawner.EnemyList); // spawner de proyectiles
+            proyectileManager = new ProyectileManager(proyectileSpawner.ProjectileList); // Manager de proyectiles
+            powerUpSpawnCooldown = (float) random.Next(15, 20); // Segundos que pasaran hasta spawnear un powerup
+            levelCollider = new LevelCollider(playerList, enemySpawner.EnemyList, proyectileSpawner.ProjectileList, powerUpList, powerUpStack, levelHud, effectList); // manejo de colisiones del nivel
         }
 
         public int GetTries => tries;
@@ -118,6 +118,7 @@ namespace MyGame
         {
             enemyManager.Update();
             enemiesDestroyed = enemyManager.EnemiesDestroyed;
+            levelHud.Destroyed = enemiesDestroyed;
         }
 
         private void EnemyRender()
