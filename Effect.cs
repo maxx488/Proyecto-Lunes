@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace MyGame
 {
-    public class Effect
+    public class Effect: GameObject
     {
-        private Transform transform;
-        private AnimationController animationController;
 
         public Effect(Vector2 vector, string path, int maxIndex, float animCooldown)
         {
@@ -19,14 +17,9 @@ namespace MyGame
 
         public AnimationController GetAnimationController => animationController;
 
-        public void Update()
+        public override void Update()
         {
             animationController.Update();
-        }
-
-        public void Render()
-        {
-            animationController.Render();
         }
     }
 }

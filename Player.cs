@@ -6,23 +6,19 @@ using System.Threading.Tasks;
 
 namespace MyGame
 {
-    public class Player
+    public class Player: GameObject
     {
         private PlayerController playerController;
-        private Transform playerTransform;
-        private AnimationController animationController;
         private int power = 1;
         private bool damaged = false;
         private float damagedTimer = 0;
 
         public Player(Vector2 position)
         {
-            playerTransform = new Transform(position);
-            playerController = new PlayerController(playerTransform);
-            animationController = new AnimationController(playerTransform, $"assets/animations/player/{power}/", 4, 0.2f);
+            transform = new Transform(position);
+            playerController = new PlayerController(transform);
+            animationController = new AnimationController(transform, $"assets/animations/player/{power}/", 4, 0.2f);
         }
-
-        public Transform GetPlayerTransform => playerTransform;
 
         public int GetPower => power;
 
@@ -76,12 +72,12 @@ namespace MyGame
             playerController.Input();
         }
 
-        public void Update()
+        public override void Update()
         {
             animationController.Update();
         }
 
-        public void Render()
+        public override void Render()
         {
             if (damaged == true)
             {

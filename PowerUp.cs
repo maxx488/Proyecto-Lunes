@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace MyGame
 {
-    public class PowerUp
+    public class PowerUp: GameObject
     {
-        private AnimationController animationController;
         private int type;
         private float speed = 150;
-        private Transform transform;
         private Vector2 down = new Vector2(0, 1);
         private bool inBounds = true;
 
@@ -22,13 +20,11 @@ namespace MyGame
             type = typ;
         }
 
-        public Transform GetPowerUpTransform => transform;
-
         public bool InBounds => inBounds;
 
         public int Type => type;
 
-        public void Update()
+        public override void Update()
         {
             transform.Translate(down, speed);
             animationController.Update();
@@ -36,11 +32,6 @@ namespace MyGame
             {
                 inBounds = false;
             }
-        }
-
-        public void Render()
-        {
-            animationController.Render();
         }
     }
 }

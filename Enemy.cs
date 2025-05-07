@@ -7,11 +7,9 @@ using System.Threading.Tasks;
 
 namespace MyGame
 {
-    public class Enemy
+    public class Enemy: GameObject
     {
         private EnemyController enemyController;
-        private Transform enemyTransform;
-        private AnimationController animationController;
         private EnemyData enemyData;
         private EnemyPowerController powerController;
         private int faction;
@@ -24,14 +22,12 @@ namespace MyGame
             faction = fact;
             type = typ;
             isBoss = boss;
-            enemyTransform = new Transform(position);
+            transform = new Transform(position);
             enemyData = new EnemyData(type);
-            enemyController = new EnemyController(enemyTransform, isBoss, type, enemyData.Speed);
-            animationController = new AnimationController(enemyTransform, $"assets/animations/enemies/{faction}/{type}/", 5, 0.15f);
+            enemyController = new EnemyController(transform, isBoss, type, enemyData.Speed);
+            animationController = new AnimationController(transform, $"assets/animations/enemies/{faction}/{type}/", 5, 0.15f);
             powerController = new EnemyPowerController(enemyData.Power);
         }
-
-        public Transform GetEnemyTransform => enemyTransform;
 
         public EnemyData GetEnemyData => enemyData;
 
@@ -49,29 +45,19 @@ namespace MyGame
             }
         }
 
-        public void Update()
+        public override void Update()
         {
             enemyController.Update();
             BoundsUpdate();
             AnimationUpdate();
         }
 
-        public void Render()
-        {
-            AnimationRender();
-        }
-
         private void BoundsUpdate()
         {
-            if (enemyTransform.Position.Y > 768)
+            if (transform.Position.Y > 768)
             {
                 inBounds = false;
             }
-        }
-
-        private void AnimationRender()
-        {
-            animationController.Render();
         }
 
         private void AnimationUpdate()

@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace MyGame
 {
-    public class Projectile
+    public class Projectile: GameObject
     {
-        private Transform projectileTransform;
-        private AnimationController animationController;
         private string path;
         private int type;
         private int direction;
@@ -22,7 +20,7 @@ namespace MyGame
                dir = 1 o -1 dependiendo si es proyectil del jugador o del enemigo, 2 y 3 para diagonales en powerup
                spd = velocidad
                typ = tipo o variacion del proyectil */
-            projectileTransform = new Transform(position);
+            transform = new Transform(position);
             direction = dir;
             speed = spd;
             type = typ;
@@ -34,16 +32,14 @@ namespace MyGame
             {
                 path = "enemy";
             }
-            animationController = new AnimationController(projectileTransform, $"assets/animations/projectile/{path}/", 4, 0.2f);
+            animationController = new AnimationController(transform, $"assets/animations/projectile/{path}/", 4, 0.2f);
         }
 
         public bool InBounds => inBounds;
 
-        public Transform GetProjectileTransform => projectileTransform;
-
         public int Direction => direction;
 
-        public void Update()
+        public override void Update()
         {
             ProjectileBehavior();
             AnimationUpdate();
@@ -56,9 +52,9 @@ namespace MyGame
             {
                 if (type == 1)
                 {
-                    if (projectileTransform.Position.Y > 0)
+                    if (transform.Position.Y > 0)
                     {
-                        projectileTransform.Translate(new Vector2(0, -1), speed * 1.5f);
+                        transform.Translate(new Vector2(0, -1), speed * 1.5f);
                     }
                     else
                     {
@@ -67,9 +63,9 @@ namespace MyGame
                 }
                 else if (type == 2 || type == 3)
                 {
-                    if (projectileTransform.Position.Y > 0)
+                    if (transform.Position.Y > 0)
                     {
-                        projectileTransform.Translate(new Vector2(0, -1), speed * 2f);
+                        transform.Translate(new Vector2(0, -1), speed * 2f);
                     }
                     else
                     {
@@ -81,9 +77,9 @@ namespace MyGame
             {
                 if (direction == -1)
                 {
-                    if (projectileTransform.Position.Y < 768)
+                    if (transform.Position.Y < 768)
                     {
-                        projectileTransform.Translate(new Vector2(0, 1), speed);
+                        transform.Translate(new Vector2(0, 1), speed);
                     }
                     else
                     {
@@ -96,10 +92,10 @@ namespace MyGame
                     {
                         if (type == 3)
                         {
-                            if (projectileTransform.Position.Y > 0)
+                            if (transform.Position.Y > 0)
                             {
-                                projectileTransform.Translate(new Vector2(0, -1), speed * 2f);
-                                projectileTransform.Translate(new Vector2(-1, 0), speed);
+                                transform.Translate(new Vector2(0, -1), speed * 2f);
+                                transform.Translate(new Vector2(-1, 0), speed);
                             }
                             else
                             {
@@ -113,10 +109,10 @@ namespace MyGame
                         {
                             if (type == 3)
                             {
-                                if (projectileTransform.Position.Y > 0)
+                                if (transform.Position.Y > 0)
                                 {
-                                    projectileTransform.Translate(new Vector2(0, -1), speed * 2f);
-                                    projectileTransform.Translate(new Vector2(1, 0), speed);
+                                    transform.Translate(new Vector2(0, -1), speed * 2f);
+                                    transform.Translate(new Vector2(1, 0), speed);
                                 }
                                 else
                                 {
@@ -132,11 +128,6 @@ namespace MyGame
         private void AnimationUpdate()
         {
             animationController.Update();
-        }
-
-        public void Render()
-        {
-            animationController.Render();
         }
     }
 }

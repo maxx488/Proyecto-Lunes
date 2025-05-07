@@ -26,11 +26,11 @@ namespace MyGame
             {
                 if (playerToCheck[0].ShootState == true)
                 {
-                    projectileList.Add(new Projectile(new Vector2(playerToCheck[0].GetPlayerTransform.Position.X + 25, playerToCheck[0].GetPlayerTransform.Position.Y - 20), 1, 500, playerToCheck[0].GetPower));
+                    projectileList.Add(new Projectile(new Vector2(playerToCheck[0].GetTransform.Position.X + 25, playerToCheck[0].GetTransform.Position.Y - 20), 1, 500, playerToCheck[0].GetPower));
                     if (playerToCheck[0].GetPower == 3)
                     {
-                        projectileList.Add(new Projectile(new Vector2(playerToCheck[0].GetPlayerTransform.Position.X + 10, playerToCheck[0].GetPlayerTransform.Position.Y - 20), 2, 500, playerToCheck[0].GetPower));
-                        projectileList.Add(new Projectile(new Vector2(playerToCheck[0].GetPlayerTransform.Position.X + 40, playerToCheck[0].GetPlayerTransform.Position.Y - 20), 3, 500, playerToCheck[0].GetPower));
+                        projectileList.Add(new Projectile(new Vector2(playerToCheck[0].GetTransform.Position.X + 10, playerToCheck[0].GetTransform.Position.Y - 20), 2, 500, playerToCheck[0].GetPower));
+                        projectileList.Add(new Projectile(new Vector2(playerToCheck[0].GetTransform.Position.X + 40, playerToCheck[0].GetTransform.Position.Y - 20), 3, 500, playerToCheck[0].GetPower));
                     }
                 }
             }
@@ -42,7 +42,7 @@ namespace MyGame
                     {
                         for (int j = 0; j < enemiesToCheck[i].GetEnemyData.ShootPosX.Length; j++)
                         {
-                            projectileList.Add(new Projectile(new Vector2(enemiesToCheck[i].GetEnemyTransform.Position.X + enemiesToCheck[i].GetEnemyData.ShootPosX[j], enemiesToCheck[i].GetEnemyTransform.Position.Y + enemiesToCheck[i].GetEnemyData.ShootPosY), -1, 500, 1));
+                            projectileList.Add(new Projectile(new Vector2(enemiesToCheck[i].GetTransform.Position.X + enemiesToCheck[i].GetEnemyData.ShootPosX[j], enemiesToCheck[i].GetTransform.Position.Y + enemiesToCheck[i].GetEnemyData.ShootPosY), -1, 500, 1));
                         }
                     }
                 }
