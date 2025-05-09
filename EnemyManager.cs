@@ -8,12 +8,12 @@ namespace MyGame
 {
     public  class EnemyManager
     {
-        private List<Enemy> enemiesToManage;
+        private List<GameObject> objList;
         private int enemiesDestroyed;
 
-        public EnemyManager(List<Enemy> enemies)
+        public EnemyManager(List<GameObject> objList)
         {
-            this.enemiesToManage = enemies;
+            this.objList = objList;
             enemiesDestroyed = 0;
         }
 
@@ -21,25 +21,37 @@ namespace MyGame
 
         public void Update()
         {
-            if (enemiesToManage.Count > 0)
+            if (objList.OfType<Enemy>().Count() > 0)
             {
-                for (int i = 0; i < enemiesToManage.Count; i++)
+                for (int i = 0; i < objList.Count; i++)
                 {
-                    enemiesToManage[i].Update();
-                }
-                for (int i = 0; i < enemiesToManage.Count; i++)
-                {
-                    if (enemiesToManage[i].InBounds == false)
+                    if (objList[i] is Enemy)
                     {
-                        enemiesToManage.RemoveAt(i);
+                        Enemy enemy = (Enemy) objList[i];
+                        enemy.Update();
                     }
                 }
-                for (int i = 0; i < enemiesToManage.Count; i++)
+                for (int i = 0; i < objList.Count; i++)
                 {
-                    if (enemiesToManage[i].PowerController.Destroyed == true)
+                    if (objList[i] is Enemy)
                     {
-                        enemiesToManage.RemoveAt(i);
-                        enemiesDestroyed++;
+                        Enemy enemy = (Enemy)objList[i];
+                        if (enemy.InBounds == false)
+                        {
+                            objList.RemoveAt(i);
+                        }
+                    }
+                }
+                for (int i = 0; i < objList.Count; i++)
+                {
+                    if (objList[i] is Enemy)
+                    {
+                        Enemy enemy = (Enemy)objList[i];
+                        if (enemy.PowerController.Destroyed == true)
+                        {
+                            objList.RemoveAt(i);
+                            enemiesDestroyed++;
+                        }
                     }
                 }
             }
@@ -47,11 +59,15 @@ namespace MyGame
 
         public void Render()
         {
-            if (enemiesToManage.Count > 0)
+            if (objList.OfType<Enemy>().Count() > 0)
             {
-                for (int i = 0; i < enemiesToManage.Count; i++)
+                for (int i = 0; i < objList.Count; i++)
                 {
-                    enemiesToManage[i].Render();
+                    if (objList[i] is Enemy)
+                    {
+                        Enemy enemy = (Enemy)objList[i];
+                        enemy.Render();
+                    }
                 }
             }
         }

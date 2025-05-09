@@ -8,41 +8,48 @@ namespace MyGame
 {
     public class ProyectileSpawner
     {
-        private List<Player> playerToCheck;
-        private List<Enemy> enemiesToCheck;
-        private List<Projectile> projectileList = new List<Projectile>();
+        private List<GameObject> objectsToCheck;
 
-        public ProyectileSpawner(List<Player> playerToCheck, List<Enemy> enemiesToCheck)
+        public ProyectileSpawner(List<GameObject> objectsToCheck)
         {
-            this.playerToCheck = playerToCheck;
-            this.enemiesToCheck = enemiesToCheck;
+            this.objectsToCheck = objectsToCheck;
         }
-
-        public List<Projectile> ProjectileList => projectileList;
 
         public void Update()
         {
-            if (playerToCheck.Count > 0)
+            if (objectsToCheck.OfType<Player>().Count() > 0)
             {
-                if (playerToCheck[0].ShootState == true)
+                for (int i = 0; i < objectsToCheck.Count; i++)
                 {
-                    projectileList.Add(new Projectile(new Vector2(playerToCheck[0].GetTransform.Position.X + 25, playerToCheck[0].GetTransform.Position.Y - 20), 1, 500, playerToCheck[0].GetPower));
-                    if (playerToCheck[0].GetPower == 3)
+                    if (objectsToCheck[i] is Player)
                     {
-                        projectileList.Add(new Projectile(new Vector2(playerToCheck[0].GetTransform.Position.X + 10, playerToCheck[0].GetTransform.Position.Y - 20), 2, 500, playerToCheck[0].GetPower));
-                        projectileList.Add(new Projectile(new Vector2(playerToCheck[0].GetTransform.Position.X + 40, playerToCheck[0].GetTransform.Position.Y - 20), 3, 500, playerToCheck[0].GetPower));
+                        Player player = (Player) objectsToCheck[i];
+                        if (player.ShootState == true)
+                        {
+                            objectsToCheck.Add(new Projectile(new Vector2(player.GetTransform.Position.X + 25, player.GetTransform.Position.Y - 20), 1, 500, player.GetPower));
+                            if (player.GetPower == 3)
+                            {
+                                objectsToCheck.Add(new Projectile(new Vector2(player.GetTransform.Position.X + 10, player.GetTransform.Position.Y - 20), 2, 500, player.GetPower));
+                                objectsToCheck.Add(new Projectile(new Vector2(player.GetTransform.Position.X + 40, player.GetTransform.Position.Y - 20), 3, 500, player.GetPower));
+                            }
+                        }
+                        break;
                     }
                 }
             }
-            if (enemiesToCheck.Count > 0)
+            if (objectsToCheck.OfType<Enemy>().Count() > 0)
             {
-                for (int i = 0; i < enemiesToCheck.Count; i++)
+                for (int i = 0; i < objectsToCheck.Count; i++)
                 {
-                    if (enemiesToCheck[i].ShootState == true && enemiesToCheck[i].GetEnemyData.ShootPosX != null)
+                    if (objectsToCheck[i] is Enemy)
                     {
-                        for (int j = 0; j < enemiesToCheck[i].GetEnemyData.ShootPosX.Length; j++)
+                        Enemy enemy = (Enemy) objectsToCheck[i];
+                        if (enemy.ShootState == true && enemy.GetEnemyData.ShootPosX != null)
                         {
-                            projectileList.Add(new Projectile(new Vector2(enemiesToCheck[i].GetTransform.Position.X + enemiesToCheck[i].GetEnemyData.ShootPosX[j], enemiesToCheck[i].GetTransform.Position.Y + enemiesToCheck[i].GetEnemyData.ShootPosY), -1, 500, 1));
+                            for (int j = 0; j < enemy.GetEnemyData.ShootPosX.Length; j++)
+                            {
+                                objectsToCheck.Add(new Projectile(new Vector2(enemy.GetTransform.Position.X + enemy.GetEnemyData.ShootPosX[j], enemy.GetTransform.Position.Y + enemy.GetEnemyData.ShootPosY), -1, 500, 1));
+                            }
                         }
                     }
                 }

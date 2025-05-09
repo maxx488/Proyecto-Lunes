@@ -10,131 +10,166 @@ namespace MyGame
     {
         private float collisionTimer;
         private float collisionCooldown = 2;
-        private List<Player> playerToCheck;
-        private List<Enemy> enemiesToCheck;
-        private List<Projectile> projectilesToCheck = new List<Projectile>();
-        private List<Effect> effectListRef;
-        private List<PowerUp> powerUpToCheck;
+        private List<GameObject> objectsListToCheck;
         private PowerUpStack powerUpStackRef;
         private LevelHud levelHudRef;
 
-        public LevelCollider(List<Player> player, List<Enemy> enemies, List<Projectile> projectiles, List<PowerUp> powerUp, PowerUpStack powerUpStack, LevelHud hud , List<Effect> effects)
+        public LevelCollider(List<GameObject> objects, PowerUpStack powerUpStack, LevelHud hud)
         {
-            this.playerToCheck = player;
-            this.enemiesToCheck = enemies;
-            this.projectilesToCheck = projectiles;
-            this.powerUpToCheck = powerUp;
+            this.objectsListToCheck = objects;
             this.powerUpStackRef = powerUpStack;
             this.levelHudRef = hud;
-            this.effectListRef = effects;
         }
 
         public void Update()
         {
-            if (playerToCheck.Count < 1)
+            if (objectsListToCheck.OfType<Player>().Count() < 1)
             {
                 collisionTimer = 0;
             }
             collisionTimer += Time.DeltaTime;
             if (collisionTimer > collisionCooldown)
             {
-                if (enemiesToCheck.Count > 0 && playerToCheck.Count > 0)
+                if (objectsListToCheck.OfType<Enemy>().Count() > 0 && objectsListToCheck.OfType<Player>().Count() > 0)
                 {
-                    for (int i = 0; i < enemiesToCheck.Count; i++) //Colision Enemigo / Player
+                    for (int i = 0; i < objectsListToCheck.Count; i++) //Colision Enemigo / Player
                     {
-                        var collision = new Collider(enemiesToCheck[i].GetTransform.Position, new Vector2(enemiesToCheck[i].GetEnemyData.SizeX, enemiesToCheck[i].GetEnemyData.SizeY), playerToCheck[0].GetTransform.Position, new Vector2(60, 66));
-                        if (collision.IsBoxColliding() == true)
+                        if (objectsListToCheck[i] is Enemy)
                         {
-                            collisionTimer = 0;
-                            DamagePlayer();
-                            break;
+                            Enemy enemy = (Enemy) objectsListToCheck[i];
+                            for (int j = 0; j < objectsListToCheck.Count; j++)
+                            {
+                                if (objectsListToCheck[j] is Player)
+                                {
+                                    var collision = new Collider(enemy.GetTransform.Position, new Vector2(enemy.GetEnemyData.SizeX, enemy.GetEnemyData.SizeY), objectsListToCheck[j].GetTransform.Position, new Vector2(60, 66));
+                                    if (collision.IsBoxColliding() == true)
+                                    {
+                                        collisionTimer = 0;
+                                        DamagePlayer(j);
+                                        break;
+                                    }
+                                }
+                            }
                         }
                     }
-                    if (projectilesToCheck.Count > 0 && playerToCheck.Count > 0)
+                    if (objectsListToCheck.OfType<Projectile>().Count() > 0 && objectsListToCheck.OfType<Player>().Count() > 0)
                     {
-                        for (int i = 0; i < projectilesToCheck.Count; i++) //Colision Proyectil Enemigo / Player
+                        for (int i = 0; i < objectsListToCheck.Count; i++) //Colision Proyectil Enemigo / Player
                         {
-                            var collision = new Collider(new Vector2(projectilesToCheck[i].GetTransform.Position.X, projectilesToCheck[i].GetTransform.Position.Y), new Vector2(10, 20), playerToCheck[0].GetTransform.Position, new Vector2(60, 66));
-                            if (projectilesToCheck[i].Direction == -1)
+                            if (objectsListToCheck[i] is Projectile)
                             {
+                                Projectile projectile = (Projectile) objectsListToCheck[i];
+                                if (projectile.Direction == -1)
+                                {
+                                    for (int j = 0; j < objectsListToCheck.Count; j++)
+                                    {
+                                        if (objectsListToCheck[j] is Player)
+                                        {
+                                            var collision = new Collider(projectile.GetTransform.Position, new Vector2(10, 20), objectsListToCheck[j].GetTransform.Position, new Vector2(60, 66));
+                                            if (collision.IsBoxColliding() == true)
+                                            {
+                                                collisionTimer = 0;
+                                                DamagePlayer(j);
+                                                objectsListToCheck.RemoveAt(i);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (objectsListToCheck.OfType<Projectile>().Count() > 0)
+            {
+                for (int i = 0; i < objectsListToCheck.Count; i++) //Colision Enemigo / Proyectil Player
+                {
+                    if (objectsListToCheck[i] is Enemy)
+                    {
+                        Enemy enemy = (Enemy) objectsListToCheck[i];
+                        for (int j = 0; j < objectsListToCheck.Count; j++)
+                        {
+                            if (objectsListToCheck[j] is Projectile)
+                            {
+                                Projectile projectile = (Projectile) objectsListToCheck[j];
+                                if (projectile.Direction > 0)
+                                {
+                                    var collision = new Collider(enemy.GetTransform.Position, new Vector2(enemy.GetEnemyData.SizeX, enemy.GetEnemyData.SizeY), projectile.GetTransform.Position, new Vector2(10, 20));
+                                    if (collision.IsBoxColliding() == true)
+                                    {
+                                        enemy.PowerController.DamageEnemy();
+                                        if (enemy.PowerController.Power > 0)
+                                        {
+                                            objectsListToCheck.Add(new Effect(new Vector2(projectile.GetTransform.Position.X - 20, projectile.GetTransform.Position.Y), "assets/animations/bullethits/", 6, 0.02f));
+                                        }
+                                        else
+                                        {
+                                            objectsListToCheck.Add(new Effect(new Vector2(enemy.GetTransform.Position.X, enemy.GetTransform.Position.Y + 32), "assets/animations/explosion/", 13, 0.077f));
+                                        }
+                                        objectsListToCheck.RemoveAt(j);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (objectsListToCheck.OfType<PowerUp>().Count() > 0 && objectsListToCheck.OfType<Player>().Count() > 0)
+            {
+                for (int i = 0; i < objectsListToCheck.Count; i++)
+                {
+                    if (objectsListToCheck[i] is PowerUp)
+                    {
+                        PowerUp powerUp = (PowerUp) objectsListToCheck[i];
+                        for (int j = 0; j < objectsListToCheck.Count; j++)
+                        {
+                            if (objectsListToCheck[j] is Player)
+                            {
+                                Player player = (Player) objectsListToCheck[j];
+                                var collision = new Collider(powerUp.GetTransform.Position, new Vector2(20, 10), player.GetTransform.Position, new Vector2(60, 66));
                                 if (collision.IsBoxColliding() == true)
                                 {
-                                    collisionTimer = 0;
-                                    DamagePlayer();
-                                    projectilesToCheck.RemoveAt(i);
-                                    break;
+                                    if (powerUpStackRef.FullStack() == false)
+                                    {
+                                        powerUpStackRef.Stack(powerUp.Type);
+                                        player.SetPower = powerUpStackRef.Top();
+                                        objectsListToCheck.RemoveAt(i);
+                                        levelHudRef.DisplayStackUpdate();
+                                    }
                                 }
                             }
                         }
-                    }
-                }
-            }
-            if (projectilesToCheck.Count > 0)
-            {
-                for (int i = 0; i < enemiesToCheck.Count; i++) //Colision Enemigo / Proyectil Player
-                {
-                    for (int j = 0; j < projectilesToCheck.Count; j++)
-                    {
-                        var collision = new Collider(enemiesToCheck[i].GetTransform.Position, new Vector2(enemiesToCheck[i].GetEnemyData.SizeX, enemiesToCheck[i].GetEnemyData.SizeY), new Vector2(projectilesToCheck[j].GetTransform.Position.X, projectilesToCheck[j].GetTransform.Position.Y), new Vector2(10, 20));
-                        if (projectilesToCheck[j].Direction > 0)
-                        {
-                            if (collision.IsBoxColliding() == true)
-                            {
-                                enemiesToCheck[i].PowerController.DamageEnemy();
-                                if (enemiesToCheck[i].PowerController.Power > 0)
-                                {
-                                    effectListRef.Add(new Effect(new Vector2(projectilesToCheck[j].GetTransform.Position.X - 20, projectilesToCheck[j].GetTransform.Position.Y), "assets/animations/bullethits/", 6, 0.02f));
-                                }
-                                else
-                                {
-                                    effectListRef.Add(new Effect(new Vector2(enemiesToCheck[i].GetTransform.Position.X, enemiesToCheck[i].GetTransform.Position.Y + 32), "assets/animations/explosion/", 13, 0.077f));
-                                }
-                                projectilesToCheck.RemoveAt(j);
-                            }
-                        }
-                    }
-                }
-            }
-            if (powerUpToCheck.Count > 0 && playerToCheck.Count > 0)
-            {
-                var collision = new Collider(powerUpToCheck[0].GetTransform.Position, new Vector2(20, 10), playerToCheck[0].GetTransform.Position, new Vector2(60, 66));
-                if (collision.IsBoxColliding() == true)
-                {
-                    if (powerUpStackRef.FullStack() == false)
-                    {
-                        powerUpStackRef.Stack(powerUpToCheck[0].Type);
-                        powerUpToCheck.RemoveAt(0);
-                        playerToCheck[0].SetPower = powerUpStackRef.Top();
-                        levelHudRef.DisplayStackUpdate();
                     }
                 }
             }
         }
 
-        private void DamagePlayer()
+        private void DamagePlayer(int x)
         {
-            if (playerToCheck[0].GetPower != 1)
+            Player player = (Player) objectsListToCheck[x];
+            if (player.GetPower != 1)
             {
                 if (powerUpStackRef.EmptyStack() == false)
                 {
                     powerUpStackRef.Remove();
                     if (powerUpStackRef.EmptyStack() == false)
                     {
-                        playerToCheck[0].SetPower = powerUpStackRef.Top();
+                        player.SetPower = powerUpStackRef.Top();
                     }
                     else
                     {
-                        playerToCheck[0].SetPower = 1;
+                        player.SetPower = 1;
                     }
                 }
                 levelHudRef.DisplayStackUpdate();
-                playerToCheck[0].Damaged = true;
-                effectListRef.Add(new Effect(new Vector2(playerToCheck[0].GetTransform.Position.X, playerToCheck[0].GetTransform.Position.Y), "assets/animations/powerdown/", 8, 0.077f));
+                player.Damaged = true;
+                objectsListToCheck.Add(new Effect(new Vector2(player.GetTransform.Position.X, player.GetTransform.Position.Y), "assets/animations/powerdown/", 8, 0.077f));
             }
             else
             {
-                effectListRef.Add(new Effect(new Vector2(playerToCheck[0].GetTransform.Position.X, playerToCheck[0].GetTransform.Position.Y + 32), "assets/animations/explosion/", 13, 0.077f));
-                playerToCheck.RemoveAt(0);
+                objectsListToCheck.Add(new Effect(new Vector2(player.GetTransform.Position.X, player.GetTransform.Position.Y + 32), "assets/animations/explosion/", 13, 0.077f));
+                objectsListToCheck.RemoveAt(x);
             }
         }
     }

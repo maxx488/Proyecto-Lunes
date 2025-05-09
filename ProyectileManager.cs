@@ -8,26 +8,34 @@ namespace MyGame
 {
     public class ProyectileManager
     {
-        private List<Projectile> proyectilesToManage;
+        private List<GameObject> objectsToCheck;
 
-        public ProyectileManager(List<Projectile> proyectiles)
+        public ProyectileManager(List<GameObject> objectsToCheck)
         {
-            this.proyectilesToManage = proyectiles;
+            this.objectsToCheck = objectsToCheck;
         }
 
         public void Update()
         {
-            if (proyectilesToManage.Count > 0)
+            if (objectsToCheck.OfType<Projectile>().Count() > 0)
             {
-                for (int i = 0; i < proyectilesToManage.Count; i++)
+                for (int i = 0; i < objectsToCheck.Count; i++)
                 {
-                    proyectilesToManage[i].Update();
-                }
-                for (int i = 0; i < proyectilesToManage.Count; i++)
-                {
-                    if (proyectilesToManage[i].InBounds == false)
+                    if (objectsToCheck[i] is Projectile)
                     {
-                        proyectilesToManage.RemoveAt(i);
+                        Projectile projectile = (Projectile) objectsToCheck[i];
+                        projectile.Update();
+                    }
+                }
+                for (int i = 0; i < objectsToCheck.Count; i++)
+                {
+                    if (objectsToCheck[i] is Projectile)
+                    {
+                        Projectile projectile = (Projectile) objectsToCheck[i];
+                        if (projectile.InBounds == false)
+                        {
+                            objectsToCheck.RemoveAt(i);
+                        }
                     }
                 }
             }
@@ -35,11 +43,15 @@ namespace MyGame
 
         public void Render()
         {
-            if (proyectilesToManage.Count > 0)
+            if (objectsToCheck.OfType<Projectile>().Count() > 0)
             {
-                for (int i = 0; i < proyectilesToManage.Count; i++)
+                for (int i = 0; i < objectsToCheck.Count; i++)
                 {
-                    proyectilesToManage[i].Render();
+                    if (objectsToCheck[i] is Projectile)
+                    {
+                        Projectile projectile = (Projectile) objectsToCheck[i];
+                        projectile.Render();
+                    }
                 }
             }
         }

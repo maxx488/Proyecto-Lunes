@@ -8,7 +8,7 @@ namespace MyGame
 {
     public class EnemySpawner
     {
-        private List<Enemy> enemyList = new List<Enemy>();
+        private List<GameObject> objList;
         private EnemyQueue enemyQueueRef;
         private Random random = new Random();
         private float enemySpawnTimer;
@@ -17,8 +17,9 @@ namespace MyGame
         private bool bossLevel = false;
         private LevelHud levelHudRef;
 
-        public EnemySpawner(int fact, EnemyQueue queue, LevelHud hud, bool bossLevel)
+        public EnemySpawner(List<GameObject> objList, int fact, EnemyQueue queue, LevelHud hud, bool bossLevel)
         {
+            this.objList = objList;
             faction = fact;
             this.enemyQueueRef = queue;
             this.levelHudRef = hud;
@@ -26,11 +27,9 @@ namespace MyGame
             if (bossLevel == true)
             {
                 this.bossLevel = true;
-                enemyList.Add(new Enemy(new Vector2(200, 25), faction, 5, true));
+                objList.Add(new Enemy(new Vector2(200, 25), faction, 5, true));
             }
         }
-
-        public List<Enemy> EnemyList => enemyList;
 
         public void Update()
         {
@@ -48,17 +47,17 @@ namespace MyGame
                     if (typ == 1 || typ == 2)
                     {
                         var spawnX = random.Next(960);
-                        enemyList.Add(new Enemy(new Vector2(spawnX, -64), faction, typ, false));
+                        objList.Add(new Enemy(new Vector2(spawnX, -64), faction, typ, false));
                     }
                     else if (typ == 3)
                     {
                         var spawnX = random.Next(896);
-                        enemyList.Add(new Enemy(new Vector2(spawnX, -64), faction, typ, false));
+                        objList.Add(new Enemy(new Vector2(spawnX, -64), faction, typ, false));
                     }
                     else
                     {
                         var spawnX = random.Next(980);
-                        enemyList.Add(new Enemy(new Vector2(spawnX, -52), faction, typ, false));
+                        objList.Add(new Enemy(new Vector2(spawnX, -52), faction, typ, false));
                     }
                     enemyQueueRef.Dequeue();
                     enemySpawnTimer = 0;

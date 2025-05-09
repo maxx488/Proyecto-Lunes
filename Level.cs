@@ -8,8 +8,8 @@ namespace MyGame
 {
     public class Level
     {
+        private List<GameObject> objectsList = new List<GameObject>();
         private Image background;
-        private List<Player> playerList = new List<Player>();
         private EnemySpawner enemySpawner;
         private EnemyManager enemyManager;
         private EnemyQueue enemyQueue = new EnemyQueue();
@@ -17,10 +17,8 @@ namespace MyGame
         private ProyectileManager proyectileManager;
         private Random random = new Random();
         private int enemyCount;
-        private List<Effect> effectList = new List<Effect>();
         private LevelHud levelHud;
         private PowerUpStack powerUpStack = new PowerUpStack();
-        private List<PowerUp> powerUpList = new List<PowerUp>();
         private LevelCollider levelCollider;
         private float powerUpSpawnTimer;
         private float powerUpSpawnCooldown;
@@ -41,16 +39,16 @@ namespace MyGame
             }
             tries = 3; //Intentos del jugador (dependeria de la dificultad?)
             background = Engine.LoadImage($"assets/level/{faction}.png"); // cambiar forma de obtener fondo y/o datos de nivel en el futuro
-            playerList.Add(new Player(new Vector2(400, 650))); // Se agrega jugador a lista (se podrian agregar mas a futuro con powerup)
+            objectsList.Add(new Player(new Vector2(400, 650))); // Se agrega jugador a lista (se podrian agregar mas a futuro con powerup)
             powerUpStack.InitializeStack(); // Inicializar pila PowerUps
             enemyQueue.InitializeQueue(); // Inicializar cola enemigos
             levelHud = new LevelHud(powerUpStack, enemyQueue, faction, tries, enemiesDestroyed, enemyCount); // Crear HUD (tomar faccion enemiga)
-            enemySpawner = new EnemySpawner(faction, enemyQueue, levelHud, bossLevel); // faccion correspondiente
-            enemyManager = new EnemyManager(enemySpawner.EnemyList); // Manager de enemigos
-            proyectileSpawner = new ProyectileSpawner(playerList, enemySpawner.EnemyList); // spawner de proyectiles
-            proyectileManager = new ProyectileManager(proyectileSpawner.ProjectileList); // Manager de proyectiles
+            enemySpawner = new EnemySpawner(objectsList, faction, enemyQueue, levelHud, bossLevel); // faccion correspondiente
+            enemyManager = new EnemyManager(objectsList); // Manager de enemigos
+            proyectileSpawner = new ProyectileSpawner(objectsList); // spawner de proyectiles
+            proyectileManager = new ProyectileManager(objectsList); // Manager de proyectiles
             powerUpSpawnCooldown = (float) random.Next(15, 20); // Segundos que pasaran hasta spawnear un powerup
-            levelCollider = new LevelCollider(playerList, enemySpawner.EnemyList, proyectileSpawner.ProjectileList, powerUpList, powerUpStack, levelHud, effectList); // manejo de colisiones del nivel
+            levelCollider = new LevelCollider(objectsList, powerUpStack, levelHud); // manejo de colisiones del nivel
         }
 
         public int GetTries => tries;
@@ -126,9 +124,9 @@ namespace MyGame
             enemyManager.Render();
         }
 
-        private void PlayerSpawn()//Cambiar a propia clase
+        private void PlayerSpawn()//Cambiar a propia clase - playermanager
         {
-            if (playerList.Count < 1 && tries > 0)
+            if (objectsList.OfType<Player>().Count() < 1 && tries > 0)
             {
                 respawnTimer += Time.DeltaTime;
                 if (respawnTimer > respawnCooldown)
@@ -140,7 +138,7 @@ namespace MyGame
                     if (tries > 0)
                     {
                         levelHud.Tries--;
-                        playerList.Add(new Player(new Vector2(400, 650)));
+                        objectsList.Add(new Player(new Vector2(400, 650)));
                     }
                 }
             }
@@ -148,25 +146,49 @@ namespace MyGame
 
         private void PlayerInput()
         {
-            if (playerList.Count > 0 && tries > 0)
+            if (objectsList.OfType<Player>().Count() > 0 && tries > 0)
             {
-                playerList[0].Input();
+                for (int i = 0; i < objectsList.Count; i++)
+                {
+                    if (objectsList[i] is Player)
+                    {
+                        Player player = (Player) objectsList[i];
+                        player.Input();
+                        break;
+                    }
+                }
             }
         }
 
         private void PlayerUpdate()
         {
-            if (playerList.Count > 0 && tries > 0)
+            if (objectsList.OfType<Player>().Count() > 0 && tries > 0)
             {
-                playerList[0].Update();
+                for (int i = 0; i < objectsList.Count; i++)
+                {
+                    if (objectsList[i] is Player)
+                    {
+                        Player player = (Player) objectsList[i];
+                        player.Update();
+                        break;
+                    }
+                }
             }
         }
 
         private void PlayerRender()
         {
-            if (playerList.Count > 0 && tries > 0)
+            if (objectsList.OfType<Player>().Count() > 0 && tries > 0)
             {
-                playerList[0].Render();
+                for (int i = 0; i < objectsList.Count; i++)
+                {
+                    if (objectsList[i] is Player)
+                    {
+                        Player player = (Player) objectsList[i];
+                        player.Render();
+                        break;
+                    }
+                }
             }
         }
 
@@ -175,7 +197,7 @@ namespace MyGame
             powerUpSpawnTimer += Time.DeltaTime;
             if (powerUpSpawnTimer > powerUpSpawnCooldown)
             {
-                powerUpList.Add(new PowerUp(new Vector2(random.Next(1004), -10), random.Next(2, 4)));
+                objectsList.Add(new PowerUp(new Vector2(random.Next(1004), -10), random.Next(2, 4)));
                 powerUpSpawnTimer = 0;
                 powerUpSpawnCooldown = (float) random.Next(15, 20);
             }
@@ -184,17 +206,25 @@ namespace MyGame
 
         private void PowerUpUpdate()
         {
-            if (powerUpList.Count > 0)
+            if (objectsList.OfType<PowerUp>().Count() > 0)
             {
-                for (int i = 0; i < powerUpList.Count; i++)
+                for (int i = 0; i < objectsList.Count; i++)
                 {
-                    powerUpList[i].Update();
-                }
-                for (int i = 0; i < powerUpList.Count; i++)
-                {
-                    if (powerUpList[i].InBounds == false)
+                    if (objectsList[i] is PowerUp)
                     {
-                        powerUpList.RemoveAt(i);
+                        PowerUp powerUp = (PowerUp)objectsList[i];
+                        powerUp.Update();
+                    }
+                }
+                for (int i = 0; i < objectsList.Count; i++)
+                {
+                    if (objectsList[i] is PowerUp)
+                    {
+                        PowerUp powerUp = (PowerUp)objectsList[i];
+                        if (powerUp.InBounds == false)
+                        {
+                            objectsList.RemoveAt(i);
+                        }
                     }
                 }
             }
@@ -202,25 +232,33 @@ namespace MyGame
 
         private void PowerUpRender()
         {
-            if (powerUpList.Count > 0)
+            if (objectsList.OfType<PowerUp>().Count() > 0)
             {
-                for (int i = 0; i < powerUpList.Count; i++)
+                for (int i = 0; i < objectsList.Count; i++)
                 {
-                    powerUpList[i].Render();
+                    if (objectsList[i] is PowerUp)
+                    {
+                        PowerUp powerUp = (PowerUp) objectsList[i];
+                        powerUp.Render();
+                    }
                 }
             }
         }
 
         private void EffectUpdate()
         {
-            if (effectList.Count > 0)
+            if (objectsList.OfType<Effect>().Count() > 0)
             {
-                for (int i = 0; i < effectList.Count; i++)
+                for (int i = 0; i < objectsList.Count; i++)
                 {
-                    effectList[i].Update();
-                    if (effectList[i].GetAnimationController.Finished == true)
+                    if (objectsList[i] is Effect)
                     {
-                        effectList.RemoveAt(i);
+                        Effect effect = (Effect) objectsList[i];
+                        effect.Update();
+                        if (effect.GetAnimationController.Finished == true)
+                        {
+                            objectsList.RemoveAt(i);
+                        }
                     }
                 }
             }
@@ -228,11 +266,15 @@ namespace MyGame
 
         private void EffectRender()
         {
-            if (effectList.Count > 0)
+            if (objectsList.OfType<Effect>().Count() > 0)
             {
-                for (int i = 0; i < effectList.Count; i++)
+                for (int i = 0; i < objectsList.Count; i++)
                 {
-                    effectList[i].Render();
+                    if (objectsList[i] is Effect)
+                    {
+                        Effect effect = (Effect) objectsList[i];
+                        effect.Render();
+                    }
                 }
             }
         }
