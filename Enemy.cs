@@ -33,6 +33,8 @@ namespace MyGame
 
         public EnemyPowerController PowerController => powerController;
 
+        public int Type => type;
+
         public bool InBounds => inBounds;
 
         public bool IsBoss => isBoss;

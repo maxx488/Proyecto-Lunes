@@ -35,7 +35,7 @@ namespace MyGame
             }
             else
             {
-                enemyCount = random.Next(40, 51); // Enemigos a derrotar para completar el nivel
+                enemyCount = random.Next(25, 36); // Enemigos a derrotar para completar el nivel
             }
             tries = 3; //Intentos del jugador (dependeria de la dificultad?)
             background = Engine.LoadImage($"assets/level/{faction}.png"); // cambiar forma de obtener fondo y/o datos de nivel en el futuro
@@ -57,6 +57,10 @@ namespace MyGame
         {
             get
             {
+                if (enemiesDestroyed == enemyCount)
+                {
+                    GameManager.Stats.UnSubStats(enemyManager);
+                }
                 return enemiesDestroyed == enemyCount;
             }
         }

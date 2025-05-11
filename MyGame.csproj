@@ -52,6 +52,7 @@
     <Compile Include="EnemyQueue.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GameState.cs" />
+    <Compile Include="GameStats.cs" />
     <Compile Include="IQueue.cs" />
     <Compile Include="LevelCollider.cs" />
     <Compile Include="ProyectileManager.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Projectile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Engine\Sound.cs" />
+    <Compile Include="Sorter.cs" />
     <Compile Include="Time.cs" />
     <Compile Include="Transform.cs" />
     <Compile Include="Vector2.cs" />

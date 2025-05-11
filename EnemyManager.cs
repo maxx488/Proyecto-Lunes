@@ -8,13 +8,22 @@ namespace MyGame
 {
     public  class EnemyManager
     {
+        public delegate void statsDelegate(int x);
+        private event statsDelegate onEnemyDestroyed;
         private List<GameObject> objList;
         private int enemiesDestroyed;
 
         public EnemyManager(List<GameObject> objList)
         {
+            GameManager.Stats.SubStats(this);
             this.objList = objList;
             enemiesDestroyed = 0;
+        }
+
+        public event statsDelegate OnEnemyDestroyed
+        {
+            add { onEnemyDestroyed += value; }
+            remove { onEnemyDestroyed -= value; }
         }
 
         public int EnemiesDestroyed => enemiesDestroyed;
@@ -49,6 +58,7 @@ namespace MyGame
                         Enemy enemy = (Enemy)objList[i];
                         if (enemy.PowerController.Destroyed == true)
                         {
+                            onEnemyDestroyed.Invoke(enemy.Type);
                             objList.RemoveAt(i);
                             enemiesDestroyed++;
                         }

@@ -56,7 +56,7 @@ namespace MyGame
                     sizeY = 256;
                     shootPosX = new int[4] { 0, 56, 190, 246};
                     shootPosY = 257;
-                    power = 200;
+                    power = 100;
                     speed = 100;
                     break;
             }

@@ -10,6 +10,7 @@ namespace MyGame
     public class GameManager
     {
         private static GameState state;
+        private static GameStats stats;
         private Level level;
         private int timesWon;
         private bool bossLevel;
@@ -23,6 +24,8 @@ namespace MyGame
         }
 
         private static GameManager _instance;
+
+        public static GameStats Stats => stats;
 
         public static GameManager GetInstance()
         {
@@ -42,6 +45,7 @@ namespace MyGame
                     {
                         timesWon = 0;
                         bossLevel = false;
+                        stats = new GameStats();
                         level = new Level(timesWon + 1, bossLevel); // faccion enemiga
                         state = GameState.game;
                     }
@@ -111,6 +115,7 @@ namespace MyGame
                     }
                     if (level.EnemiesDestroyed == true)
                     {
+                        stats.DisplayStats();
                         state = GameState.win;
                     }
                     break;
@@ -133,6 +138,7 @@ namespace MyGame
                     break;
                 case GameState.win:
                     Engine.Draw(win, 0, 0);
+                    stats.Render();
                     break;
                 case GameState.lose:
                     Engine.Draw(lose, 0, 0);
