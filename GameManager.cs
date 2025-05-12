@@ -14,6 +14,7 @@ namespace MyGame
         private Level level;
         private int timesWon;
         private bool bossLevel;
+        private Font font = new Font("assets/fonts/PressStart2P.ttf", 38);
         private Image menu = Engine.LoadImage("assets/gamestate/menu.png");
         private Image win = Engine.LoadImage("assets/gamestate/win.png");
         private Image lose = Engine.LoadImage("assets/gamestate/lose.png");
@@ -132,6 +133,7 @@ namespace MyGame
             {
                 case GameState.menu:
                     Engine.Draw(menu,0,0);
+                    Engine.DrawText("Press SPACE To Start", 120, 675, 255, 10, 0, font);
                     break;
                 case GameState.game:
                     level.Render();
@@ -139,9 +141,11 @@ namespace MyGame
                 case GameState.win:
                     Engine.Draw(win, 0, 0);
                     stats.Render();
+                    Engine.DrawText("Press ENTER To Continue", 75, 675, 255, 10, 0, font);
                     break;
                 case GameState.lose:
                     Engine.Draw(lose, 0, 0);
+                    Engine.DrawText("Press ENTER To Continue", 75, 675, 255, 10, 0, font);
                     break;
             }
         }

@@ -51,9 +51,9 @@ namespace MyGame
 
         public void Render()
         {
-            int x = 350;
+            int x = 325;
             int y = 350;
-            Engine.DrawText($"Enemies Destroyed", 250, 275, 255, 255, 255, font);
+            Engine.DrawText($"Enemies Destroyed", 230, 275, 255, 255, 255, font);
             for (int i = arrayCount.Length - 1; i > -1; i--)
             {
                 switch (arrayCount[i][0])
