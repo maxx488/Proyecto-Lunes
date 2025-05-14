@@ -332,6 +332,10 @@ C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\shield\5.png
 C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\shield\6.png
 C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\shield\7.png
 C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\shield\8.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\shield\10.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\shield\11.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\shield\12.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\shield\9.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\bullethits\1.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\bullethits\2.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\bullethits\3.png
@@ -464,6 +468,9 @@ C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\projectile\player\3.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\projectile\player\4.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\shield\1.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\shield\10.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\shield\11.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\shield\12.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\shield\2.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\shield\3.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\shield\4.png
@@ -471,6 +478,7 @@ C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\shield\6.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\shield\7.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\shield\8.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\shield\9.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\hud\enemyqueue.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\hud\enemyqueue\1\4.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\hud\enemyqueue\2\4.png

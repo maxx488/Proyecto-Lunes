@@ -7,8 +7,16 @@
       "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\levelcollider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:levelcollider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\playerspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:playerspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\level.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -17,10 +25,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\levelcollider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:levelcollider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\gamestats.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -33,10 +37,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\enemymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:enemymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|solutionrelative:gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2CDCD5DC-5145-4C37-ACEA-CE81D939F89E}|MyGame.csproj|C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\sorter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -171,7 +171,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 3,
               "Title": "GameManager.cs",
               "DocumentMoniker": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\GameManager.cs",
               "RelativeDocumentMoniker": "GameManager.cs",
@@ -183,7 +183,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "GameStats.cs",
               "DocumentMoniker": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\GameStats.cs",
               "RelativeDocumentMoniker": "GameStats.cs",
@@ -195,7 +195,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "Level.cs",
               "DocumentMoniker": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\Level.cs",
               "RelativeDocumentMoniker": "Level.cs",
@@ -207,7 +207,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "Player.cs",
               "DocumentMoniker": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\Player.cs",
               "RelativeDocumentMoniker": "Player.cs",
@@ -315,7 +315,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "EnemyManager.cs",
               "DocumentMoniker": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\EnemyManager.cs",
               "RelativeDocumentMoniker": "EnemyManager.cs",
@@ -327,7 +327,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "EnemySpawner.cs",
               "DocumentMoniker": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\EnemySpawner.cs",
               "RelativeDocumentMoniker": "EnemySpawner.cs",
@@ -375,7 +375,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "PlayerSpawner.cs",
               "DocumentMoniker": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\PlayerSpawner.cs",
               "RelativeDocumentMoniker": "PlayerSpawner.cs",
@@ -387,7 +387,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "LevelCollider.cs",
               "DocumentMoniker": "C:\\Users\\Maxi\\Desktop\\Proyecto-Lunes\\Proyecto-Lunes\\LevelCollider.cs",
               "RelativeDocumentMoniker": "LevelCollider.cs",

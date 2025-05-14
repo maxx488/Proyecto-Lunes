@@ -24,7 +24,7 @@ namespace MyGame
             {
                 animationController.Update();
                 noDamageTimer += Time.DeltaTime;
-                if (noDamageTimer > 2)
+                if (noDamageTimer > 1.9f)
                 {
                     noDamageTimer = 0;
                     animationController = null;
@@ -49,7 +49,7 @@ namespace MyGame
                 if (objectsListToCheck[i] is Player)
                 {
                     Player player = (Player) objectsListToCheck[i];
-                    animationController = new AnimationController(player.GetTransform, "assets/animations/shield/", 8, 0.077f);
+                    animationController = new AnimationController(player.GetTransform, "assets/animations/shield/", 12, 0.077f);
                     break;
                 }
             }
