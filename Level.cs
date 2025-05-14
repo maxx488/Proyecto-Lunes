@@ -9,6 +9,7 @@ namespace MyGame
     public class Level
     {
         private List<GameObject> objectsList = new List<GameObject>();
+        private PlayerSpawner playerSpawner;
         private Image background;
         private EnemySpawner enemySpawner;
         private EnemyManager enemyManager;
@@ -42,6 +43,7 @@ namespace MyGame
             objectsList.Add(new Player(new Vector2(400, 650))); // Se agrega jugador a lista (se podrian agregar mas a futuro con powerup)
             powerUpStack.InitializeStack(); // Inicializar pila PowerUps
             enemyQueue.InitializeQueue(); // Inicializar cola enemigos
+            playerSpawner = new PlayerSpawner(objectsList);
             levelHud = new LevelHud(powerUpStack, enemyQueue, faction, tries, enemiesDestroyed, enemyCount); // Crear HUD (tomar faccion enemiga)
             enemySpawner = new EnemySpawner(objectsList, faction, enemyQueue, levelHud, bossLevel); // faccion correspondiente
             enemyManager = new EnemyManager(objectsList); // Manager de enemigos
@@ -73,6 +75,7 @@ namespace MyGame
         public void Update()
         {
             PlayerSpawn();
+            PlayerSpawnerUpdate();
             EnemySpawn();
             EnemyUpdate();
             PlayerUpdate();
@@ -90,6 +93,7 @@ namespace MyGame
             Engine.Draw(background, 0, 0);
             EnemyRender();
             PlayerRender();
+            PlayerSpawnerRender();
             ProjectileRender();
             PowerUpRender();
             EffectRender();
@@ -128,7 +132,7 @@ namespace MyGame
             enemyManager.Render();
         }
 
-        private void PlayerSpawn()//Cambiar a propia clase - playermanager
+        private void PlayerSpawn()
         {
             if (objectsList.OfType<Player>().Count() < 1 && tries > 0)
             {
@@ -142,7 +146,7 @@ namespace MyGame
                     if (tries > 0)
                     {
                         levelHud.Tries--;
-                        objectsList.Add(new Player(new Vector2(400, 650)));
+                        playerSpawner.Spawn();
                     }
                 }
             }
@@ -194,6 +198,16 @@ namespace MyGame
                     }
                 }
             }
+        }
+
+        private void PlayerSpawnerUpdate()
+        {
+            playerSpawner.Update();
+        }
+
+        private void PlayerSpawnerRender()
+        {
+            playerSpawner.Render();
         }
 
         private void PowerUpSpawn()//Cambiar a propia clase
