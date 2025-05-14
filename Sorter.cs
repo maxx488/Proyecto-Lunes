@@ -13,27 +13,6 @@ namespace MyGame
             int pivot;
             int aux = (left + right) / 2;
             pivot = array[aux][1];
-            /*while (true)
-            {
-                while (array[left][1] < pivot)
-                {
-                    left++;
-                }
-                while (array[right][1] > pivot)
-                {
-                    right--;
-                }
-                if (left < right)
-                {
-                    int[] temp = array[right];
-                    array[right] = array[left];
-                    array[left] = temp;
-                }
-                else
-                {
-                    return right;
-                }
-            }*/
             for (int i = 0; i < array.Length; i++)
             {
                 for (int j = 0; j < array.Length; j++)
@@ -61,7 +40,7 @@ namespace MyGame
                     return right;
                 }
             }
-            return right;
+            return Partition(array, left, right);
         }
 
         public void QuickSort(int[][] array, int left, int right)

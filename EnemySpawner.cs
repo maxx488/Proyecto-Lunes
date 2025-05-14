@@ -16,6 +16,7 @@ namespace MyGame
         private int faction;
         private bool bossLevel = false;
         private LevelHud levelHudRef;
+        private EnemyData enemyData;
 
         public EnemySpawner(List<GameObject> objList, int fact, EnemyQueue queue, LevelHud hud, bool bossLevel)
         {
@@ -44,21 +45,8 @@ namespace MyGame
                 if (enemySpawnTimer > enemySpawnCooldown)
                 {
                     var typ = enemyQueueRef.First();
-                    if (typ == 1 || typ == 2)
-                    {
-                        var spawnX = random.Next(960);
-                        objList.Add(new Enemy(new Vector2(spawnX, -64), faction, typ, false));
-                    }
-                    else if (typ == 3)
-                    {
-                        var spawnX = random.Next(896);
-                        objList.Add(new Enemy(new Vector2(spawnX, -64), faction, typ, false));
-                    }
-                    else
-                    {
-                        var spawnX = random.Next(980);
-                        objList.Add(new Enemy(new Vector2(spawnX, -52), faction, typ, false));
-                    }
+                    enemyData = new EnemyData(typ);
+                    objList.Add(new Enemy(new Vector2(random.Next(1024 - enemyData.SizeX), -enemyData.SizeY), faction, typ, false));
                     enemyQueueRef.Dequeue();
                     enemySpawnTimer = 0;
                     enemySpawnCooldown = (float)random.Next(3);
