@@ -8,14 +8,14 @@ namespace MyGame
 {
     public class Level
     {
+        private Renderer renderer;
         private List<GameObject> objectsList = new List<GameObject>();
         private PlayerSpawner playerSpawner;
-        private Image background;
         private EnemySpawner enemySpawner;
         private EnemyManager enemyManager;
         private EnemyQueue enemyQueue = new EnemyQueue();
-        private ProyectileSpawner proyectileSpawner;
-        private ProyectileManager proyectileManager;
+        private ProjectileSpawner projectileSpawner;
+        private ProjectileManager projectileManager;
         private Random random = new Random();
         private int enemyCount;
         private LevelHud levelHud;
@@ -38,8 +38,8 @@ namespace MyGame
             {
                 enemyCount = random.Next(25, 36); // Enemigos a derrotar para completar el nivel
             }
+            renderer = new Renderer(new Transform(new Vector2(0, 0), new Vector2(0, 0)), $"assets/level/{faction}.png");
             tries = 3; //Intentos del jugador (dependeria de la dificultad?)
-            background = Engine.LoadImage($"assets/level/{faction}.png"); // cambiar forma de obtener fondo y/o datos de nivel en el futuro
             objectsList.Add(new Player(new Vector2(400, 650))); // Se agrega jugador a lista (se podrian agregar mas a futuro con powerup)
             powerUpStack.InitializeStack(); // Inicializar pila PowerUps
             enemyQueue.InitializeQueue(); // Inicializar cola enemigos
@@ -47,8 +47,8 @@ namespace MyGame
             levelHud = new LevelHud(powerUpStack, enemyQueue, faction, tries, enemiesDestroyed, enemyCount); // Crear HUD (tomar faccion enemiga)
             enemySpawner = new EnemySpawner(objectsList, faction, enemyQueue, levelHud, bossLevel); // faccion correspondiente
             enemyManager = new EnemyManager(objectsList); // Manager de enemigos
-            proyectileSpawner = new ProyectileSpawner(objectsList); // spawner de proyectiles
-            proyectileManager = new ProyectileManager(objectsList); // Manager de proyectiles
+            projectileSpawner = new ProjectileSpawner(objectsList); // spawner de proyectiles
+            projectileManager = new ProjectileManager(objectsList); // Manager de proyectiles
             powerUpSpawnCooldown = (float) random.Next(15, 20); // Segundos que pasaran hasta spawnear un powerup
             levelCollider = new LevelCollider(objectsList, powerUpStack, levelHud); // manejo de colisiones del nivel
         }
@@ -90,7 +90,7 @@ namespace MyGame
 
         public void Render()
         {
-            Engine.Draw(background, 0, 0);
+            renderer.Render();
             EnemyRender();
             PlayerRender();
             PlayerSpawnerRender();
@@ -102,17 +102,17 @@ namespace MyGame
 
         private void ProyectileSpawn()
         {
-            proyectileSpawner.Update();
+            projectileSpawner.Update();
         }
 
         private void ProjectileUpdate()
         {
-            proyectileManager.Update();
+            projectileManager.Update();
         }
 
         private void ProjectileRender()
         {
-            proyectileManager.Render();
+            projectileManager.Render();
         }
 
         private void EnemySpawn()

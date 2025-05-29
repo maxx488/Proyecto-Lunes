@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyGame
 {
-    public class Projectile: GameObject
+    public class Projectile: GameObject, IPoolable
     {
         private string path;
         private int type;
@@ -14,13 +14,29 @@ namespace MyGame
         private float speed;
         private bool inBounds = true;
 
-        public Projectile(Vector2 position,int dir,float spd,int typ)
+        public event Action OnDisable;
+
+        public Projectile()
+        {
+            
+        }
+
+        public bool InBounds => inBounds;
+
+        public int Direction => direction;
+
+        public override void Update()
+        {
+            ProjectileBehavior();
+            AnimationUpdate();
+        }
+
+        public void Initialize(Vector2 position, int dir, float spd, int typ)
         {
             /* posiiton = vector posicion x y
                dir = 1 o -1 dependiendo si es proyectil del jugador o del enemigo, 2 y 3 para diagonales en powerup
                spd = velocidad
                typ = tipo o variacion del proyectil */
-            transform = new Transform(position);
             direction = dir;
             speed = spd;
             type = typ;
@@ -32,17 +48,15 @@ namespace MyGame
             {
                 path = "enemy";
             }
-            animationController = new AnimationController(transform, $"assets/animations/projectile/{path}/", 4, 0.2f);
-        }
-
-        public bool InBounds => inBounds;
-
-        public int Direction => direction;
-
-        public override void Update()
-        {
-            ProjectileBehavior();
-            AnimationUpdate();
+            if (transform == null)
+            {
+                transform = new Transform(new Vector2(0, 0), new Vector2(10, 20));
+                animationController = new AnimationController(transform, $"assets/animations/projectile/{path}/", 4, 0.2f);
+            }
+            transform.SetPosition(position);
+            animationController.GetTransform.SetPosition(position);
+            animationController.Path = $"assets/animations/projectile/{path}/";
+            animationController.ForceAnimationUpdate();
         }
 
         private void ProjectileBehavior()
@@ -77,7 +91,7 @@ namespace MyGame
             {
                 if (direction == -1)
                 {
-                    if (transform.Position.Y < 768)
+                    if (transform.Position.Y < Engine.ScreenSizeH)
                     {
                         transform.Translate(new Vector2(0, 1), speed);
                     }
@@ -128,6 +142,16 @@ namespace MyGame
         private void AnimationUpdate()
         {
             animationController.Update();
+        }
+
+        public void Disable()
+        {
+            OnDisable.Invoke();
+        }
+
+        public void Reset()
+        {
+            inBounds = true;
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyGame
 {
-    public class Enemy: GameObject
+    public class Enemy: GameObject, IDamagable
     {
         private EnemyController enemyController;
         private EnemyData enemyData;
@@ -22,8 +22,8 @@ namespace MyGame
             faction = fact;
             type = typ;
             isBoss = boss;
-            transform = new Transform(position);
             enemyData = new EnemyData(type);
+            transform = new Transform(position, new Vector2(enemyData.SizeX, enemyData.SizeY));
             enemyController = new EnemyController(transform, isBoss, type, enemyData.Speed);
             animationController = new AnimationController(transform, $"assets/animations/enemies/{faction}/{type}/", 5, 0.15f);
             powerController = new EnemyPowerController(enemyData.Power);
@@ -65,6 +65,11 @@ namespace MyGame
         private void AnimationUpdate()
         {
             animationController.Update();
+        }
+
+        public void GetDamage()
+        {
+            PowerController.DamageEnemy();
         }
     }
 }

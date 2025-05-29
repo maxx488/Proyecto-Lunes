@@ -336,6 +336,14 @@ C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\shield\10.png
 C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\shield\11.png
 C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\shield\12.png
 C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\animations\shield\9.png
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\sounds\bulletHit.wav
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\sounds\explosion.wav
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\sounds\menu.wav
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\sounds\powerDown.wav
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\sounds\powerUp.wav
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\sounds\respawn.wav
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\sounds\lose.wav
+C:\Users\Maxi\Desktop\Proyecto Base\bin\Debug\assets\sounds\win.wav
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\bullethits\1.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\bullethits\2.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\animations\bullethits\3.png
@@ -497,6 +505,14 @@ C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\hud\enemyqu
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\hud\enemyqueue\2\2.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\hud\enemyqueue\2\3.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\level\2.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\sounds\bulletHit.wav
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\sounds\explosion.wav
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\sounds\lose.wav
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\sounds\menu.wav
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\sounds\powerDown.wav
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\sounds\powerUp.wav
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\sounds\respawn.wav
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\sounds\win.wav
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\fonts\PressStart2P.ttf
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\MyGame.exe.config
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\MyGame.exe

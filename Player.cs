@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyGame
 {
-    public class Player: GameObject
+    public class Player: GameObject, IDamagable
     {
         private PlayerController playerController;
         private int power = 1;
@@ -15,7 +15,7 @@ namespace MyGame
 
         public Player(Vector2 position)
         {
-            transform = new Transform(position);
+            transform = new Transform(position, new Vector2(60, 66));
             playerController = new PlayerController(transform);
             animationController = new AnimationController(transform, $"assets/animations/player/{power}/", 4, 0.2f);
         }
@@ -44,18 +44,6 @@ namespace MyGame
                     }
                     Engine.Debug($"\nPoder = {power}\n");
                 }
-            }
-        }
-
-        public bool Damaged
-        {
-            get
-            {
-                return damaged;
-            }
-            set
-            {
-                damaged = value;
             }
         }
 
@@ -107,6 +95,11 @@ namespace MyGame
             {
                 animationController.Render();
             }
+        }
+
+        public void GetDamage()
+        {
+            damaged = true;
         }
     }
 }

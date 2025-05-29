@@ -21,9 +21,9 @@ namespace MyGame
         private AnimationController powerAnimation3;
         private Image powerStack;
         private int[] powerArray;
-        private Transform powerUpLocation1 = new Transform(new Vector2(15, 689));
-        private Transform powerUpLocation2 = new Transform(new Vector2(15, 597));
-        private Transform powerUpLocation3 = new Transform(new Vector2(15, 505));
+        private Transform powerUpLocation1 = new Transform(new Vector2(15, 689), new Vector2(0, 0));
+        private Transform powerUpLocation2 = new Transform(new Vector2(15, 597), new Vector2(0, 0));
+        private Transform powerUpLocation3 = new Transform(new Vector2(15, 505), new Vector2(0, 0));
         private EnemyQueue currentQueue;
         private int faction;
         private Image nextEnemy1;

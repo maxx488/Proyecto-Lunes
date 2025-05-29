@@ -40,7 +40,7 @@ namespace MyGame
                     return right;
                 }
             }
-            return Partition(array, left, right);
+            return right;
         }
 
         public void QuickSort(int[][] array, int left, int right)

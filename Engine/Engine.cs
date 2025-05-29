@@ -10,6 +10,9 @@ class Engine
     static IntPtr screen;
     static int ancho, alto;
 
+    public static int ScreenSizeW => ancho;
+    public static int ScreenSizeH => alto;
+
     public static void Initialize()
     {
         ancho = 1024;

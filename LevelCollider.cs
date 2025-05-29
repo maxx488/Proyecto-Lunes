@@ -8,6 +8,8 @@ namespace MyGame
 {
     public class LevelCollider
     {
+        public delegate void soundDelegate(string type, string state);
+        private event soundDelegate onCollisionSound;
         private float collisionTimer;
         private float collisionCooldown = 2;
         private List<GameObject> objectsListToCheck;
@@ -19,6 +21,13 @@ namespace MyGame
             this.objectsListToCheck = objects;
             this.powerUpStackRef = powerUpStack;
             this.levelHudRef = hud;
+            GameManager.GetSoundManager.SubCollisions(this);
+        }
+
+        public event soundDelegate OnCollisionSound
+        {
+            add { onCollisionSound += value; }
+            remove { onCollisionSound -= value; }
         }
 
         public void Update()
@@ -41,8 +50,8 @@ namespace MyGame
                             {
                                 if (objectsListToCheck[j] is Player)
                                 {
-                                    var collision = new Collider(enemy.GetTransform.Position, new Vector2(enemy.GetEnemyData.SizeX, enemy.GetEnemyData.SizeY), objectsListToCheck[j].GetTransform.Position, new Vector2(60, 66));
-                                    if (collision.IsBoxColliding() == true)
+                                    Player player = (Player) objectsListToCheck[j];
+                                    if (CheckCollisions(enemy, player) == true)
                                     {
                                         collisionTimer = 0;
                                         DamagePlayer(j);
@@ -54,6 +63,7 @@ namespace MyGame
                     }
                     if (objectsListToCheck.OfType<Projectile>().Count() > 0 && objectsListToCheck.OfType<Player>().Count() > 0)
                     {
+                        int previousSize = objectsListToCheck.Count;
                         for (int i = 0; i < objectsListToCheck.Count; i++) //Colision Proyectil Enemigo / Player
                         {
                             if (objectsListToCheck[i] is Projectile)
@@ -65,12 +75,28 @@ namespace MyGame
                                     {
                                         if (objectsListToCheck[j] is Player)
                                         {
-                                            var collision = new Collider(projectile.GetTransform.Position, new Vector2(10, 20), objectsListToCheck[j].GetTransform.Position, new Vector2(60, 66));
-                                            if (collision.IsBoxColliding() == true)
+                                            Player player = (Player) objectsListToCheck[j];
+                                            if (CheckCollisions(projectile, player) == true)
                                             {
                                                 collisionTimer = 0;
+                                                projectile.Disable();
                                                 DamagePlayer(j);
-                                                objectsListToCheck.RemoveAt(i);
+                                                int currentSize = objectsListToCheck.Count;
+                                                if (currentSize == previousSize) //quiere decir que el jugador fue removido y se añadió un objeto efecto.
+                                                {
+                                                    if (j < i)
+                                                    {
+                                                        objectsListToCheck.RemoveAt(i - 1); //si el proyectil se encontraba mas adelante en la lista, entonces se corrió una posición hacia la "izquierda".
+                                                    }
+                                                    else
+                                                    {
+                                                        objectsListToCheck.RemoveAt(i);
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    objectsListToCheck.RemoveAt(i);
+                                                }
                                                 break;
                                             }
                                         }
@@ -95,18 +121,20 @@ namespace MyGame
                                 Projectile projectile = (Projectile) objectsListToCheck[j];
                                 if (projectile.Direction > 0)
                                 {
-                                    var collision = new Collider(enemy.GetTransform.Position, new Vector2(enemy.GetEnemyData.SizeX, enemy.GetEnemyData.SizeY), projectile.GetTransform.Position, new Vector2(10, 20));
-                                    if (collision.IsBoxColliding() == true)
+                                    if (CheckCollisions(enemy, projectile) == true)
                                     {
-                                        enemy.PowerController.DamageEnemy();
+                                        enemy.GetDamage();
                                         if (enemy.PowerController.Power > 0)
                                         {
                                             objectsListToCheck.Add(new Effect(new Vector2(projectile.GetTransform.Position.X - 20, projectile.GetTransform.Position.Y), "assets/animations/bullethits/", 6, 0.02f));
+                                            onCollisionSound.Invoke($"{enemy.GetType().Name}", "hit");
                                         }
                                         else
                                         {
                                             objectsListToCheck.Add(new Effect(new Vector2(enemy.GetTransform.Position.X, enemy.GetTransform.Position.Y + 32), "assets/animations/explosion/", 13, 0.077f));
+                                            onCollisionSound.Invoke($"{enemy.GetType().Name}", "");
                                         }
+                                        projectile.Disable();
                                         objectsListToCheck.RemoveAt(j);
                                     }
                                 }
@@ -127,8 +155,7 @@ namespace MyGame
                             if (objectsListToCheck[j] is Player)
                             {
                                 Player player = (Player) objectsListToCheck[j];
-                                var collision = new Collider(powerUp.GetTransform.Position, new Vector2(20, 10), player.GetTransform.Position, new Vector2(60, 66));
-                                if (collision.IsBoxColliding() == true)
+                                if (CheckCollisions(powerUp, player) == true)
                                 {
                                     if (powerUpStackRef.FullStack() == false)
                                     {
@@ -136,6 +163,7 @@ namespace MyGame
                                         player.SetPower = powerUpStackRef.Top();
                                         objectsListToCheck.RemoveAt(i);
                                         levelHudRef.DisplayStackUpdate();
+                                        onCollisionSound.Invoke($"{powerUp.GetType().Name}", "");
                                     }
                                 }
                             }
@@ -143,6 +171,12 @@ namespace MyGame
                     }
                 }
             }
+        }
+
+        private bool CheckCollisions(GameObject object1, GameObject object2)
+        {
+            var collision = new Collider(object1.GetTransform.Position, object1.GetTransform.Scale, object2.GetTransform.Position, object2.GetTransform.Scale);
+            return collision.IsBoxColliding();
         }
 
         private void DamagePlayer(int x)
@@ -163,12 +197,14 @@ namespace MyGame
                     }
                 }
                 levelHudRef.DisplayStackUpdate();
-                player.Damaged = true;
+                player.GetDamage();
                 objectsListToCheck.Add(new Effect(new Vector2(player.GetTransform.Position.X, player.GetTransform.Position.Y), "assets/animations/powerdown/", 8, 0.077f));
+                onCollisionSound.Invoke($"{player.GetType().Name}", "hit");
             }
             else
             {
                 objectsListToCheck.Add(new Effect(new Vector2(player.GetTransform.Position.X, player.GetTransform.Position.Y + 32), "assets/animations/explosion/", 13, 0.077f));
+                onCollisionSound.Invoke($"{player.GetType().Name}", "");
                 objectsListToCheck.RemoveAt(x);
             }
         }

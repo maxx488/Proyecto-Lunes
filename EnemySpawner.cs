@@ -46,7 +46,7 @@ namespace MyGame
                 {
                     var typ = enemyQueueRef.First();
                     enemyData = new EnemyData(typ);
-                    objList.Add(new Enemy(new Vector2(random.Next(1024 - enemyData.SizeX), -enemyData.SizeY), faction, typ, false));
+                    objList.Add(new Enemy(new Vector2(random.Next(Engine.ScreenSizeW - enemyData.SizeX), -enemyData.SizeY), faction, typ, false));
                     enemyQueueRef.Dequeue();
                     enemySpawnTimer = 0;
                     enemySpawnCooldown = (float)random.Next(3);

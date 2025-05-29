@@ -49,7 +49,7 @@ namespace MyGame
             {
                 transform.Translate(left, speed);
             }
-            if (Engine.GetKey(Engine.KEY_D) && transform.Position.X < 964)
+            if (Engine.GetKey(Engine.KEY_D) && transform.Position.X < (Engine.ScreenSizeW - transform.Scale.X))
             {
                 transform.Translate(right, speed);
             }
@@ -57,7 +57,7 @@ namespace MyGame
             {
                 transform.Translate(up, speed);
             }
-            if (Engine.GetKey(Engine.KEY_S) && transform.Position.Y < 702)
+            if (Engine.GetKey(Engine.KEY_S) && transform.Position.Y < (Engine.ScreenSizeH - transform.Scale.Y))
             {
                 transform.Translate(down, speed);
             }

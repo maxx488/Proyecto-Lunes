@@ -44,7 +44,7 @@ namespace MyGame
             }
             else
             {
-                if (transform.Position.X > 767 || transform.Position.X < 1)
+                if (transform.Position.X > (Engine.ScreenSizeW - transform.Scale.X) || transform.Position.X < 0)
                 {
                     speed *= -1;
                 }

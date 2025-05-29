@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 
 namespace MyGame
 {
-    public class ProyectileSpawner
+    public class ProjectileSpawner
     {
         private List<GameObject> objectsToCheck;
+        private GenericDynamicPool<Projectile> pool;
 
-        public ProyectileSpawner(List<GameObject> objectsToCheck)
+        public ProjectileSpawner(List<GameObject> objectsToCheck)
         {
             this.objectsToCheck = objectsToCheck;
+            pool = new GenericDynamicPool<Projectile>();
         }
 
         public void Update()
@@ -26,11 +28,17 @@ namespace MyGame
                         Player player = (Player) objectsToCheck[i];
                         if (player.ShootState == true)
                         {
-                            objectsToCheck.Add(new Projectile(new Vector2(player.GetTransform.Position.X + 25, player.GetTransform.Position.Y - 20), 1, 500, player.GetPower));
+                            Projectile projectile = pool.Get();
+                            projectile.Initialize(new Vector2(player.GetTransform.Position.X + 25, player.GetTransform.Position.Y - 20), 1, 500, player.GetPower);
+                            objectsToCheck.Add(projectile);
                             if (player.GetPower == 3)
                             {
-                                objectsToCheck.Add(new Projectile(new Vector2(player.GetTransform.Position.X + 10, player.GetTransform.Position.Y - 20), 2, 500, player.GetPower));
-                                objectsToCheck.Add(new Projectile(new Vector2(player.GetTransform.Position.X + 40, player.GetTransform.Position.Y - 20), 3, 500, player.GetPower));
+                                Projectile projectile2 = pool.Get();
+                                projectile2.Initialize(new Vector2(player.GetTransform.Position.X + 10, player.GetTransform.Position.Y - 20), 2, 500, player.GetPower);
+                                objectsToCheck.Add(projectile2);
+                                Projectile projectile3 = pool.Get();
+                                projectile3.Initialize(new Vector2(player.GetTransform.Position.X + 40, player.GetTransform.Position.Y - 20), 3, 500, player.GetPower);
+                                objectsToCheck.Add(projectile3);
                             }
                         }
                         break;
@@ -48,7 +56,9 @@ namespace MyGame
                         {
                             for (int j = 0; j < enemy.GetEnemyData.ShootPosX.Length; j++)
                             {
-                                objectsToCheck.Add(new Projectile(new Vector2(enemy.GetTransform.Position.X + enemy.GetEnemyData.ShootPosX[j], enemy.GetTransform.Position.Y + enemy.GetEnemyData.ShootPosY), -1, 500, 1));
+                                Projectile projectile = pool.Get();
+                                projectile.Initialize(new Vector2(enemy.GetTransform.Position.X + enemy.GetEnemyData.ShootPosX[j], enemy.GetTransform.Position.Y + enemy.GetEnemyData.ShootPosY), -1, 500, 1);
+                                objectsToCheck.Add(projectile);
                             }
                         }
                     }

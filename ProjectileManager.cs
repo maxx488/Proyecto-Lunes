@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace MyGame
 {
-    public class ProyectileManager
+    public class ProjectileManager
     {
         private List<GameObject> objectsToCheck;
 
-        public ProyectileManager(List<GameObject> objectsToCheck)
+        public ProjectileManager(List<GameObject> objectsToCheck)
         {
             this.objectsToCheck = objectsToCheck;
         }
@@ -34,6 +34,7 @@ namespace MyGame
                         Projectile projectile = (Projectile) objectsToCheck[i];
                         if (projectile.InBounds == false)
                         {
+                            projectile.Disable();
                             objectsToCheck.RemoveAt(i);
                         }
                     }

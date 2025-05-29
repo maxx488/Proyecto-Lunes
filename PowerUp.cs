@@ -15,7 +15,7 @@ namespace MyGame
 
         public PowerUp(Vector2 vector, int typ)
         {
-            transform = new Transform(vector);
+            transform = new Transform(vector, new Vector2(20, 10));
             animationController = new AnimationController(transform, "assets/animations/powerup/", 4, 0.2f);
             type = typ;
         }
@@ -28,7 +28,7 @@ namespace MyGame
         {
             transform.Translate(down, speed);
             animationController.Update();
-            if (transform.Position.Y > 768)
+            if (transform.Position.Y > Engine.ScreenSizeH)
             {
                 inBounds = false;
             }

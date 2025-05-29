@@ -59,6 +59,7 @@ namespace MyGame
         {
             spawn = true;
             objectsListToCheck.Add(new Player(new Vector2(400, 650)));
+            GameManager.GetSoundManager.PlayRespawn();
             GetCurrentPlayer();
         }
     }
