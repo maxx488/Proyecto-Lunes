@@ -47,6 +47,7 @@ namespace MyGame
                         Enemy enemy = (Enemy)objList[i];
                         if (enemy.InBounds == false)
                         {
+                            enemy.Disable();
                             objList.RemoveAt(i);
                         }
                     }
@@ -59,6 +60,7 @@ namespace MyGame
                         if (enemy.PowerController.Destroyed == true)
                         {
                             onEnemyDestroyed.Invoke(enemy.Type);
+                            enemy.Disable();
                             objList.RemoveAt(i);
                             enemiesDestroyed++;
                         }

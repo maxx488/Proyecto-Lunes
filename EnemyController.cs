@@ -28,6 +28,8 @@ namespace MyGame
             speed = spd;
         }
 
+        public Transform GetTransform => transform;
+
         public bool GetShoot => shoot;
 
         public void Update()
@@ -75,6 +77,14 @@ namespace MyGame
             {
                 shoot = false;
             }
+        }
+
+        public void ResetData(bool isBoss, int typ, float spd)
+        {
+            shootTimer = 0;
+            this.isBoss = isBoss;
+            this.type = typ;
+            speed = spd;
         }
     }
 }

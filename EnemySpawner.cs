@@ -17,6 +17,7 @@ namespace MyGame
         private bool bossLevel = false;
         private LevelHud levelHudRef;
         private EnemyData enemyData;
+        private GenericDynamicPool<Enemy> pool;
 
         public EnemySpawner(List<GameObject> objList, int fact, EnemyQueue queue, LevelHud hud, bool bossLevel)
         {
@@ -24,11 +25,15 @@ namespace MyGame
             faction = fact;
             this.enemyQueueRef = queue;
             this.levelHudRef = hud;
+            enemyData = new EnemyData(1); // 1 como valor por defecto para poder tener una instancia
             enemySpawnCooldown = (float) random.Next(3); // Segundos que pasaran hasta spawnear un enemigo
+            pool = new GenericDynamicPool<Enemy>();
             if (bossLevel == true)
             {
                 this.bossLevel = true;
-                objList.Add(new Enemy(new Vector2(200, 25), faction, 5, true));
+                Enemy enemy = pool.Get();
+                enemy.Initialize(new Vector2(200, 25), faction, 5, true);
+                objList.Add(enemy);
             }
         }
 
@@ -45,8 +50,10 @@ namespace MyGame
                 if (enemySpawnTimer > enemySpawnCooldown)
                 {
                     var typ = enemyQueueRef.First();
-                    enemyData = new EnemyData(typ);
-                    objList.Add(new Enemy(new Vector2(random.Next(Engine.ScreenSizeW - enemyData.SizeX), -enemyData.SizeY), faction, typ, false));
+                    enemyData.ResetData(typ);
+                    Enemy enemy = pool.Get();
+                    enemy.Initialize(new Vector2(random.Next(Engine.ScreenSizeW - enemyData.SizeX), -enemyData.SizeY), faction, typ, false);
+                    objList.Add(enemy);
                     enemyQueueRef.Dequeue();
                     enemySpawnTimer = 0;
                     enemySpawnCooldown = (float)random.Next(3);

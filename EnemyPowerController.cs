@@ -28,5 +28,11 @@ namespace MyGame
                 destroyed = true;
             }
         }
+
+        public void ResetData(int power)
+        {
+            this.power = power;
+            destroyed = false;
+        }
     }
 }

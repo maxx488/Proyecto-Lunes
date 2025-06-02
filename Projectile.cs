@@ -62,35 +62,9 @@ namespace MyGame
         private void ProjectileBehavior()
         {
             // Comportamiento del Proyectil
-            if (direction == 1)
+            switch (direction)
             {
-                if (type == 1)
-                {
-                    if (transform.Position.Y > 0)
-                    {
-                        transform.Translate(new Vector2(0, -1), speed * 1.5f);
-                    }
-                    else
-                    {
-                        inBounds = false;
-                    }
-                }
-                else if (type == 2 || type == 3)
-                {
-                    if (transform.Position.Y > 0)
-                    {
-                        transform.Translate(new Vector2(0, -1), speed * 2f);
-                    }
-                    else
-                    {
-                        inBounds = false;
-                    }
-                }
-            }
-            else
-            {
-                if (direction == -1)
-                {
+                case -1:
                     if (transform.Position.Y < Engine.ScreenSizeH)
                     {
                         transform.Translate(new Vector2(0, 1), speed);
@@ -99,43 +73,59 @@ namespace MyGame
                     {
                         inBounds = false;
                     }
-                }
-                else
-                {
-                    if (direction == 2)
+                    break;
+                case 1:
+                    if (type == 1)
                     {
-                        if (type == 3)
+                        if (transform.Position.Y > 0)
                         {
-                            if (transform.Position.Y > 0)
-                            {
-                                transform.Translate(new Vector2(0, -1), speed * 2f);
-                                transform.Translate(new Vector2(-1, 0), speed);
-                            }
-                            else
-                            {
-                                inBounds = false;
-                            }
+                            transform.Translate(new Vector2(0, -1), speed * 1.5f);
+                        }
+                        else
+                        {
+                            inBounds = false;
                         }
                     }
-                    else
+                    else if (type == 2 || type == 3)
                     {
-                        if (direction == 3)
+                        if (transform.Position.Y > 0)
                         {
-                            if (type == 3)
-                            {
-                                if (transform.Position.Y > 0)
-                                {
-                                    transform.Translate(new Vector2(0, -1), speed * 2f);
-                                    transform.Translate(new Vector2(1, 0), speed);
-                                }
-                                else
-                                {
-                                    inBounds = false;
-                                }
-                            }
+                            transform.Translate(new Vector2(0, -1), speed * 2f);
+                        }
+                        else
+                        {
+                            inBounds = false;
                         }
                     }
-                }
+                    break;
+                case 2:
+                    if (type == 3)
+                    {
+                        if (transform.Position.Y > 0)
+                        {
+                            transform.Translate(new Vector2(0, -1), speed * 2f);
+                            transform.Translate(new Vector2(-1, 0), speed);
+                        }
+                        else
+                        {
+                            inBounds = false;
+                        }
+                    }
+                    break;
+                case 3:
+                    if (type == 3)
+                    {
+                        if (transform.Position.Y > 0)
+                        {
+                            transform.Translate(new Vector2(0, -1), speed * 2f);
+                            transform.Translate(new Vector2(1, 0), speed);
+                        }
+                        else
+                        {
+                            inBounds = false;
+                        }
+                    }
+                    break;
             }
         }
 

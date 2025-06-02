@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MyGame
 {
-    public class Enemy: GameObject, IDamagable
+    public class Enemy: GameObject, IDamagable, IPoolable
     {
         private EnemyController enemyController;
         private EnemyData enemyData;
@@ -17,16 +18,11 @@ namespace MyGame
         private bool inBounds = true;
         private bool isBoss;
 
-        public Enemy(Vector2 position,int fact,int typ, bool boss) 
+        public event Action OnDisable;
+
+        public Enemy() 
         {
-            faction = fact;
-            type = typ;
-            isBoss = boss;
-            enemyData = new EnemyData(type);
-            transform = new Transform(position, new Vector2(enemyData.SizeX, enemyData.SizeY));
-            enemyController = new EnemyController(transform, isBoss, type, enemyData.Speed);
-            animationController = new AnimationController(transform, $"assets/animations/enemies/{faction}/{type}/", 5, 0.15f);
-            powerController = new EnemyPowerController(enemyData.Power);
+            
         }
 
         public EnemyData GetEnemyData => enemyData;
@@ -47,6 +43,34 @@ namespace MyGame
             }
         }
 
+        public void Initialize(Vector2 position, int fact, int typ, bool boss)
+        {
+            faction = fact;
+            type = typ;
+            isBoss = boss;
+            if (enemyData == null)
+            {
+                enemyData = new EnemyData(type);
+                transform = new Transform(position, new Vector2(enemyData.SizeX, enemyData.SizeY));
+                enemyController = new EnemyController(transform, isBoss, type, enemyData.Speed);
+                animationController = new AnimationController(transform, $"assets/animations/enemies/{faction}/{type}/", 5, 0.15f);
+                powerController = new EnemyPowerController(enemyData.Power);
+            }
+            else
+            {
+                transform.SetPosition(position);
+                enemyData.ResetData(type);
+                transform.SetScale(new Vector2(enemyData.SizeX, enemyData.SizeY));
+                enemyController.GetTransform.SetPosition(position);
+                enemyController.GetTransform.SetScale(new Vector2(enemyData.SizeX, enemyData.SizeY));
+                enemyController.ResetData(isBoss, type, enemyData.Speed);
+                powerController.ResetData(enemyData.Power);
+                animationController.GetTransform.SetPosition(position);
+                animationController.Path = $"assets/animations/enemies/{faction}/{type}/";
+                animationController.ForceAnimationUpdate();
+            }
+        }
+
         public override void Update()
         {
             enemyController.Update();
@@ -56,7 +80,7 @@ namespace MyGame
 
         private void BoundsUpdate()
         {
-            if (transform.Position.Y > 768)
+            if (transform.Position.Y > Engine.ScreenSizeH)
             {
                 inBounds = false;
             }
@@ -70,6 +94,16 @@ namespace MyGame
         public void GetDamage()
         {
             PowerController.DamageEnemy();
+        }
+
+        public void Disable()
+        {
+            OnDisable.Invoke();
+        }
+
+        public void Reset()
+        {
+            inBounds = true;
         }
     }
 }

@@ -30,5 +30,10 @@ namespace MyGame
         {
             position = newPosition;
         }
+
+        public void SetScale(Vector2 newScale)
+        {
+            scale = newScale;
+        }
     }
 }
