@@ -15,12 +15,14 @@ namespace MyGame
         private List<GameObject> objectsListToCheck;
         private PowerUpStack powerUpStackRef;
         private LevelHud levelHudRef;
+        private EffectSpawner effectSpawner;
 
         public LevelCollider(List<GameObject> objects, PowerUpStack powerUpStack, LevelHud hud)
         {
             this.objectsListToCheck = objects;
             this.powerUpStackRef = powerUpStack;
             this.levelHudRef = hud;
+            effectSpawner = new EffectSpawner(objects);
             GameManager.GetSoundManager.SubCollisions(this);
         }
 
@@ -126,12 +128,12 @@ namespace MyGame
                                         enemy.GetDamage();
                                         if (enemy.PowerController.Power > 0)
                                         {
-                                            objectsListToCheck.Add(new Effect(new Vector2(projectile.GetTransform.Position.X - 20, projectile.GetTransform.Position.Y), "assets/animations/bullethits/", 6, 0.02f));
+                                            effectSpawner.EffectSpawn(new Vector2(projectile.GetTransform.Position.X - 20, projectile.GetTransform.Position.Y), "assets/animations/bullethits/", 6, 0.02f);
                                             onCollisionSound.Invoke($"{enemy.GetType().Name}", "hit");
                                         }
                                         else
                                         {
-                                            objectsListToCheck.Add(new Effect(new Vector2(enemy.GetTransform.Position.X, enemy.GetTransform.Position.Y + 32), "assets/animations/explosion/", 13, 0.077f));
+                                            effectSpawner.EffectSpawn(new Vector2(enemy.GetTransform.Position.X, enemy.GetTransform.Position.Y + 32), "assets/animations/explosion/", 13, 0.077f);
                                             onCollisionSound.Invoke($"{enemy.GetType().Name}", "");
                                         }
                                         projectile.Disable();
@@ -198,12 +200,12 @@ namespace MyGame
                 }
                 levelHudRef.DisplayStackUpdate();
                 player.GetDamage();
-                objectsListToCheck.Add(new Effect(new Vector2(player.GetTransform.Position.X, player.GetTransform.Position.Y), "assets/animations/powerdown/", 8, 0.077f));
+                effectSpawner.EffectSpawn(new Vector2(player.GetTransform.Position.X, player.GetTransform.Position.Y), "assets/animations/powerdown/", 8, 0.077f);
                 onCollisionSound.Invoke($"{player.GetType().Name}", "hit");
             }
             else
             {
-                objectsListToCheck.Add(new Effect(new Vector2(player.GetTransform.Position.X, player.GetTransform.Position.Y + 32), "assets/animations/explosion/", 13, 0.077f));
+                effectSpawner.EffectSpawn(new Vector2(player.GetTransform.Position.X, player.GetTransform.Position.Y + 32), "assets/animations/explosion/", 13, 0.077f);
                 onCollisionSound.Invoke($"{player.GetType().Name}", "");
                 objectsListToCheck.RemoveAt(x);
             }

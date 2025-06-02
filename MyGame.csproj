@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnimationController.cs" />
+    <Compile Include="EffectSpawner.cs" />
     <Compile Include="EnemyPowerController.cs" />
     <Compile Include="EnemyQueue.cs" />
     <Compile Include="GameObject.cs" />

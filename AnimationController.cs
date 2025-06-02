@@ -37,6 +37,30 @@ namespace MyGame
             }
         }
 
+        public float AnimCooldown
+        {
+            get
+            {
+                return animCooldown;
+            }
+            set
+            {
+                animCooldown = value;
+            }
+        }
+
+        public int MaxIndex
+        {
+            get
+            {
+                return maxIndex;
+            }
+            set
+            {
+                maxIndex = value;
+            }
+        }
+
         public bool Finished
         {
             get
@@ -72,7 +96,9 @@ namespace MyGame
 
         public void ForceAnimationUpdate()
         {
-            timer = animCooldown;
+            timer = 0;
+            index = 1;
+            renderer.SetImage(path + $"{index}.png");
         }
 
         private void AnimationRender()

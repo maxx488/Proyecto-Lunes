@@ -275,6 +275,7 @@ namespace MyGame
                         effect.Update();
                         if (effect.GetAnimationController.Finished == true)
                         {
+                            effect.Disable();
                             objectsList.RemoveAt(i);
                         }
                     }
