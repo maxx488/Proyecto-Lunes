@@ -14,8 +14,10 @@ namespace MyGame
         private static SoundManager soundManager = new SoundManager();
         private Level level;
         private int timesWon;
+        private int factions = 2; //Cantidad de facciones enemigas.
         private bool bossLevel;
         private Font font = new Font("assets/fonts/PressStart2P.ttf", 38);
+        private Font fontControls = new Font("assets/fonts/PressStart2P.ttf", 12);
         private string menuImage = "assets/gamestate/menu.png";
         private string winImage = "assets/gamestate/win.png";
         private string loseImage = "assets/gamestate/lose.png";
@@ -80,7 +82,7 @@ namespace MyGame
                         {
                             bossLevel = true;
                         }
-                        if (timesWon > 1) //depende de cantidad de facciones por ahora, mas adelante cambiara la logica de elegir nivel
+                        if (timesWon == factions)
                         {
                             renderer.SetImage(menuImage);
                             soundManager.SetPlayBackground("assets/sounds/menu.wav");
@@ -88,7 +90,7 @@ namespace MyGame
                         }
                         else
                         {
-                            level = new Level(timesWon + 1, bossLevel); // faccion enemiga
+                            level = new Level(timesWon + 1, bossLevel);
                             soundManager.StopBackground();
                             state = GameState.game;
                         }
@@ -149,6 +151,10 @@ namespace MyGame
                 case GameState.menu:
                     renderer.Render();
                     Engine.DrawText("Press SPACE To Start", 120, 675, 255, 10, 0, font);
+                    Engine.DrawText("W", 35, 15, 255, 255, 255, fontControls);
+                    Engine.DrawText("ASD", 23, 30, 255, 255, 255, fontControls);
+                    Engine.DrawText("->Move", 58, 23, 255, 255, 255, fontControls);
+                    Engine.DrawText("SPACE->Shoot", 10, 50, 255, 255, 255, fontControls);
                     break;
                 case GameState.game:
                     level.Render();

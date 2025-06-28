@@ -522,3 +522,4 @@ C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\obj\Debug\MyGame.csproj.Core
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\obj\Debug\MyGame.csproj.Up2Date
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\obj\Debug\MyGame.exe
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\obj\Debug\MyGame.pdb
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\obj\Debug\MyGame.exe.config

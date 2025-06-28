@@ -39,8 +39,8 @@ namespace MyGame
 
         private void PrintStatus()
         {
-            Engine.Debug("Objetos disponibles: " + available.Count);
-            Engine.Debug("Objetos en uso: " + inUse.Count);
+            //Engine.Debug("Objetos disponibles: " + available.Count);
+            //Engine.Debug("Objetos en uso: " + inUse.Count);
         }
     }
 }
