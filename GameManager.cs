@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
@@ -12,6 +13,7 @@ namespace MyGame
         private static GameState state;
         private static GameStats stats;
         private static SoundManager soundManager = new SoundManager();
+        private Map map;
         private Level level;
         private int timesWon;
         private int factions = 2; //Cantidad de facciones enemigas.
@@ -27,6 +29,7 @@ namespace MyGame
         {
             state = GameState.menu;
             soundManager.SetPlayBackground("assets/sounds/menu.wav");
+            map = new Map();
         }
 
         private static GameManager _instance;
@@ -56,7 +59,7 @@ namespace MyGame
                         stats = new GameStats();
                         level = new Level(timesWon + 1, bossLevel); // faccion enemiga
                         soundManager.StopBackground();
-                        state = GameState.game;
+                        state = GameState.map;
                     }
                     if (Engine.GetKey(Engine.KEY_ESC))
                     {
@@ -107,6 +110,12 @@ namespace MyGame
                         soundManager.SetPlayBackground("assets/sounds/menu.wav");
                         state = GameState.menu;
                     }
+                    if (Engine.GetKey(Engine.KEY_ESC))
+                    {
+                        Environment.Exit(0);
+                    }
+                    break;
+                case GameState.map:
                     if (Engine.GetKey(Engine.KEY_ESC))
                     {
                         Environment.Exit(0);
@@ -167,6 +176,9 @@ namespace MyGame
                 case GameState.lose:
                     renderer.Render();
                     Engine.DrawText("Press ENTER To Continue", 75, 675, 255, 10, 0, font);
+                    break;
+                case GameState.map:
+                    map.Render();
                     break;
             }
         }

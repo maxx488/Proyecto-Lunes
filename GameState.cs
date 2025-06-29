@@ -8,6 +8,6 @@ namespace MyGame
 {
     public enum GameState
     {
-        menu, game, win, lose
+        menu, game, win, lose, map
     }
 }
