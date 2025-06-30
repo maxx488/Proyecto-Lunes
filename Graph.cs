@@ -49,7 +49,7 @@ namespace MyGame
             cantNodos--;
         }
 
-        private int Vert2Indice(int v)
+        public int Vert2Indice(int v)
         {
             int i = cantNodos - 1;
             while (i >= 0 && Etiqs[i] != v)

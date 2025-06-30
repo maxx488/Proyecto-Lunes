@@ -28,6 +28,9 @@ namespace MyGame
             new int[] { 13, 14, 12, 8 },
             new int[] { 15, 14, 12, 8 }
         };
+        private int[] verticesIniciales = new int[] { 1, 3, 5, 7, 9, 11, 13, 15 };
+        private int[] verticesInicialesPeso = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
+        private int caminoFacil;
 
         public Map()
         {
@@ -130,6 +133,16 @@ namespace MyGame
                 caminosPeso[key] += suma;
                 Console.WriteLine($"Camino: {string.Join(" → ", camino)} | Suma de pesos: {suma}");
             }
+            Console.WriteLine("");
+            Console.WriteLine("DIJKSTRA");
+            // al algoritmo le paso el TDA_Grafo estático con los datos cargados y el vértice origen
+            AlgDijkstra.Dijkstra(graph, 1);
+            // muestro resultados
+            MuestroResultadosAlg(AlgDijkstra.distance, graph.cantNodos, graph.Etiqs, AlgDijkstra.nodos);
+
+            caminoFacil = MenorPeso(verticesIniciales);
+            Console.WriteLine("");
+            Console.WriteLine($"{caminoFacil}");
         }
 
         public void RenderMap(Node node)
@@ -166,8 +179,60 @@ namespace MyGame
             for (int i = 0; i < caminos.Length; i++)
             {
                 Engine.DrawText($"{i + 1}: ", x, y, 255, 255, 255, fontPath);
-                Engine.DrawText($"Enem:{caminosPeso[i + 1]}", x, y + 20, 255, 255, 255, fontPath);
+                if (caminosPeso[i + 1] == caminoFacil)
+                {
+                    Engine.DrawText($"Enem:{caminosPeso[i + 1]}", x, y + 20, 0, 255, 10, fontPath);
+                }
+                else
+                {
+                    Engine.DrawText($"Enem:{caminosPeso[i + 1]}", x, y + 20, 255, 255, 255, fontPath);
+                }
                 x += 120;
+            }
+        }
+
+        private void MuestroResultadosAlg(int[] distance, int verticesCount, int[] Etiqs, string[] caminos)
+        {
+            string distancia = "";
+
+            Console.WriteLine("Vertice    Distancia desde origen    Nodos");
+
+            for (int i = 0; i < verticesCount; ++i)
+            {
+                if (distance[i] == int.MaxValue)
+                {
+                    distancia = "---";
+                }
+                else
+                {
+                    distancia = distance[i].ToString();
+                }
+                Console.WriteLine("{0}\t  {1}\t\t\t   {2}", Etiqs[i], distancia, caminos[i]);
+            }
+        }
+
+        private int MenorPeso(int[] iniciales)
+        {
+            for (int i = 0;i < iniciales.Length; ++i)
+            {
+                AlgDijkstra.Dijkstra(graph, iniciales[i]);
+                VectorPesos(i, AlgDijkstra.distance, graph.cantNodos, graph.Etiqs, AlgDijkstra.nodos);
+            }
+            return verticesInicialesPeso.Min();
+        }
+
+        private void VectorPesos(int index, int[] distance, int verticesCount, int[] Etiqs, string[] caminos)
+        {
+            for (int i = 0; i < verticesCount; ++i)
+            {
+                if (caminos[i] != null)
+                {
+                    if (caminos[i].Contains("8"))
+                    {
+                        verticesInicialesPeso[index] = distance[i];
+                        break;
+                    }
+                }
             }
         }
     }
