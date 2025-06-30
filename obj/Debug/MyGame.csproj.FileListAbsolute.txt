@@ -538,3 +538,5 @@ C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\map\planets
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\map\planets\7.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\map\planets\8.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\map\planets\9.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\map\background.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\map\backgroundGraph.png

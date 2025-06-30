@@ -296,31 +296,5 @@ si lo tenemos, realizamos una rotación de derecha a derecha; de lo contrario, r
             parent.right = RotateLL(pivot);
             return RotateRR(parent);
         }
-
-        public void Render(Node a)
-        {
-            if (a != null)
-            {
-                Engine.Draw(a.image, a.placement.X, a.placement.Y);
-                Render(a.left);
-                Render(a.right);
-            }
-        }
-
-        public void AssignImagePlacements(Node node, int depth, int index)
-        {
-            if (node != null)
-            {
-                int numNodesInLevel = (int)Math.Pow(2, depth); // cantidad de nodos por profundidad (depth^2)
-                float totalWidth = Engine.ScreenSizeW - 60; // le resto tamaño planeta para que quede centrado
-                float nodeX = (index + 1) * (totalWidth / (numNodesInLevel + 1));
-                float nodeY = depth * 150f;       // espaciado vertical
-
-                node.placement = new Vector2(nodeX, nodeY);
-
-                AssignImagePlacements(node.left, depth + 1, index * 2);
-                AssignImagePlacements(node.right, depth + 1, index * 2 + 1);
-            }
-        }
     }
 }

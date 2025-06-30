@@ -56,7 +56,9 @@
     <Compile Include="GameState.cs" />
     <Compile Include="GameStats.cs" />
     <Compile Include="GenericDynamicPool.cs" />
+    <Compile Include="Graph.cs" />
     <Compile Include="IDamagable.cs" />
+    <Compile Include="IGraph.cs" />
     <Compile Include="IPoolable.cs" />
     <Compile Include="IQueue.cs" />
     <Compile Include="ISet.cs" />
@@ -585,6 +587,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\level\2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\map\background.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\map\backgroundGraph.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\map\planets\1.png">

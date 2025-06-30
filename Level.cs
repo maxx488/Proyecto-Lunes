@@ -28,7 +28,7 @@ namespace MyGame
         private int tries;
         private int enemiesDestroyed = 0;
 
-        public Level(int faction, bool bossLevel)
+        public Level(int faction, bool bossLevel, int enemies)
         {
             if (bossLevel == true)
             {
@@ -36,7 +36,7 @@ namespace MyGame
             }
             else
             {
-                enemyCount = random.Next(25, 36); // Enemigos a derrotar para completar el nivel
+                enemyCount = enemies; // Enemigos a derrotar para completar el nivel
             }
             renderer = new Renderer(new Transform(new Vector2(0, 0), new Vector2(0, 0)), $"assets/level/{faction}.png");
             tries = 3; //Intentos del jugador (dependeria de la dificultad?)

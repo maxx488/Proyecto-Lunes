@@ -18,6 +18,9 @@ namespace MyGame
         private int timesWon;
         private int factions = 2; //Cantidad de facciones enemigas.
         private bool bossLevel;
+        private int enemyCount;
+        private int[] enemies = new int[2];
+        private int enemiesIndex = 0;
         private Font font = new Font("assets/fonts/PressStart2P.ttf", 38);
         private Font fontControls = new Font("assets/fonts/PressStart2P.ttf", 12);
         private string menuImage = "assets/gamestate/menu.png";
@@ -30,6 +33,7 @@ namespace MyGame
             state = GameState.menu;
             soundManager.SetPlayBackground("assets/sounds/menu.wav");
             map = new Map();
+            enemyCount = 0;
         }
 
         private static GameManager _instance;
@@ -54,12 +58,61 @@ namespace MyGame
                 case GameState.menu:
                     if (Engine.GetKey(Engine.KEY_ESP))
                     {
-                        timesWon = 0;
-                        bossLevel = false;
-                        stats = new GameStats();
-                        level = new Level(timesWon + 1, bossLevel); // faccion enemiga
-                        soundManager.StopBackground();
                         state = GameState.map;
+                    }
+                    if (Engine.GetKey(Engine.KEY_ESC))
+                    {
+                        Environment.Exit(0);
+                    }
+                    break;
+                case GameState.map:
+                    if (Engine.GetKey(Engine.KEY_1))
+                    {
+                        enemyCount = map.CaminosPeso[1];
+                        EnemiesPerLevel();
+                        StartGame();
+                    }
+                    if (Engine.GetKey(Engine.KEY_2))
+                    {
+                        enemyCount = map.CaminosPeso[2];
+                        EnemiesPerLevel();
+                        StartGame();
+                    }
+                    if (Engine.GetKey(Engine.KEY_3))
+                    {
+                        enemyCount = map.CaminosPeso[3];
+                        EnemiesPerLevel();
+                        StartGame();
+                    }
+                    if (Engine.GetKey(Engine.KEY_4))
+                    {
+                        enemyCount = map.CaminosPeso[4];
+                        EnemiesPerLevel();
+                        StartGame();
+                    }
+                    if (Engine.GetKey(Engine.KEY_5))
+                    {
+                        enemyCount = map.CaminosPeso[5];
+                        EnemiesPerLevel();
+                        StartGame();
+                    }
+                    if (Engine.GetKey(Engine.KEY_6))
+                    {
+                        enemyCount = map.CaminosPeso[6];
+                        EnemiesPerLevel();
+                        StartGame();
+                    }
+                    if (Engine.GetKey(Engine.KEY_7))
+                    {
+                        enemyCount = map.CaminosPeso[7];
+                        EnemiesPerLevel();
+                        StartGame();
+                    }
+                    if (Engine.GetKey(Engine.KEY_8))
+                    {
+                        enemyCount = map.CaminosPeso[8];
+                        EnemiesPerLevel();
+                        StartGame();
                     }
                     if (Engine.GetKey(Engine.KEY_ESC))
                     {
@@ -80,6 +133,7 @@ namespace MyGame
                         {
                             timesWon++;
                             bossLevel = false;
+                            enemiesIndex++;
                         }
                         else
                         {
@@ -93,7 +147,7 @@ namespace MyGame
                         }
                         else
                         {
-                            level = new Level(timesWon + 1, bossLevel);
+                            level = new Level(timesWon + 1, bossLevel, enemies[enemiesIndex]);
                             soundManager.StopBackground();
                             state = GameState.game;
                         }
@@ -110,12 +164,6 @@ namespace MyGame
                         soundManager.SetPlayBackground("assets/sounds/menu.wav");
                         state = GameState.menu;
                     }
-                    if (Engine.GetKey(Engine.KEY_ESC))
-                    {
-                        Environment.Exit(0);
-                    }
-                    break;
-                case GameState.map:
                     if (Engine.GetKey(Engine.KEY_ESC))
                     {
                         Environment.Exit(0);
@@ -181,6 +229,32 @@ namespace MyGame
                     map.Render();
                     break;
             }
+        }
+
+        private void EnemiesPerLevel()
+        {
+            enemyCount -= 2;
+            if (enemyCount % 2 == 1)
+            {
+                enemies[0] = enemyCount / 2;
+                enemies[1] = (enemyCount / 2) + 1;
+            }
+            else
+            {
+                enemies[0] = enemyCount / 2;
+                enemies[1] = enemyCount / 2;
+            }
+        }
+
+        private void StartGame()
+        {
+            timesWon = 0;
+            enemiesIndex = 0;
+            bossLevel = false;
+            stats = new GameStats();
+            level = new Level(timesWon + 1, bossLevel, enemies[enemiesIndex]); // faccion enemiga definida por timeswon
+            soundManager.StopBackground();
+            state = GameState.game;
         }
     }
 }

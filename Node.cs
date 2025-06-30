@@ -10,6 +10,7 @@ namespace MyGame
     {
         public int data;
         public Vector2 placement;
+        public int enemyCount;
         public Image image;
         public Node left;
         public Node right;
