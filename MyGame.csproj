@@ -536,6 +536,9 @@
     <Content Include="assets\animations\shield\9.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="assets\gamestate\pause.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\hud\enemyqueue.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

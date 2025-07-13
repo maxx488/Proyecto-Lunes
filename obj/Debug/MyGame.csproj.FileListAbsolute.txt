@@ -540,3 +540,4 @@ C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\map\planets
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\map\planets\9.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\map\background.png
 C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\map\backgroundGraph.png
+C:\Users\Maxi\Desktop\Proyecto-Lunes\Proyecto-Lunes\bin\Debug\assets\gamestate\pause.png

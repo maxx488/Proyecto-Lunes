@@ -27,6 +27,8 @@ namespace MyGame
         private string winImage = "assets/gamestate/win.png";
         private string loseImage = "assets/gamestate/lose.png";
         private Renderer renderer = new Renderer(new Transform(new Vector2(0, 0), new Vector2(0, 0)), "assets/gamestate/menu.png");
+        private Renderer pauseRenderer = new Renderer(new Transform(new Vector2(0, 0), new Vector2(0, 0)), "assets/gamestate/pause.png");
+        private float pauseTimer = 0;
 
         private GameManager() 
         {
@@ -125,6 +127,14 @@ namespace MyGame
                     {
                         Environment.Exit(0);
                     }
+                    if (pauseTimer > 0.5f)
+                    {
+                        if (Engine.GetKey(Engine.KEY_P))
+                        {
+                            state = GameState.pause;
+                            pauseTimer = 0;
+                        }
+                    }
                     break;
                 case GameState.win:
                     if (Engine.GetKey(Engine.KEY_ENT))
@@ -169,6 +179,20 @@ namespace MyGame
                         Environment.Exit(0);
                     }
                     break;
+                case GameState.pause:
+                    if (Engine.GetKey(Engine.KEY_ESC))
+                    {
+                        Environment.Exit(0);
+                    }
+                    if (pauseTimer > 0.5f)
+                    {
+                        if (Engine.GetKey(Engine.KEY_P))
+                        {
+                            state = GameState.game;
+                            pauseTimer = 0;
+                        }
+                    }
+                    break;
             }
         }
 
@@ -193,10 +217,14 @@ namespace MyGame
                         soundManager.SetPlayBackground("assets/sounds/win.wav");
                         state = GameState.win;
                     }
+                    pauseTimer += Time.DeltaTime;
                     break;
                 case GameState.win:
                     break;
                 case GameState.lose:
+                    break;
+                case GameState.pause:
+                    pauseTimer += Time.DeltaTime;
                     break;
             }
         }
@@ -227,6 +255,11 @@ namespace MyGame
                     break;
                 case GameState.map:
                     map.Render();
+                    break;
+                case GameState.pause:
+                    level.Render();
+                    pauseRenderer.Render();
+                    Engine.DrawText("Paused", 475, 370, 255, 255, 255, fontControls);
                     break;
             }
         }
