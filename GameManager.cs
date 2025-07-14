@@ -19,8 +19,6 @@ namespace MyGame
         private int factions = 2; //Cantidad de facciones enemigas.
         private bool bossLevel;
         private int enemyCount;
-        private int[] enemies = new int[2];
-        private int enemiesIndex = 0;
         private Font font = new Font("assets/fonts/PressStart2P.ttf", 38);
         private Font fontControls = new Font("assets/fonts/PressStart2P.ttf", 12);
         private string menuImage = "assets/gamestate/menu.png";
@@ -29,6 +27,8 @@ namespace MyGame
         private Renderer renderer = new Renderer(new Transform(new Vector2(0, 0), new Vector2(0, 0)), "assets/gamestate/menu.png");
         private Renderer pauseRenderer = new Renderer(new Transform(new Vector2(0, 0), new Vector2(0, 0)), "assets/gamestate/pause.png");
         private float pauseTimer = 0;
+        private Random random = new Random();
+        private int node = 8;
 
         private GameManager() 
         {
@@ -60,7 +60,7 @@ namespace MyGame
                 case GameState.menu:
                     if (Engine.GetKey(Engine.KEY_ESP))
                     {
-                        state = GameState.map;
+                        StartGame();
                     }
                     if (Engine.GetKey(Engine.KEY_ESC))
                     {
@@ -70,51 +70,57 @@ namespace MyGame
                 case GameState.map:
                     if (Engine.GetKey(Engine.KEY_1))
                     {
-                        enemyCount = map.CaminosPeso[1];
-                        EnemiesPerLevel();
-                        StartGame();
+                        switch (node)
+                        {
+                            case 8:
+                                ContinueGame(4, 1);
+                                break;
+                            case 4:
+                                ContinueGame(2, 3);
+                                break;
+                            case 12:
+                                ContinueGame(10, 5);
+                                break;
+                            case 2:
+                                ContinueGame(1, 7);
+                                break;
+                            case 6:
+                                ContinueGame(5, 9);
+                                break;
+                            case 10:
+                                ContinueGame(9, 11);
+                                break;
+                            case 14:
+                                ContinueGame(13, 13);
+                                break;
+                        }
                     }
                     if (Engine.GetKey(Engine.KEY_2))
                     {
-                        enemyCount = map.CaminosPeso[2];
-                        EnemiesPerLevel();
-                        StartGame();
-                    }
-                    if (Engine.GetKey(Engine.KEY_3))
-                    {
-                        enemyCount = map.CaminosPeso[3];
-                        EnemiesPerLevel();
-                        StartGame();
-                    }
-                    if (Engine.GetKey(Engine.KEY_4))
-                    {
-                        enemyCount = map.CaminosPeso[4];
-                        EnemiesPerLevel();
-                        StartGame();
-                    }
-                    if (Engine.GetKey(Engine.KEY_5))
-                    {
-                        enemyCount = map.CaminosPeso[5];
-                        EnemiesPerLevel();
-                        StartGame();
-                    }
-                    if (Engine.GetKey(Engine.KEY_6))
-                    {
-                        enemyCount = map.CaminosPeso[6];
-                        EnemiesPerLevel();
-                        StartGame();
-                    }
-                    if (Engine.GetKey(Engine.KEY_7))
-                    {
-                        enemyCount = map.CaminosPeso[7];
-                        EnemiesPerLevel();
-                        StartGame();
-                    }
-                    if (Engine.GetKey(Engine.KEY_8))
-                    {
-                        enemyCount = map.CaminosPeso[8];
-                        EnemiesPerLevel();
-                        StartGame();
+                        switch (node)
+                        {
+                            case 8:
+                                ContinueGame(12, 2);
+                                break;
+                            case 4:
+                                ContinueGame(6, 4);
+                                break;
+                            case 12:
+                                ContinueGame(14, 6);
+                                break;
+                            case 2:
+                                ContinueGame(3, 8);
+                                break;
+                            case 6:
+                                ContinueGame(7, 10);
+                                break;
+                            case 10:
+                                ContinueGame(11, 12);
+                                break;
+                            case 14:
+                                ContinueGame(15, 14);
+                                break;
+                        }
                     }
                     if (Engine.GetKey(Engine.KEY_ESC))
                     {
@@ -143,7 +149,6 @@ namespace MyGame
                         {
                             timesWon++;
                             bossLevel = false;
-                            enemiesIndex++;
                         }
                         else
                         {
@@ -154,12 +159,14 @@ namespace MyGame
                             renderer.SetImage(menuImage);
                             soundManager.SetPlayBackground("assets/sounds/menu.wav");
                             state = GameState.menu;
+                            node = 8;
+                            map.NodoActual = node;
+                            map.Dijkstra();
                         }
                         else
                         {
-                            level = new Level(timesWon + 1, bossLevel, enemies[enemiesIndex]);
-                            soundManager.StopBackground();
-                            state = GameState.game;
+                            soundManager.SetPlayBackground("assets/sounds/menu.wav");
+                            state = GameState.map;
                         }
                     }
                     if (Engine.GetKey(Engine.KEY_ESC))
@@ -173,6 +180,9 @@ namespace MyGame
                         renderer.SetImage(menuImage);
                         soundManager.SetPlayBackground("assets/sounds/menu.wav");
                         state = GameState.menu;
+                        node = 8;
+                        map.NodoActual = node;
+                        map.Dijkstra();
                     }
                     if (Engine.GetKey(Engine.KEY_ESC))
                     {
@@ -264,30 +274,24 @@ namespace MyGame
             }
         }
 
-        private void EnemiesPerLevel()
-        {
-            enemyCount -= 2;
-            if (enemyCount % 2 == 1)
-            {
-                enemies[0] = enemyCount / 2;
-                enemies[1] = (enemyCount / 2) + 1;
-            }
-            else
-            {
-                enemies[0] = enemyCount / 2;
-                enemies[1] = enemyCount / 2;
-            }
-        }
-
         private void StartGame()
         {
             timesWon = 0;
-            enemiesIndex = 0;
             bossLevel = false;
             stats = new GameStats();
-            level = new Level(timesWon + 1, bossLevel, enemies[enemiesIndex]); // faccion enemiga definida por timeswon
+            level = new Level(timesWon + 1, bossLevel, random.Next(10, 30)); // faccion enemiga definida por timeswon
             soundManager.StopBackground();
             state = GameState.game;
+        }
+
+        private void ContinueGame(int nextNode, int arista)
+        {
+            level = new Level(timesWon + 1, bossLevel, map.AristasPeso[arista]);
+            soundManager.StopBackground();
+            state = GameState.game;
+            node = nextNode;
+            map.NodoActual = node;
+            map.Dijkstra();
         }
     }
 }

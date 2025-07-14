@@ -16,28 +16,24 @@ namespace MyGame
         private Font fontPath = new Font("assets/fonts/PressStart2P.ttf", 12);
         private Image background = Engine.LoadImage($"assets/map/backgroundGraph.png");
         private Random random = new Random();
-        private Dictionary<int, int> caminosPeso = new Dictionary<int, int> { { 1, 0 }, { 2, 0 }, { 3, 0 }, { 4, 0 }, { 5, 0 }, { 6, 0 }, { 7, 0 }, { 8, 0 } };
-        private int[][] caminos = new int[][]
-        {
-            new int[] { 1, 2, 4, 8 },
-            new int[] { 3, 2, 4, 8 },
-            new int[] { 5, 6, 4, 8 },
-            new int[] { 7, 6, 4, 8 },
-            new int[] { 9, 10, 12, 8 },
-            new int[] { 11, 10, 12, 8 },
-            new int[] { 13, 14, 12, 8 },
-            new int[] { 15, 14, 12, 8 }
-        };
-        private int[] verticesIniciales = new int[] { 1, 3, 5, 7, 9, 11, 13, 15 };
-        private int[] verticesInicialesPeso = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
+        private Dictionary<int, int> aristasPeso = new Dictionary<int, int> { { 1, 0 }, { 2, 0 }, { 3, 0 }, { 4, 0 }, { 5, 0 }, { 6, 0 }, { 7, 0 }, { 8, 0 }, { 9, 0 }, { 10, 0 }, { 11, 0 }, { 12, 0 }, { 13, 0 }, { 14, 0 } };
+        private int[] verticesFinales = new int[] { 1, 3, 5, 7, 9, 11, 13, 15 };
+        private int[] verticesFinalesPeso = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
         private int caminoFacil;
+        private int nodoActual = 8;
 
         public Map()
         {
             CreateGalaxyMap();
         }
 
-        public Dictionary<int, int> CaminosPeso => caminosPeso;
+        public int NodoActual
+        {
+            get { return nodoActual; }
+            set { nodoActual = value; }
+        }
+
+        public Dictionary<int, int> AristasPeso => aristasPeso;
 
         public void Render()
         {
@@ -75,16 +71,24 @@ namespace MyGame
                 graph.AgregarVertice(dataArray[i]);
             }
             // vector de aristas - vertices origen
-            int[] aristas_origen = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
+            int[] aristas_origen = { 8, 8, 4, 4, 12, 12, 2, 2, 6, 6, 10, 10, 14, 14 };
             // vector de aristas - vertices destino
-            int[] aristas_destino = { 2, 4, 2, 8, 6, 4, 6, 8, 10, 12, 10, 8, 14, 12, 14 };
+            int[] aristas_destino = { 4, 12, 2, 6, 10, 14, 1, 3, 5, 7, 9, 11, 13, 15 };
             // vector de aristas - pesos
-            int[] aristas_pesos = new int[15]; // cantidad de enemigos en el camino
+            int[] aristas_pesos = new int[14]; // cantidad de enemigos en el camino
 
             //asigno pesos
             for (int i = 0; i < aristas_pesos.Length; i++)
             {
-                aristas_pesos[i] = random.Next(10, 30);
+                if (i > 1 && i < 6)
+                {
+                    aristas_pesos[i] = random.Next(10, 30);
+                }
+                else
+                {
+                    aristas_pesos[i] = 1;
+                }
+                aristasPeso[i + 1] = aristas_pesos[i];
             }
             // agrego las aristas
 
@@ -117,32 +121,7 @@ namespace MyGame
                     }
                 }
             }
-            int key = 0;
-            foreach (var camino in caminos) //sumatoria de peso por camino
-            {
-                key++;
-                int suma = 0;
-                for (int i = 0; i < camino.Length - 1; i++)
-                {
-                    int desde = camino[i];
-                    int hasta = camino[i + 1];
-
-                    int peso = graph.PesoArista(desde, hasta);
-                    suma += peso;
-                }
-                caminosPeso[key] += suma;
-                Console.WriteLine($"Camino: {string.Join(" → ", camino)} | Suma de pesos: {suma}");
-            }
-            Console.WriteLine("");
-            Console.WriteLine("DIJKSTRA");
-            // al algoritmo le paso el TDA_Grafo estático con los datos cargados y el vértice origen
-            AlgDijkstra.Dijkstra(graph, 1);
-            // muestro resultados
-            MuestroResultadosAlg(AlgDijkstra.distance, graph.cantNodos, graph.Etiqs, AlgDijkstra.nodos);
-
-            caminoFacil = MenorPeso(verticesIniciales);
-            Console.WriteLine("");
-            Console.WriteLine($"{caminoFacil}");
+            Dijkstra();
         }
 
         public void RenderMap(Node node)
@@ -174,18 +153,23 @@ namespace MyGame
         private void RenderText()
         {
             Engine.DrawText("Choose Your Path...", 160, 700, 255, 10, 0, font);
+            Engine.DrawText("Current Planet", (int) tree.Find(nodoActual, tree.root).placement.X - 55, (int) tree.Find(nodoActual, tree.root).placement.Y + 55, 255, 255, 255, fontPath);
+            Engine.DrawText("1", (int)tree.Find(nodoActual, tree.root).left.placement.X + 10, (int)tree.Find(nodoActual, tree.root).left.placement.Y -10, 255, 255, 255, fontPath);
+            Engine.DrawText("2", (int)tree.Find(nodoActual, tree.root).right.placement.X + 30, (int)tree.Find(nodoActual, tree.root).right.placement.Y - 10, 255, 255, 255, fontPath);
             int x = 65;
             int y = 520;
-            for (int i = 0; i < caminos.Length; i++)
+            for (int i = 0; i < verticesFinalesPeso.Length; i++)
             {
-                Engine.DrawText($"{i + 1}: ", x, y, 255, 255, 255, fontPath);
-                if (caminosPeso[i + 1] == caminoFacil)
+                if (verticesFinalesPeso[i] != 999)
                 {
-                    Engine.DrawText($"Enem:{caminosPeso[i + 1]}", x, y + 20, 0, 255, 10, fontPath);
-                }
-                else
-                {
-                    Engine.DrawText($"Enem:{caminosPeso[i + 1]}", x, y + 20, 255, 255, 255, fontPath);
+                    if (verticesFinalesPeso[i] == caminoFacil)
+                    {
+                        Engine.DrawText($"Enem:{verticesFinalesPeso[i]}", x, y + 20, 0, 255, 10, fontPath);
+                    }
+                    else
+                    {
+                        Engine.DrawText($"Enem:{verticesFinalesPeso[i]}", x, y + 20, 255, 255, 255, fontPath);
+                    }
                 }
                 x += 120;
             }
@@ -211,26 +195,40 @@ namespace MyGame
             }
         }
 
-        private int MenorPeso(int[] iniciales)
+        public void Dijkstra()
         {
-            for (int i = 0;i < iniciales.Length; ++i)
-            {
-                AlgDijkstra.Dijkstra(graph, iniciales[i]);
-                VectorPesos(i, AlgDijkstra.distance, graph.cantNodos, graph.Etiqs, AlgDijkstra.nodos);
-            }
-            return verticesInicialesPeso.Min();
+            Console.WriteLine("");
+            Console.WriteLine("DIJKSTRA");
+            // al algoritmo le paso el grafo estático con los datos cargados y el vértice origen
+            AlgDijkstra.Dijkstra(graph, nodoActual);
+            // muestro resultados
+            MuestroResultadosAlg(AlgDijkstra.distance, graph.cantNodos, graph.Etiqs, AlgDijkstra.nodos);
+
+            caminoFacil = MenorPeso(nodoActual);
+            Console.WriteLine("");
+            Console.WriteLine($"Menor cantidad de enemigos en un camino posible: {caminoFacil}");
         }
 
-        private void VectorPesos(int index, int[] distance, int verticesCount, int[] Etiqs, string[] caminos)
+        private int MenorPeso(int actual)
         {
+            AlgDijkstra.Dijkstra(graph, actual);
+            VectorPesos(AlgDijkstra.distance, graph.cantNodos, graph.Etiqs, AlgDijkstra.nodos);
+            return verticesFinalesPeso.Min();
+        }
+
+        private void VectorPesos(int[] distance, int verticesCount, int[] Etiqs, string[] caminos)
+        {
+            verticesFinalesPeso = new int[] { 999, 999, 999, 999, 999, 999, 999, 999 };
             for (int i = 0; i < verticesCount; ++i)
             {
                 if (caminos[i] != null)
                 {
-                    if (caminos[i].Contains("8"))
+                    for(int j = 0; j < verticesFinales.Length; ++j)
                     {
-                        verticesInicialesPeso[index] = distance[i];
-                        break;
+                        if (Etiqs[i] == (verticesFinales[j]))
+                        {
+                            verticesFinalesPeso[j] = distance[i];
+                        }
                     }
                 }
             }

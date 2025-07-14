@@ -30,14 +30,7 @@ namespace MyGame
 
         public Level(int faction, bool bossLevel, int enemies)
         {
-            if (bossLevel == true)
-            {
-                enemyCount = 1;
-            }
-            else
-            {
-                enemyCount = enemies; // Enemigos a derrotar para completar el nivel
-            }
+            enemyCount = enemies; // Enemigos a derrotar para completar el nivel
             renderer = new Renderer(new Transform(new Vector2(0, 0), new Vector2(0, 0)), $"assets/level/{faction}.png");
             tries = 3; //Intentos del jugador (dependeria de la dificultad?)
             objectsList.Add(new Player(new Vector2(400, 650))); // Se agrega jugador a lista (se podrian agregar mas a futuro con powerup)

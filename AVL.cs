@@ -197,7 +197,7 @@ si lo tenemos, realizamos una rotación de derecha a derecha; de lo contrario, r
              la implementación normal en esta función es suficiente.
              */
         }
-        private Node Find(int target, Node current)
+        public Node Find(int target, Node current)
         {
 
             if (target < current.data)
